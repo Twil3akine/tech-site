@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} | {{ config.title }}{% endblock title %}
+{% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
+
+{% block content %}
+<article class="article">
+  <header class="article-head">
+    <h1>{{ page.title }}</h1>
+    {% if page.extra.rust or page.extra.crates %}
+    <p class="version-line">この記事のコードは {% if page.extra.crates %}{% for c in page.extra.crates %}{{ c }}{% if not loop.last %}、{% endif %}{% endfor %}{% endif %}{% if page.extra.crates and page.extra.rust %}、{% endif %}{% if page.extra.rust %}Rust {{ page.extra.rust }}{% endif %} で動作を確認している。</p>
+    {% endif %}
+    {% if page.toc %}
+    <nav class="toc" aria-label="目次">
+      <p class="toc-title">目次</p>
+      <ul class="toc-list">
+        {% for h2 in page.toc %}
+        <li class="toc-item"><a href="{{ h2.permalink | safe }}">{{ h2.title }}</a>
+          {% if h2.children %}
+          <ul class="toc-list toc-sub">
+            {% for h3 in h2.children %}
+            <li class="toc-item"><a href="{{ h3.permalink | safe }}">{{ h3.title }}</a></li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+    {% endif %}
+  </header>
+
+  <div class="article-body">
+    {{ page.content | safe }}
+
+    {% if page.extra.related %}
+    <aside class="related">
+      <h2>関連リンク</h2>
+      <ul class="dot-list">
+        {% for r in page.extra.related %}
+        <li><a href="{{ r.url }}">{{ r.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </aside>
+    {% endif %}
+  </div>
+</article>
+{% endblock content %}

@@ -1,0 +1,16 @@
+base_url = "https://rust.twil3akine.org"
+title = "Twil3akine"
+description = "Rust の標準ライブラリ、主要クレート、エラー解決。"
+default_language = "ja"
+
+# 検索インデックスは当面オフ（記事が増えたら有効化を検討）
+build_search_index = false
+generate_sitemap = true
+compile_sass = false
+
+[[taxonomies]]
+name = "tags"
+
+[markdown.highlighting]
+style = "inline"
+theme = "night-owl"

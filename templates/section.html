@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }} | {{ config.title }}{% endblock title %}
+{% block description %}{{ section.description | default(value=config.description) }}{% endblock description %}
+
+{% block content %}
+<div class="section-head">
+  <h1 class="section-title">{{ section.title }}</h1>
+</div>
+{{ section.content | safe }}
+{% if section.pages %}
+<ul class="stack">
+  {% for page in section.pages %}
+  <li class="stack-item"><a class="stack-title" href="{{ page.permalink | safe }}">{{ page.title }}</a></li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="empty">記事はまだありません。</p>
+{% endif %}
+{% endblock content %}

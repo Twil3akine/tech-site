@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ config.title }}{% endblock title %}</title>
+<meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
+<link rel="icon" type="image/png" href="{{ get_url(path='favicon.png') }}">
+<link rel="apple-touch-icon" href="{{ get_url(path='apple-touch-icon.png') }}">
+<link rel="stylesheet" href="{{ get_url(path='css/style.css') }}">
+</head>
+<body>
+{% block header %}
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="{{ get_url(path='/') }}">
+      <img class="brand-icon" src="{{ get_url(path='img/icon.png') }}" alt="" width="30" height="30">
+      <span class="brand-name">Twil3akine</span>
+    </a>
+    <nav class="site-nav">
+      <a href="{{ get_url(path='@/std/_index.md') }}">標準ライブラリ</a>
+      <a href="{{ get_url(path='@/crates/_index.md') }}">クレート</a>
+      <a href="{{ get_url(path='@/errors/_index.md') }}">エラー解決</a>
+    </nav>
+    <form class="site-search" action="https://www.google.com/search" method="get" role="search" onsubmit="this.q.value = 'site:rust.twil3akine.org ' + this.q.value;">
+      <input class="site-search-input" type="text" name="q" autocomplete="off" aria-label="サイト内検索">
+      <button class="site-search-btn" type="submit" aria-label="検索">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+      </button>
+    </form>
+  </div>
+</header>
+{% endblock header %}
+<main class="{% block main_class %}container{% endblock main_class %}">
+{% block content %}{% endblock content %}
+</main>
+{% block footer %}
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span class="footer-brand">Twil3akine</span>
+    <nav class="footer-nav">
+      <a href="{{ get_url(path='@/std/_index.md') }}">標準ライブラリ</a>
+      <a href="{{ get_url(path='@/crates/_index.md') }}">クレート</a>
+      <a href="{{ get_url(path='@/errors/_index.md') }}">エラー解決</a>
+      <a href="{{ get_url(path='tags/') }}">タグ</a>
+      <a href="{{ get_url(path='@/privacy.md') }}">プライバシーポリシー</a>
+    </nav>
+    <p class="footer-copy">© 2026 Twil3akine</p>
+  </div>
+</footer>
+{% endblock footer %}
+<script>
+// Give every highlighted code block a panel header with its fence
+// language (the language is on the <code data-lang="..."> inside).
+(function () {
+  document.querySelectorAll("pre.giallo").forEach(function (pre) {
+    if (pre.parentElement && pre.parentElement.classList.contains("codeblock")) return;
+    var code = pre.querySelector("code");
+    var lang = code ? code.getAttribute("data-lang") : null;
+    if (lang === "shellsession") lang = "console";
+    var wrap = document.createElement("div");
+    wrap.className = "codeblock";
+    pre.parentNode.insertBefore(wrap, pre);
+    if (lang && lang !== "plain") {
+      var head = document.createElement("div");
+      head.className = "codeblock-head";
+      var label = document.createElement("span");
+      label.className = "codeblock-lang";
+      label.textContent = lang;
+      head.appendChild(label);
+      wrap.appendChild(head);
+    }
+    wrap.appendChild(pre);
+  });
+})();
+</script>
+</body>
+</html>
