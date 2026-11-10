@@ -11,6 +11,9 @@ compile_sass = false
 [[taxonomies]]
 name = "tags"
 
+[[taxonomies]]
+name = "reviews"
+
 [markdown.highlighting]
 style = "inline"
 theme = "night-owl"
