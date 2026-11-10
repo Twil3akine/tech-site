@@ -31,6 +31,15 @@
 <div class="lp-grid">
   <div class="lp-col">
     <section class="lp-block">
+      <h2 class="lp-h2">まとめ</h2>
+      <ul class="lp-list">
+        <li><a href="{{ std.permalink | safe }}">標準ライブラリと基礎の記事まとめ</a></li>
+        <li><a href="{{ crates.permalink | safe }}">クレート解説の記事まとめ</a></li>
+        <li><a href="{{ errors.permalink | safe }}">エラー解決の記事まとめ</a></li>
+      </ul>
+    </section>
+
+    <section class="lp-block">
       <h2 class="lp-h2">新着記事・更新記事</h2>
       {% if latest_str %}
       <ul class="lp-list">

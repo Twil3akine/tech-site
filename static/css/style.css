@@ -622,10 +622,9 @@ a:hover {
   break-inside: avoid;
 }
 
-/* Tag labels never break mid-word: a tag stays on one line, so the bullet
-   and the label are never split across two lines. */
+/* Tag labels never break mid-word. Wrapping may still occur at spaces,
+   and each list item stays in one column (break-inside: avoid above). */
 .lp-tagcols a {
-  white-space: nowrap;
   word-break: keep-all;
 }
 
@@ -644,9 +643,9 @@ a:hover {
 }
 
 /* Sidebar categories: plain small links, two columns */
+/* Sidebar link lists are a single vertical column (nkmk-style): one link
+   per line, so long labels can never overflow into a neighbouring column. */
 .lp-side-links {
-  columns: 2;
-  column-gap: 22px;
   font-size: 13.5px;
   line-height: 1.55;
 }
@@ -655,8 +654,6 @@ a:hover {
   display: block;
   margin: 0 0 5px;
   color: var(--link);
-  break-inside: avoid;
-  white-space: nowrap;
   word-break: keep-all;
 }
 
