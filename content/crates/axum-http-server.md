@@ -5,6 +5,7 @@ date = 2026-11-06
 
 [extra]
 rust = "1.99.1"
+level = 3
 crates = ["axum 0.8.9", "tokio 1.54.1", "serde 1.0.229", "serde_json 1.0.154"]
 
 [taxonomies]

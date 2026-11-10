@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}すべての記事 | {{ config.title }}{% endblock title %}
+
+{% block content %}
+{% set std = get_section(path="std/_index.md") %}
+{% set crates = get_section(path="crates/_index.md") %}
+{% set errors = get_section(path="errors/_index.md") %}
+{% set sections = [std, crates, errors] %}
+{% set_global latest_str = "" %}
+{% for sec in sections %}
+  {% for page in sec.pages %}
+    {% if page.date %}{% set_global latest_str = latest_str ~ page.date ~ "@@" ~ page.permalink ~ "@@" ~ page.title ~ ";;" %}{% endif %}
+  {% endfor %}
+{% endfor %}
+{% set entries = latest_str | split(pat=";;") | sort | reverse %}
+<article class="article">
+  <div class="article-head">
+    <h1>すべての記事</h1>
+  </div>
+  <div class="article-body">
+    <ul>
+      {% for e in entries %}
+      {% if e %}{% set parts = e | split(pat="@@") %}<li><a href="{{ parts[1] }}">{{ parts[2] }}</a></li>{% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</article>
+{% endblock content %}

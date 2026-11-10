@@ -82,12 +82,11 @@ def article_section(prefix: str, rel: str) -> str:
 
 
 landing = body_of((PUB / "index.html").read_text())
-# The landing carries its own title-only header (nk-header, a copy of
-# note.nkmk.me's top page), so the bundle's header is taken from the
-# landing page itself.
-header = rewrite_links(re.search(r'(<header class="nk-header">.*?</header>)', landing, re.S).group(1))
+# The landing uses the standard site header, so the bundle's single
+# header is taken from the landing page itself.
+header = rewrite_links(re.search(r'(<header class="site-header">.*?</header>)', landing, re.S).group(1))
 top_main = rewrite_links(re.search(r'<main[^>]*>(.*?)</main>', landing, re.S).group(1))
-lp_footer_m = re.search(r'(<footer class="nk-footer">.*?</footer>)', landing, re.S)
+lp_footer_m = re.search(r'(<footer class="site-footer">.*?</footer>)', landing, re.S)
 lp_footer = rewrite_links(lp_footer_m.group(1)) if lp_footer_m else ""
 # Body scripts (code-block panels) ride along at the end.
 scripts = "\n".join(re.findall(r"<script>.*?</script>", landing, re.S))
@@ -106,14 +105,14 @@ if LANDING_ONLY:
 <style>{css}
 {bundle_css}</style></head><body>
 {header}
-<main class="nk-wrap">{top_main}</main>
+<main class="rk-wrap">{top_main}</main>
 {lp_footer}
 {scripts}
 </body></html>"""
 else:
     # The #top section is the landing page's <main> content (two
-    # columns, in its own .nk-wrap wrapper; no header/footer inside).
-    sections = [f'<section id="top"><main class="nk-wrap">{top_main}</main></section>']
+    # columns, in its own .rk-wrap wrapper; no header/footer inside).
+    sections = [f'<section id="top"><main class="rk-wrap">{top_main}</main></section>']
     sections += [article_section(prefix, rel) for prefix, rel, _ in ARTICLES]
     out = f"""<!DOCTYPE html>
 <html lang="ja"><head><meta charset="utf-8">

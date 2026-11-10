@@ -1,19 +1,12 @@
 {% extends "base.html" %}
 
-{# Landing: a faithful copy of note.nkmk.me's top page composition —
-   title-only header, main column (まとめ → 新着記事・更新記事 →
-   カテゴリー as a nested tree), sidebar (サイト内検索 → カテゴリー →
-   About), and a dashed, right-aligned footer. Article pages keep the
-   common site header; this page overrides it, like the original. #}
-{% block header %}
-<header class="nk-header">
-  <div class="nk-header-title">
-    <h1><a href="{{ get_url(path='/') }}">Twil3akine</a></h1>
-  </div>
-</header>
-{% endblock header %}
-
-{% block main_class %}nk-wrap{% endblock main_class %}
+{# Landing: original "Rust 攻略ノート" design (concept and specs by
+   Claude Sonnet, integrated by Alis — see design/sonnet-design.md).
+   Hero with grid-paper background and avatar, STAGE cards for the three
+   sections, latest-article rows with difficulty dots and read checks,
+   and a sidebar (はじめての人へ / 読了チェック / タグ). Book reviews
+   stay off this page by policy: direct URL only. #}
+{% block main_class %}rk-wrap{% endblock main_class %}
 
 {% block content %}
 {% set std = get_section(path="std/_index.md") %}
@@ -21,9 +14,6 @@
 {% set errors = get_section(path="errors/_index.md") %}
 {% set sections = [std, crates, errors] %}
 {% set tags = get_taxonomy(kind="tags") %}
-{# Tag lists on this page show only tags used by the three how-to sections.
-   Tags that exist solely on books pages (the book reviews) are kept off the
-   top page on purpose: reviews stay reachable by direct URL only. #}
 {% set_global allowed_tags_str = "@@" %}
 {% for sec in sections %}
   {% for page in sec.pages %}
@@ -31,99 +21,125 @@
   {% endfor %}
 {% endfor %}
 {% set allowed_tags = allowed_tags_str | split(pat="@@") %}
+{% set total = std.pages | length + crates.pages | length + errors.pages | length %}
+{# entry fields: date @@ permalink @@ title @@ section-slug @@ level @@ section-title #}
 {% set_global latest_str = "" %}
 {% for sec in sections %}
+  {% set slug = sec.path | split(pat="/") | nth(n=1) %}
   {% for page in sec.pages %}
-    {% if page.date %}{% set_global latest_str = latest_str ~ page.date ~ "@@" ~ page.permalink ~ "@@" ~ page.title ~ ";;" %}{% endif %}
+    {% if page.date %}{% set_global latest_str = latest_str ~ page.date ~ "@@" ~ page.permalink ~ "@@" ~ page.title ~ "@@" ~ slug ~ "@@" ~ page.extra.level ~ "@@" ~ sec.title ~ ";;" %}{% endif %}
   {% endfor %}
 {% endfor %}
 {% set entries = latest_str | split(pat=";;") | sort | reverse %}
+{% set first = get_page(path="std/hashmap.md") %}
+{% set second = get_page(path="std/iterator.md") %}
+{% set third = get_page(path="std/file-io.md") %}
 
-<div class="nk-flex">
-  <div class="nk-main">
-    <section>
-      <h2>まとめ</h2>
-      <ul>
-        <li><a href="{{ std.permalink | safe }}">標準ライブラリと基礎の記事まとめ</a></li>
-        <li><a href="{{ crates.permalink | safe }}">クレート解説の記事まとめ</a></li>
-        <li><a href="{{ errors.permalink | safe }}">エラー解決の記事まとめ</a></li>
-      </ul>
-    </section>
+<section class="rk-hero">
+  <div class="rk-hero-text">
+    <p class="rk-hero-label">RUST 攻略ノート</p>
+    <h1 class="rk-hero-title">Rust を、ひとつずつ攻略する。</h1>
+    <p class="rk-hero-lead">標準ライブラリ、よく使うクレート、つまずくエラー。テーマごとに1記事で、動くコードと一緒に確認します。完全攻略を目指して更新中・現在 {{ total }} 記事。</p>
+    <div class="rk-hero-actions">
+      <a class="rk-btn rk-btn-primary" href="{{ first.permalink | safe }}">最初に読む</a>
+      <a class="rk-btn rk-btn-ghost" href="{{ errors.permalink | safe }}">エラーから探す</a>
+    </div>
+  </div>
+  <div class="rk-hero-avatar" aria-hidden="true">
+    <div class="rk-bubble">迷ったらここから！</div>
+    <img src="{{ get_url(path='img/icon.png') }}" alt="" width="160" height="160">
+  </div>
+</section>
 
+<section class="rk-stages">
+  {% for sec in sections %}
+  {% set slug = sec.path | split(pat="/") | nth(n=1) %}
+  <a class="rk-stage rk-stage-{{ slug }}" href="{{ sec.permalink | safe }}">
+    <span class="rk-stage-no">STAGE 0{{ loop.index }}</span>
+    <span class="rk-stage-name">{{ sec.title }}</span>
+    <span class="rk-stage-desc">{{ sec.description }}</span>
+    <span class="rk-stage-count">{{ sec.pages | length }} 記事</span>
+  </a>
+  {% endfor %}
+</section>
+
+<div class="rk-grid">
+  <div class="rk-col">
     <section>
-      <h2>新着記事・更新記事</h2>
-      {% if latest_str %}
-      <ul>
+      <h2 class="rk-h2">新着記事</h2>
+      <div class="rk-rows">
         {% set_global shown = 0 %}
         {% for e in entries %}
-        {% if e and shown < 20 %}{% set parts = e | split(pat="@@") %}<li><a href="{{ parts[1] }}">{{ parts[2] }}</a></li>{% set_global shown = shown + 1 %}{% endif %}
+        {% if e and shown < 10 %}
+        {% set parts = e | split(pat="@@") %}
+        <a class="rk-row" href="{{ parts[1] }}" data-path="{{ parts[1] }}">
+          <span class="rk-dots" aria-label="難易度 {{ parts[4] }}">{% if parts[4] == "1" %}●○○{% elif parts[4] == "2" %}●●○{% else %}●●●{% endif %}</span>
+          <span class="rk-row-main">
+            <span class="rk-row-title">{{ parts[2] }}</span>
+            <span class="rk-row-meta">
+              <span class="rk-chip rk-chip-{{ parts[3] }}">{{ parts[5] }}</span>
+              <span class="rk-date">{{ parts[0] }}</span>
+              <span class="rk-check" hidden>✓ 読了</span>
+            </span>
+          </span>
+        </a>
+        {% set_global shown = shown + 1 %}
+        {% endif %}
         {% endfor %}
-      </ul>
-      {% else %}
-      <p>記事はまだありません。</p>
-      {% endif %}
-    </section>
-
-    <section>
-      <h2>カテゴリー</h2>
-      <ul class="nk-columns">
-        {% for sec in sections %}
-        <li><a href="{{ sec.permalink | safe }}">{{ sec.title }}</a>
-          {% set_global sec_tags_str = "@@" %}
-          {% for page in sec.pages %}
-            {% if page.taxonomies.tags %}{% for t in page.taxonomies.tags %}{% set_global sec_tags_str = sec_tags_str ~ t ~ "@@" %}{% endfor %}{% endif %}
-          {% endfor %}
-          {% set sec_tags = sec_tags_str | split(pat="@@") %}
-          <ul>
-            {% for term in tags.items %}
-            {% if term.name in sec_tags %}<li><a href="{{ term.permalink | safe }}">{{ term.name }}</a></li>{% endif %}
-            {% endfor %}
-          </ul>
-        </li>
-        {% endfor %}
-      </ul>
+      </div>
+      <p class="rk-more"><a href="{{ get_url(path='@/all/_index.md') }}">すべての記事を見る</a></p>
     </section>
   </div>
 
-  <aside class="nk-side">
-    <section class="nk-side-block">
-      <h2 class="nk-side-title">サイト内検索</h2>
-      <form class="nk-search" action="https://www.google.com/search" method="get" role="search" onsubmit="this.q.value = 'site:rust.twil3akine.org ' + this.q.value;">
-        <input class="nk-search-input" type="text" name="q" autocomplete="off" aria-label="サイト内検索">
-        <button class="nk-search-btn" type="submit">検索</button>
-      </form>
+  <aside class="rk-side">
+    <section class="rk-card">
+      <h2 class="rk-card-h">はじめての人へ</h2>
+      <ol class="rk-rec">
+        <li><a href="{{ first.permalink | safe }}">{{ first.title }}</a></li>
+        <li><a href="{{ second.permalink | safe }}">{{ second.title }}</a></li>
+        <li><a href="{{ third.permalink | safe }}">{{ third.title }}</a></li>
+      </ol>
     </section>
 
-    <section class="nk-side-block">
-      <h2 class="nk-side-title">カテゴリー</h2>
-      <ul class="nk-side-cols">
-        {% for sec in sections %}
-        <li><a href="{{ sec.permalink | safe }}">{{ sec.title }}</a></li>
-        {% endfor %}
+    <section class="rk-card">
+      <h2 class="rk-card-h">読了チェック</h2>
+      <p class="rk-progress-text"><span id="rk-read-count">0</span> / {{ total }} 記事</p>
+      <div class="rk-progress"><div class="rk-progress-fill" id="rk-progress-fill"></div></div>
+      <p class="rk-progress-note">読んだ記事はこのブラウザに記録されます。</p>
+    </section>
+
+    <section class="rk-card">
+      <h2 class="rk-card-h">タグ</h2>
+      <div class="rk-tags">
+        {% set_global tag_shown = 0 %}
         {% for term in tags.items %}
-        {% if term.name in allowed_tags %}<li><a href="{{ term.permalink | safe }}">{{ term.name }}</a></li>{% endif %}
+        {% if term.name in allowed_tags and tag_shown < 12 %}<a class="rk-tag" href="{{ term.permalink | safe }}">#{{ term.name }}</a>{% set_global tag_shown = tag_shown + 1 %}{% endif %}
         {% endfor %}
-      </ul>
-    </section>
-
-    <section class="nk-side-block">
-      <h2 class="nk-side-title">About</h2>
-      <div class="nk-about">
-        <ul>
-          <li><a href="https://github.com/Twil3akine">GitHub</a></li>
-        </ul>
       </div>
     </section>
   </aside>
 </div>
-{% endblock content %}
 
-{% block footer %}
-<footer class="nk-footer">
-  <ul>
-    <li><a href="{{ get_url(path='@/privacy.md') }}">プライバシーポリシー</a></li>
-    <li><a href="https://github.com/Twil3akine">GitHub</a></li>
-    <li>© 2026 Twil3akine</li>
-  </ul>
-</footer>
-{% endblock footer %}
+<script>
+(function () {
+  var list = [];
+  try { list = JSON.parse(localStorage.getItem("rk-read") || "[]"); } catch (e) {}
+  var read = 0;
+  document.querySelectorAll(".rk-row").forEach(function (row) {
+    var path = new URL(row.getAttribute("href"), location.href).pathname;
+    if (list.indexOf(path) !== -1) {
+      row.querySelector(".rk-check").hidden = false;
+    }
+  });
+  // Count read articles against the site total (paths under the sections).
+  list.forEach(function (p) {
+    if (/^\/(std|crates|errors)\//.test(p)) read++;
+  });
+  var total = {{ total }};
+  var count = document.getElementById("rk-read-count");
+  if (count) count.textContent = Math.min(read, total);
+  var fill = document.getElementById("rk-progress-fill");
+  if (fill && total > 0) fill.style.width = Math.min(100, Math.round(read / total * 100)) + "%";
+})();
+</script>
+{% endblock content %}

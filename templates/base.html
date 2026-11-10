@@ -7,6 +7,9 @@
 <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
 <link rel="icon" type="image/png" href="{{ get_url(path='favicon.png') }}">
 <link rel="apple-touch-icon" href="{{ get_url(path='apple-touch-icon.png') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ get_url(path='css/style.css') }}">
 </head>
 <body>
@@ -37,18 +40,30 @@
 {% block footer %}
 <footer class="site-footer">
   <div class="container footer-inner">
-    <span class="footer-brand">Twil3akine</span>
     <nav class="footer-nav">
-      <a href="{{ get_url(path='@/std/_index.md') }}">標準ライブラリ</a>
-      <a href="{{ get_url(path='@/crates/_index.md') }}">クレート</a>
-      <a href="{{ get_url(path='@/errors/_index.md') }}">エラー解決</a>
-      <a href="{{ get_url(path='tags/') }}">タグ</a>
       <a href="{{ get_url(path='@/privacy.md') }}">プライバシーポリシー</a>
+      <a href="https://github.com/Twil3akine">GitHub</a>
     </nav>
     <p class="footer-copy">© 2026 Twil3akine</p>
   </div>
 </footer>
 {% endblock footer %}
+<script>
+// Read tracking for the landing page's 読了チェック: article pages record
+// their own path in localStorage (nothing leaves the browser).
+(function () {
+  if (!document.querySelector(".article-body")) return;
+  try {
+    var key = "rk-read";
+    var list = JSON.parse(localStorage.getItem(key) || "[]");
+    var path = location.pathname;
+    if (list.indexOf(path) === -1) {
+      list.push(path);
+      localStorage.setItem(key, JSON.stringify(list));
+    }
+  } catch (e) {}
+})();
+</script>
 <script>
 // Give every highlighted code block a panel header with its fence
 // language (the language is on the <code data-lang="..."> inside).

@@ -5,6 +5,7 @@ date = 2026-11-06
 
 [extra]
 rust = "1.99.1"
+level = 1
 
 [taxonomies]
 tags = ["HashMap", "コレクション"]

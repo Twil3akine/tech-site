@@ -3,26 +3,20 @@
 
 :root {
   color-scheme: light;
-  --bg: #ffffff;
-  --bg-soft: #fafafa;
-  --border: #e3e3e3;
-  --border-soft: #eeeeee;
-  --text: #1a1a1a;
-  --muted: #666666;
-  --faint: #999999;
-  --link: #1e63c8;
-  --link-hover: #144a96;
-  --accent: #2b6fe0;
-  --inline-code-bg: #f2f2f2;
+  --bg: #faf6ef;
+  --bg-soft: #fffdf8;
+  --border: #e4dccd;
+  --border-soft: #efe7d8;
+  --text: #1f2433;
+  --muted: #5b6275;
+  --faint: #9a917e;
+  --link: #2e4a8c;
+  --link-hover: #1e2f5c;
+  --accent: #b7552b;
+  --inline-code-bg: #f6e6da;
   --inline-code-text: #333333;
   --code-bg: #011627;
   --code-border: #0d2a44;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, "Hiragino Sans", "Hiragino Kaku Gothic ProN",
-    "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", Meiryo, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas,
-    "Liberation Mono", monospace;
-}
 
 * {
   box-sizing: border-box;
@@ -95,8 +89,10 @@ a:hover {
   align-items: center;
   gap: 9px;
   color: var(--text);
+  font-family: "Zen Kaku Gothic New", var(--font-sans);
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 700;
+  letter-spacing: .02em;
 }
 
 .brand:hover {
@@ -106,7 +102,7 @@ a:hover {
 
 .brand-icon {
   display: block;
-  border-radius: 6px;
+  border-radius: 50%;
 }
 
 .site-nav {
@@ -765,266 +761,442 @@ a:hover {
   }
 }
 
-/* Landing page: note.nkmk.me composition and styling, copied from the
-   original's measured values (layout widths, colors, heading rules,
-   link treatment, sidebar and footer). Scoped to the landing only;
-   article pages keep the site's own design. */
-
-.nk-header {
-  max-width: 1060px;
-  margin: 1.4em auto 2em;
-  padding-left: 20px;
-  color: #333;
-  font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+/* Headings use Zen Kaku Gothic New across the site (design spec). */
+.article h1,
+.article-body > h2,
+.article-body > h3,
+.section-head h1 {
+  font-family: "Zen Kaku Gothic New", var(--font-sans);
+  letter-spacing: .02em;
+  font-feature-settings: "palt";
 }
 
-.nk-header-title {
-  font-size: 3.4em;
+/* Landing page: "Rust 攻略ノート" design (Sonnet spec, design/sonnet-design.md).
+   Paper background, stage cards, difficulty dots, read checks. */
+
+.rk-wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.rk-hero {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 56px 8px 40px;
+  background-image:
+    linear-gradient(to right, #efe7d8 1px, transparent 1px),
+    linear-gradient(to bottom, #efe7d8 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.rk-hero-label {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  color: var(--accent);
+}
+
+.rk-hero-title {
+  margin: 0 0 14px;
+  font-family: "Zen Kaku Gothic New", var(--font-sans);
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 1.3;
+  letter-spacing: .02em;
+  font-feature-settings: "palt";
+}
+
+.rk-hero-lead {
+  margin: 0 0 24px;
+  max-width: 34em;
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--text);
+}
+
+.rk-hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rk-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1;
 }
 
-.nk-header-title h1 {
-  font-size: 100%;
-  margin: 0;
-  font-weight: 700;
-}
-
-.nk-header-title a {
-  color: #333;
+.rk-btn:hover {
   text-decoration: none;
 }
 
-.nk-wrap {
-  max-width: 1060px;
-  margin: 0 auto;
-  color: #333;
-  font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-  font-size: 16px;
-  line-height: 1.9;
+.rk-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
-.nk-flex {
+.rk-btn-primary {
+  background: var(--link);
+  color: #fff;
+}
+
+.rk-btn-primary:hover {
+  background: var(--link-hover);
+  color: #fff;
+}
+
+.rk-btn-ghost {
+  border: 1px solid var(--link);
+  color: var(--link);
+  background: transparent;
+}
+
+.rk-btn-ghost:hover {
+  background: #eef1f8;
+  color: var(--link);
+}
+
+.rk-hero-avatar {
+  position: relative;
+  flex: 0 0 auto;
+  align-self: flex-start;
+}
+
+.rk-hero-avatar img {
+  display: block;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 3px 3px 0 var(--border);
+}
+
+.rk-bubble {
+  position: absolute;
+  top: -14px;
+  right: 128px;
+  width: max-content;
+  max-width: 180px;
+  padding: 8px 12px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.rk-bubble::after {
+  content: "";
+  position: absolute;
+  top: 60%;
+  right: -6px;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-top: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  transform: rotate(45deg);
+}
+
+.rk-stages {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 8px 0 40px;
+}
+
+.rk-stage {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--link);
+  border-radius: 6px;
+  padding: 20px;
+  color: var(--text);
+  transition: transform .15s, box-shadow .15s;
+}
+
+.rk-stage:hover {
+  text-decoration: none;
+  color: var(--text);
+  transform: translateY(-2px);
+  box-shadow: 3px 3px 0 var(--border);
+}
+
+.rk-stage-crates {
+  border-top-color: #2f7d6b;
+}
+
+.rk-stage-errors {
+  border-top-color: #c2412d;
+}
+
+.rk-stage-no {
+  display: block;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12px;
+  letter-spacing: .1em;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.rk-stage-name {
+  display: block;
+  font-family: "Zen Kaku Gothic New", var(--font-sans);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.rk-stage-desc {
+  display: block;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.rk-stage-count {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.rk-grid {
+  display: grid;
+  grid-template-columns: 1fr 256px;
+  gap: 40px;
+  align-items: start;
+  padding-bottom: 48px;
+}
+
+.rk-h2 {
+  font-family: "Zen Kaku Gothic New", var(--font-sans);
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0 0 8px;
+  letter-spacing: .02em;
+}
+
+.rk-rows {
+  border-top: 1px solid var(--border);
+}
+
+.rk-row {
   display: flex;
-  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+  padding: 16px 8px;
+  border-bottom: 1px solid var(--border);
+  border-left: 3px solid transparent;
+  color: var(--text);
+  transition: background .15s;
 }
 
-.nk-main {
-  width: 720px;
-  max-width: 720px;
-  padding: 16px 20px;
+.rk-row:hover {
+  text-decoration: none;
+  color: var(--text);
   background: #fff;
 }
 
-.nk-main h2 {
-  font-size: 1.4em;
-  font-weight: 700;
-  border-bottom: solid 2px #333;
-  margin: 3em 0 .5em;
-  line-height: 1.5;
+.rk-dots {
+  flex: 0 0 auto;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  white-space: nowrap;
 }
 
-.nk-main section:first-child h2 {
-  margin-top: 0;
-}
-
-.nk-main ul {
-  list-style: disc;
-  margin: 1.5em 0;
-  padding-left: 2em;
-}
-
-.nk-main li {
-  margin: 0 0 .3em;
-}
-
-.nk-main ul ul {
-  margin: .4em 0;
-  padding-left: 1em;
-}
-
-.nk-main a {
-  color: #333;
-  text-decoration: none;
-  border-bottom: solid 1px #333;
-  padding-bottom: 1px;
-}
-
-.nk-main a:visited {
-  color: #333;
-}
-
-.nk-main a:hover {
-  border-bottom-color: transparent;
-}
-
-.nk-columns {
-  column-width: 8.5em;
-  column-gap: 2.5em;
-}
-
-.nk-columns > li {
-  break-inside: avoid;
-}
-
-.nk-side {
-  width: 321px;
-  min-width: 321px;
-  margin-left: 19px;
-}
-
-.nk-side-block {
-  font-size: 90%;
-  color: #666;
-  padding: 10px;
-  margin-bottom: 16px;
-  line-height: 1.9;
-}
-
-.nk-side-title {
-  font-size: 1.2em;
-  font-weight: 700;
-  color: #666;
-  border-bottom: dashed 1px #e0e0e0;
-  margin: 0 0 8px;
-  line-height: 1.5;
-}
-
-.nk-side-block a {
-  color: #666;
-  text-decoration: none;
-}
-
-.nk-side-cols {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  column-count: 2;
-}
-
-.nk-side-cols li {
-  margin: 0 0 .2em;
-  word-break: keep-all;
-}
-
-.nk-search {
+.rk-row-main {
   display: flex;
-  gap: 6px;
-  margin-top: 16px;
-}
-
-.nk-search-input {
-  flex: 1;
+  flex-direction: column;
+  gap: 4px;
   min-width: 0;
-  height: 35px;
-  padding: 2px 6px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  font: inherit;
 }
 
-.nk-search-btn {
-  height: 35px;
-  padding: 0 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  background: #f8f8f8;
-  color: #333;
-  font: inherit;
-  cursor: pointer;
+.rk-row-title {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.5;
 }
 
-.nk-about {
-  line-height: 2;
+.rk-row:hover .rk-row-title {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
 }
 
-.nk-about ul {
-  list-style: disc;
+.rk-row-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.rk-chip {
+  font-size: 12px;
+  padding: 2px 8px;
+  border: 1px solid var(--link);
+  border-radius: 4px;
+  color: var(--link);
+  line-height: 1.5;
+}
+
+.rk-chip-crates {
+  border-color: #2f7d6b;
+  color: #2f7d6b;
+}
+
+.rk-chip-errors {
+  border-color: #c2412d;
+  color: #c2412d;
+}
+
+.rk-date {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.rk-check {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2f7d6b;
+}
+
+.rk-more {
+  margin: 16px 0 0;
+  font-size: 14px;
+}
+
+.rk-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rk-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 18px;
+}
+
+.rk-card-h {
+  font-family: "Zen Kaku Gothic New", var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 12px;
+  letter-spacing: .02em;
+}
+
+.rk-rec {
   margin: 0;
-  padding-left: 1.4em;
+  padding-left: 1.5em;
+  font-size: 14px;
+  line-height: 1.7;
 }
 
-.nk-about a {
-  border-bottom: solid 1px #666;
-  padding-bottom: 1px;
+.rk-rec li {
+  margin-bottom: 8px;
 }
 
-.nk-about a:hover {
-  border-bottom-color: transparent;
+.rk-rec li::marker {
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-weight: 700;
+  color: var(--accent);
 }
 
-.nk-footer {
-  max-width: 1060px;
-  margin: 2em auto 0;
-  padding: 2em 0;
-  border-top: 1px dashed #333;
-  text-align: right;
-  font-size: 90%;
-  line-height: 2.4;
-  color: #333;
-  font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+.rk-progress-text {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 700;
 }
 
-.nk-footer ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.rk-progress {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border);
+  overflow: hidden;
 }
 
-.nk-footer li {
-  display: inline-block;
-  margin-left: 1em;
+.rk-progress-fill {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: width .3s;
 }
 
-.nk-footer a {
-  color: #333;
+.rk-progress-note {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.rk-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.rk-tag {
+  font-size: 12px;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.rk-tag:hover {
   text-decoration: none;
-  border-bottom: solid 1px #333;
-  padding-bottom: 1px;
+  background: #f6e6da;
+  border-color: #dea584;
+  color: var(--text);
 }
 
-.nk-footer a:hover {
-  border-bottom-color: transparent;
+@media (max-width: 959px) {
+  .rk-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rk-side {
+    flex-direction: column;
+  }
 }
 
-@media (max-width: 1060px) {
-  .nk-side {
+@media (max-width: 720px) {
+  .rk-wrap {
+    padding: 0 16px;
+  }
+
+  .rk-hero {
+    padding: 40px 4px 32px;
+  }
+
+  .rk-hero-title {
+    font-size: 28px;
+  }
+
+  .rk-hero-avatar {
     display: none;
   }
 
-  .nk-wrap {
-    width: 720px;
-  }
-
-  .nk-footer {
-    width: 720px;
-  }
-}
-
-@media (max-width: 740px) {
-  .nk-wrap {
-    width: auto;
-    font-size: 15px;
-  }
-
-  .nk-main {
-    width: auto;
-    max-width: none;
-    padding: 8px 10px;
-  }
-
-  .nk-header {
-    margin-left: 10px;
-    padding-left: 0;
-  }
-
-  .nk-header-title {
-    font-size: 48px;
-  }
-
-  .nk-footer {
-    width: auto;
-    margin-right: 10px;
-    margin-left: 10px;
+  .rk-stages {
+    grid-template-columns: 1fr;
   }
 }
