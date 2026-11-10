@@ -1,145 +1,145 @@
 {% extends "base.html" %}
 
-{# Landing: original "Rust 攻略ノート" design (concept and specs by
-   Claude Sonnet, integrated by Alis — see design/sonnet-design.md).
-   Hero with grid-paper background and avatar, STAGE cards for the three
-   sections, latest-article rows with difficulty dots and read checks,
-   and a sidebar (はじめての人へ / 読了チェック / タグ). Book reviews
-   stay off this page by policy: direct URL only. #}
-{% block main_class %}rk-wrap{% endblock main_class %}
+{% block title %}私たちの完全 Rust 攻略サイト | {{ config.title }}{% endblock title %}
+{% block description %}つまずきやすい標準ライブラリ・クレート・エラーを、1記事1テーマで解く日本語の攻略サイト。{% endblock description %}
+{% block main_class %}home-main{% endblock main_class %}
 
 {% block content %}
 {% set std = get_section(path="std/_index.md") %}
 {% set crates = get_section(path="crates/_index.md") %}
 {% set errors = get_section(path="errors/_index.md") %}
 {% set sections = [std, crates, errors] %}
-{% set tags = get_taxonomy(kind="tags") %}
-{% set_global allowed_tags_str = "@@" %}
-{% for sec in sections %}
-  {% for page in sec.pages %}
-    {% if page.taxonomies.tags %}{% for t in page.taxonomies.tags %}{% set_global allowed_tags_str = allowed_tags_str ~ t ~ "@@" %}{% endfor %}{% endif %}
-  {% endfor %}
-{% endfor %}
-{% set allowed_tags = allowed_tags_str | split(pat="@@") %}
 {% set total = std.pages | length + crates.pages | length + errors.pages | length %}
-{# entry fields: date @@ permalink @@ title @@ section-slug @@ level @@ section-title #}
-{% set_global latest_str = "" %}
-{% for sec in sections %}
-  {% set slug = sec.path | split(pat="/") | nth(n=1) %}
-  {% for page in sec.pages %}
-    {% if page.date %}{% set_global latest_str = latest_str ~ page.date ~ "@@" ~ page.permalink ~ "@@" ~ page.title ~ "@@" ~ slug ~ "@@" ~ page.extra.level ~ "@@" ~ sec.title ~ ";;" %}{% endif %}
+{% set planned_total = std.extra.planned | length + crates.extra.planned | length + errors.extra.planned | length %}
+{% set full_total = total + planned_total %}
+{% set first_route = config.extra.route | nth(n=0) %}
+{% set first = get_page(path=first_route) %}
+{% set_global latest_string = "" %}
+{% for section in sections %}
+  {% set slug = section.path | split(pat="/") | nth(n=1) %}
+  {% for page in section.pages %}
+    {% if page.date %}{% set_global latest_string = latest_string ~ page.date ~ "@@" ~ page.permalink ~ "@@" ~ page.title ~ "@@" ~ slug ~ "@@" ~ section.title ~ "@@" ~ page.description ~ ";;" %}{% endif %}
   {% endfor %}
 {% endfor %}
-{% set entries = latest_str | split(pat=";;") | sort | reverse %}
-{% set first = get_page(path="std/hashmap.md") %}
-{% set second = get_page(path="std/iterator.md") %}
-{% set third = get_page(path="std/file-io.md") %}
+{% set entries = latest_string | split(pat=";;") | sort | reverse %}
 
-<section class="rk-hero">
-  <div class="rk-hero-text">
-    <p class="rk-hero-label">RUST 攻略ノート</p>
-    <h1 class="rk-hero-title">Rust を、ひとつずつ攻略する。</h1>
-    <p class="rk-hero-lead">標準ライブラリ、よく使うクレート、つまずくエラー。テーマごとに1記事で、動くコードと一緒に確認します。完全攻略を目指して更新中・現在 {{ total }} 記事。</p>
-    <div class="rk-hero-actions">
-      <a class="rk-btn rk-btn-primary" href="{{ first.permalink | safe }}">最初に読む</a>
-      <a class="rk-btn rk-btn-ghost" href="{{ errors.permalink | safe }}">エラーから探す</a>
+<section class="hero">
+  <div class="hero-copy">
+    <h1>{% if config.extra.show_full_title %}私たちの完全 Rust 攻略サイト{% else %}Rust を、1テーマずつ攻略する。{% endif %}</h1>
+    <p class="hero-lead">つまずきやすい標準ライブラリ・クレート・エラーを、1記事1テーマで解く日本語の攻略サイト。</p>
+    <div class="hero-actions">
+      <a class="button button-primary" href="{{ first.permalink | safe }}">はじめての順路から読む</a>
+      <a class="button button-secondary" href="{{ errors.permalink | safe }}">エラーから探す</a>
     </div>
   </div>
-  <div class="rk-hero-avatar" aria-hidden="true">
-    <div class="rk-bubble">迷ったらここから！</div>
-    <img src="{{ get_url(path='img/icon.png') }}" alt="" width="160" height="160">
+  <div class="hero-example-wrap">
+    <div class="hero-example" aria-label="Rust コンパイラのエラー例">
+      <pre><code><span class="compiler-error">error[E0382]:</span> borrow of moved value: `v`
+ <span class="compiler-gutter">--&gt;</span> src/main.rs:4:20
+  <span class="compiler-gutter">|</span>
+3 <span class="compiler-gutter">|</span>     let v2 = v;
+  <span class="compiler-gutter">|</span>              - value moved here
+4 <span class="compiler-gutter">|</span>     println!("{v:?}");
+  <span class="compiler-gutter">|</span>                    ^ value borrowed here after move</code></pre>
+    </div>
+    <a class="hero-example-link" href="{{ errors.permalink | safe }}">この直し方 →</a>
   </div>
 </section>
 
-<section class="rk-stages">
-  {% for sec in sections %}
-  {% set slug = sec.path | split(pat="/") | nth(n=1) %}
-  <a class="rk-stage rk-stage-{{ slug }}" href="{{ sec.permalink | safe }}">
-    <span class="rk-stage-no">STAGE 0{{ loop.index }}</span>
-    <span class="rk-stage-name">{{ sec.title }}</span>
-    <span class="rk-stage-desc">{{ sec.description }}</span>
-    <span class="rk-stage-count">{{ sec.pages | length }} 記事</span>
-  </a>
-  {% endfor %}
-</section>
-
-<div class="rk-grid">
-  <div class="rk-col">
-    <section>
-      <h2 class="rk-h2">新着記事</h2>
-      <div class="rk-rows">
-        {% set_global shown = 0 %}
-        {% for e in entries %}
-        {% if e and shown < 10 %}
-        {% set parts = e | split(pat="@@") %}
-        <a class="rk-row" href="{{ parts[1] }}" data-path="{{ parts[1] }}">
-          <span class="rk-dots" aria-label="難易度 {{ parts[4] }}">{% if parts[4] == "1" %}●○○{% elif parts[4] == "2" %}●●○{% else %}●●●{% endif %}</span>
-          <span class="rk-row-main">
-            <span class="rk-row-title">{{ parts[2] }}</span>
-            <span class="rk-row-meta">
-              <span class="rk-chip rk-chip-{{ parts[3] }}">{{ parts[5] }}</span>
-              <span class="rk-date">{{ parts[0] }}</span>
-              <span class="rk-check" hidden>✓ 読了</span>
-            </span>
-          </span>
-        </a>
-        {% set_global shown = shown + 1 %}
+<section class="home-section map-section" aria-labelledby="map-title">
+  <div class="section-heading-row">
+    <h2 id="map-title">攻略マップ</h2>
+    <p class="section-stat">3 エリア・公開 {{ total }} 本／予定 {{ full_total }} 本</p>
+  </div>
+  <div class="map-grid">
+    {% for section in sections %}
+    {% set published = section.pages | length %}
+    {% set planned = section.extra.planned | default(value=[]) %}
+    {% set topic_total = published + (planned | length) %}
+    {% set percent = (published * 100) / topic_total %}
+    {% set slug = section.path | split(pat="/") | nth(n=1) %}
+    {% set_global topic_count = 0 %}
+    <article class="map-card">
+      <div class="map-icon" aria-hidden="true">
+        {% if slug == "std" %}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5z"></path><path d="M4 5.5v12M8 7h8M8 11h7"></path></svg>
+        {% elif slug == "crates" %}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"></path><path d="m4.4 7.7 7.6 4.4 7.6-4.4M12 12v9M8 5.2l8 4.6"></path></svg>
+        {% else %}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.6 9a2.5 2.5 0 1 1 4.2 1.8c-1.1 1-1.8 1.4-1.8 3M12 17.4h.01"></path></svg>
         {% endif %}
-        {% endfor %}
       </div>
-      <p class="rk-more"><a href="{{ get_url(path='@/all/_index.md') }}">すべての記事を見る</a></p>
-    </section>
+      <h3><a href="{{ section.permalink | safe }}">{{ section.title }}</a></h3>
+      <p class="map-description">{{ section.description }}</p>
+      <div class="map-progress">
+        <div class="progress-label"><span>公開 <strong>{{ published }}</strong>／予定 <strong>{{ topic_total }}</strong></span><span class="personal-progress" data-personal-progress data-prefix="{{ section.permalink | safe }}" data-total="{{ published }}" hidden></span></div>
+        <div class="progress-track" role="progressbar" aria-label="{{ section.title }}の公開進捗" aria-valuemin="0" aria-valuemax="{{ topic_total }}" aria-valuenow="{{ published }}"><span style="width: {{ percent }}%"></span></div>
+      </div>
+      <div class="topic-chips">
+        {% for page in section.pages %}
+          {% if topic_count < 6 %}
+            {% if slug == "errors" %}{% set topic_label = page.title | split(pat=":") | nth(n=0) %}{% elif page.taxonomies.tags %}{% set topic_label = page.taxonomies.tags | first %}{% else %}{% set topic_label = page.title %}{% endif %}
+            <a class="topic-chip" href="{{ page.permalink | safe }}">{{ topic_label }}</a>
+            {% set_global topic_count = topic_count + 1 %}
+          {% endif %}
+        {% endfor %}
+        {% for topic in planned %}
+          {% if topic_count < 6 %}<span class="topic-chip is-planned">{{ topic }} <span>準備中</span></span>{% set_global topic_count = topic_count + 1 %}{% endif %}
+        {% endfor %}
+        {% if topic_total > 6 %}<span class="topic-chip topic-more">ほか {{ topic_total - 6 }}</span>{% endif %}
+      </div>
+    </article>
+    {% endfor %}
   </div>
+</section>
 
-  <aside class="rk-side">
-    <section class="rk-card">
-      <h2 class="rk-card-h">はじめての人へ</h2>
-      <ol class="rk-rec">
-        <li><a href="{{ first.permalink | safe }}">{{ first.title }}</a></li>
-        <li><a href="{{ second.permalink | safe }}">{{ second.title }}</a></li>
-        <li><a href="{{ third.permalink | safe }}">{{ third.title }}</a></li>
-      </ol>
-    </section>
+<section class="home-section route-section" aria-labelledby="route-title">
+  <div class="section-heading-row route-heading">
+    <div><h2 id="route-title">はじめての順路</h2><p class="section-subtitle">上から読めば基礎がそろう</p></div>
+  </div>
+  <ol class="article-list route-list">
+    {% for route_path in config.extra.route %}
+      {% set route_page = get_page(path=route_path) %}
+      <li class="article-list-item">
+        <span class="route-number">{{ loop.index }}</span>
+        <a class="article-row" href="{{ route_page.permalink | safe }}" data-read-path="{{ route_page.permalink | safe }}">
+          <span class="article-row-main">
+            <span class="article-row-category">順路 {{ loop.index }}</span>
+            <span class="article-row-title"><span class="read-check" hidden aria-label="攻略済み">✓</span>{{ route_page.title }}</span>
+            <span class="article-row-description">{{ route_page.description }}</span>
+          </span>
+          <span class="article-row-meta">{{ route_page.date }}</span>
+        </a>
+      </li>
+    {% endfor %}
+  </ol>
+</section>
 
-    <section class="rk-card">
-      <h2 class="rk-card-h">読了チェック</h2>
-      <p class="rk-progress-text"><span id="rk-read-count">0</span> / {{ total }} 記事</p>
-      <div class="rk-progress"><div class="rk-progress-fill" id="rk-progress-fill"></div></div>
-      <p class="rk-progress-note">読んだ記事はこのブラウザに記録されます。</p>
-    </section>
-
-    <section class="rk-card">
-      <h2 class="rk-card-h">タグ</h2>
-      <div class="rk-tags">
-        {% set_global tag_shown = 0 %}
-        {% for term in tags.items %}
-        {% if term.name in allowed_tags and tag_shown < 12 %}<a class="rk-tag" href="{{ term.permalink | safe }}">#{{ term.name }}</a>{% set_global tag_shown = tag_shown + 1 %}{% endif %}
-        {% endfor %}
-      </div>
-    </section>
-  </aside>
-</div>
-
-<script>
-(function () {
-  var list = [];
-  try { list = JSON.parse(localStorage.getItem("rk-read") || "[]"); } catch (e) {}
-  var read = 0;
-  document.querySelectorAll(".rk-row").forEach(function (row) {
-    var path = new URL(row.getAttribute("href"), location.href).pathname;
-    if (list.indexOf(path) !== -1) {
-      row.querySelector(".rk-check").hidden = false;
-    }
-  });
-  // Count read articles against the site total (paths under the sections).
-  list.forEach(function (p) {
-    if (/^\/(std|crates|errors)\//.test(p)) read++;
-  });
-  var total = {{ total }};
-  var count = document.getElementById("rk-read-count");
-  if (count) count.textContent = Math.min(read, total);
-  var fill = document.getElementById("rk-progress-fill");
-  if (fill && total > 0) fill.style.width = Math.min(100, Math.round(read / total * 100)) + "%";
-})();
-</script>
+<section class="home-section latest-section" aria-labelledby="latest-title">
+  <div class="section-heading-row"><h2 id="latest-title">新着</h2></div>
+  <div class="article-list latest-list">
+    {% set_global latest_shown = 0 %}
+    {% for entry in entries %}
+      {% if entry and latest_shown < 8 %}
+        {% set parts = entry | split(pat="@@") %}
+        <a class="article-row" href="{{ parts[1] }}" data-read-path="{{ parts[1] }}">
+          <span class="article-row-main">
+            <span class="article-row-category">{{ parts[4] }}</span>
+            <span class="article-row-title"><span class="read-check" hidden aria-label="攻略済み">✓</span>{{ parts[2] }}</span>
+            <span class="article-row-description">{{ parts[5] }}</span>
+          </span>
+          <span class="article-row-meta">{{ parts[0] }}</span>
+        </a>
+        {% set_global latest_shown = latest_shown + 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% if total > 8 %}
+  <nav class="more-sections" aria-label="記事一覧">
+    <a href="{{ std.permalink | safe }}">標準ライブラリの記事</a>
+    <a href="{{ crates.permalink | safe }}">クレートの記事</a>
+    <a href="{{ errors.permalink | safe }}">エラー解決の記事</a>
+  </nav>
+  {% endif %}
+</section>
 {% endblock content %}

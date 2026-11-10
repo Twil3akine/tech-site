@@ -14,3 +14,7 @@ name = "tags"
 [markdown.highlighting]
 style = "inline"
 theme = "night-owl"
+
+[extra]
+show_full_title = false
+route = ["std/hashmap.md", "std/iterator.md", "std/file-io.md", "crates/axum-http-server.md"]

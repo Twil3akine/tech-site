@@ -4,17 +4,47 @@
 {% block description %}{{ section.description | default(value=config.description) }}{% endblock description %}
 
 {% block content %}
-<div class="section-head">
-  <h1 class="section-title">{{ section.title }}</h1>
-</div>
-{{ section.content | safe }}
-{% if section.pages %}
-<ul class="stack">
-  {% for page in section.pages %}
-  <li class="stack-item"><a class="stack-title" href="{{ page.permalink | safe }}">{{ page.title }}</a></li>
-  {% endfor %}
-</ul>
-{% else %}
-<p class="empty">記事はまだありません。</p>
-{% endif %}
+{% set published = section.pages | length %}
+{% set planned = section.extra.planned | default(value=[]) %}
+{% set topic_total = published + (planned | length) %}
+{% set percent = (published * 100) / topic_total %}
+<section class="section-page">
+  <header class="section-head">
+    <p class="breadcrumb"><a href="{{ get_url(path='/') }}">ホーム</a><span aria-hidden="true">/</span>{{ section.title }}</p>
+    <h1 class="section-title">{{ section.title }}</h1>
+    {% if section.description %}<p class="section-lead">{{ section.description }}</p>{% endif %}
+    <div class="section-progress">
+      <div class="progress-label"><span>公開 <strong>{{ published }}</strong>／予定 <strong>{{ topic_total }}</strong></span><span class="personal-progress" data-personal-progress data-prefix="{{ section.permalink | safe }}" data-total="{{ published }}" hidden></span></div>
+      <div class="progress-track" role="progressbar" aria-label="{{ section.title }}の公開進捗" aria-valuemin="0" aria-valuemax="{{ topic_total }}" aria-valuenow="{{ published }}"><span style="width: {{ percent }}%"></span></div>
+    </div>
+  </header>
+
+  {{ section.content | safe }}
+
+  {% if section.pages %}
+  <div class="article-list section-articles">
+    {% for page in section.pages %}
+    <a class="article-row" href="{{ page.permalink | safe }}" data-read-path="{{ page.permalink | safe }}">
+      <span class="article-row-main">
+        <span class="article-row-category">{{ section.title }}</span>
+        <span class="article-row-title"><span class="read-check" hidden aria-label="攻略済み">✓</span>{{ page.title }}</span>
+        <span class="article-row-description">{{ page.description }}</span>
+      </span>
+      <span class="article-row-meta">{{ page.date }}</span>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="empty-state">記事はまだありません。</p>
+  {% endif %}
+
+  {% if planned %}
+  <section class="planned-section">
+    <h2>準備中のテーマ</h2>
+    <div class="topic-chips">
+      {% for topic in planned %}<span class="topic-chip is-planned">{{ topic }} <span>準備中</span></span>{% endfor %}
+    </div>
+  </section>
+  {% endif %}
+</section>
 {% endblock content %}

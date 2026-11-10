@@ -4,45 +4,102 @@
 {% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
 
 {% block content %}
-<article class="article">
-  <header class="article-head">
-    <h1>{{ page.title }}</h1>
-    {% if page.extra.rust or page.extra.crates %}
-    <p class="version-line">この記事のコードは {% if page.extra.crates %}{% for c in page.extra.crates %}{{ c }}{% if not loop.last %}、{% endif %}{% endfor %}{% endif %}{% if page.extra.crates and page.extra.rust %}、{% endif %}{% if page.extra.rust %}Rust {{ page.extra.rust }}{% endif %} で動作を確認している。</p>
-    {% endif %}
+{% set path_parts = page.relative_path | split(pat="/") %}
+{% set section_slug = path_parts | nth(n=0) %}
+{% set_global section_path = "" %}
+{% if section_slug == "std" %}{% set_global section_path = "std/_index.md" %}
+{% elif section_slug == "crates" %}{% set_global section_path = "crates/_index.md" %}
+{% elif section_slug == "errors" %}{% set_global section_path = "errors/_index.md" %}
+{% elif section_slug == "books" %}{% set_global section_path = "books/_index.md" %}{% endif %}
+{% set_global next_path = "" %}
+{% set_global after_route_page = false %}
+{% for route_path in config.extra.route %}
+  {% if after_route_page and next_path == "" %}{% set_global next_path = route_path %}{% endif %}
+  {% if route_path == page.relative_path %}{% set_global after_route_page = true %}{% endif %}
+{% endfor %}
+
+<div class="article-layout">
+  <article class="article-main">
+    <header class="article-head">
+      <p class="breadcrumb"><a href="{{ get_url(path='/') }}">ホーム</a><span aria-hidden="true">/</span>
+        {% if section_slug == "std" %}<a href="{{ get_url(path='@/std/_index.md') }}">標準ライブラリ</a>
+        {% elif section_slug == "crates" %}<a href="{{ get_url(path='@/crates/_index.md') }}">クレート</a>
+        {% elif section_slug == "errors" %}<a href="{{ get_url(path='@/errors/_index.md') }}">エラー解決</a>
+        {% elif section_slug == "books" %}書籍レビュー
+        {% else %}サイト情報{% endif %}
+      </p>
+      {% if section_slug == "std" %}<a class="article-section-chip" href="{{ get_url(path='@/std/_index.md') }}">標準ライブラリ</a>
+      {% elif section_slug == "crates" %}<a class="article-section-chip" href="{{ get_url(path='@/crates/_index.md') }}">クレート</a>
+      {% elif section_slug == "errors" %}<a class="article-section-chip" href="{{ get_url(path='@/errors/_index.md') }}">エラー解決</a>{% endif %}
+      <h1>{{ page.title }}</h1>
+      {% if page.description %}<p class="article-lead">{{ page.description }}</p>{% endif %}
+      <div class="article-meta">
+        <img src="{{ get_url(path='img/icon.png') }}" alt="" width="24" height="24" class="article-avatar">
+        <span>更新日 {{ page.updated | default(value=page.date) }}</span>
+        {% if page.reading_time %}<span>読了 約{{ page.reading_time }}分</span>{% endif %}
+        {% if page.extra.rust %}<span>Rust {{ page.extra.rust }}</span>{% endif %}
+      </div>
+    </header>
+
     {% if page.toc %}
-    <nav class="toc" aria-label="目次">
-      <p class="toc-title">目次</p>
-      <ul class="toc-list">
-        {% for h2 in page.toc %}
-        <li class="toc-item"><a href="{{ h2.permalink | safe }}">{{ h2.title }}</a>
-          {% if h2.children %}
-          <ul class="toc-list toc-sub">
-            {% for h3 in h2.children %}
-            <li class="toc-item"><a href="{{ h3.permalink | safe }}">{{ h3.title }}</a></li>
+    <details class="toc-compact">
+      <summary>目次</summary>
+      <nav aria-label="目次"><ul class="toc-list">
+        {% for h2 in page.toc %}<li><a class="toc-link" href="{{ h2.permalink | safe }}">{{ h2.title }}</a></li>{% endfor %}
+      </ul></nav>
+    </details>
+    {% endif %}
+
+    <div class="article-body">
+      {{ page.content | safe }}
+    </div>
+
+    {% if section_slug == "std" or section_slug == "crates" or section_slug == "errors" %}
+    <div class="article-end">
+      <button class="button button-secondary finish-reading" type="button" data-finish-reading hidden>攻略済みにする</button>
+
+      {% if next_path %}
+        {% set next_page = get_page(path=next_path) %}
+        <section class="article-end-section next-section">
+          <h2>順路の次</h2>
+          <a class="link-card" href="{{ next_page.permalink | safe }}">
+            <span class="article-row-category">順路</span>
+            <span class="link-card-title">{{ next_page.title }}</span>
+            <span class="link-card-meta">{{ next_page.description }}</span>
+          </a>
+        </section>
+      {% endif %}
+
+      {% if section_path %}
+        {% set related_section = get_section(path=section_path) %}
+        {% set_global related_shown = 0 %}
+        <section class="article-end-section related-section">
+          <h2>関連記事</h2>
+          <div class="related-grid">
+            {% for related_page in related_section.pages %}
+              {% if related_page.permalink != page.permalink and related_shown < 3 %}
+              <a class="link-card" href="{{ related_page.permalink | safe }}">
+                <span class="article-row-category">{{ related_section.title }}</span>
+                <span class="link-card-title">{{ related_page.title }}</span>
+                <span class="link-card-meta">{{ related_page.date }}</span>
+              </a>
+              {% set_global related_shown = related_shown + 1 %}
+              {% endif %}
             {% endfor %}
-          </ul>
-          {% endif %}
-        </li>
-        {% endfor %}
-      </ul>
-    </nav>
+          </div>
+        </section>
+      {% endif %}
+    </div>
     {% endif %}
-  </header>
+  </article>
 
-  <div class="article-body">
-    {{ page.content | safe }}
-
-    {% if page.extra.related %}
-    <aside class="related">
-      <h2>関連リンク</h2>
-      <ul class="dot-list">
-        {% for r in page.extra.related %}
-        <li><a href="{{ r.url }}">{{ r.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </aside>
-    {% endif %}
-  </div>
-</article>
+  {% if page.toc %}
+  <aside class="toc-sidebar">
+    <p class="toc-title">目次</p>
+    <nav aria-label="目次"><ul class="toc-list">
+      {% for h2 in page.toc %}<li><a class="toc-link" href="{{ h2.permalink | safe }}">{{ h2.title }}</a></li>{% endfor %}
+    </ul></nav>
+  </aside>
+  {% endif %}
+</div>
 {% endblock content %}
