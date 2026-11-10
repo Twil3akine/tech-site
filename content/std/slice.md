@@ -4,6 +4,7 @@ description = "配列や Vec の一部を参照するスライスの基本。範
 date = 2026-11-11
 
 [extra]
+ogp = "img/ogp/std-slice.png"
 rust = "1.99.1"
 level = 2
 

@@ -5,6 +5,9 @@ date = 2026-11-11
 
 [taxonomies]
 tags = ["HTTP"]
+
+[extra]
+ogp = "img/ogp/web-http-basics.png"
 +++
 
 HTTP は、ブラウザやプログラムがサーバーとデータをやり取りするための取り決めである。クライアントがリクエストを送り、サーバーがレスポンスを返す。Web ページの表示だけでなく、API の呼び出しでも同じ仕組みを使う。

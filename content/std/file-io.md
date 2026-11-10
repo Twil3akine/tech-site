@@ -4,6 +4,7 @@ description = "fs::write と read_to_string による全体の読み書き、Buf
 date = 2026-11-06
 
 [extra]
+ogp = "img/ogp/std-file-io.png"
 rust = "1.99.1"
 level = 2
 

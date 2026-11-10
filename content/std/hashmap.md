@@ -4,6 +4,7 @@ description = "HashMap の作成と追加、get による取得、entry によ�
 date = 2026-11-06
 
 [extra]
+ogp = "img/ogp/std-hashmap.png"
 rust = "1.99.1"
 level = 1
 

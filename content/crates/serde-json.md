@@ -4,6 +4,7 @@ description = "serde_json で JSON を Value として読む方法、構造体�
 date = 2026-11-11
 
 [extra]
+ogp = "img/ogp/crates-serde-json.png"
 rust = "1.99.1"
 level = 3
 crates = ["serde 1.0.229", "serde_json 1.0.154"]

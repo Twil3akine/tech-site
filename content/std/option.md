@@ -4,6 +4,7 @@ description = "Option の Some と None、取り出しと変換のメソッド�
 date = 2026-11-10
 
 [extra]
+ogp = "img/ogp/std-option.png"
 rust = "1.99.1"
 level = 1
 

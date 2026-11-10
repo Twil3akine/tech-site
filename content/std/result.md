@@ -4,6 +4,7 @@ description = "Result の Ok と Err、? によるエラー伝播、変換メソ
 date = 2026-11-10
 
 [extra]
+ogp = "img/ogp/std-result.png"
 rust = "1.99.1"
 level = 2
 

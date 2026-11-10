@@ -4,6 +4,7 @@ description = "String と &str の所有権の違い、生成と追加、+ 演�
 date = 2026-11-10
 
 [extra]
+ogp = "img/ogp/std-string.png"
 rust = "1.99.1"
 level = 1
 

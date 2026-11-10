@@ -2,6 +2,9 @@
 title = "『プログラミングRust 第2版』はRustを体系的に学ぶための良書"
 description = "全23章・688頁で言語仕様から並行・非同期・FFIまでを扱う大部の解説書。目次と内容、注意点と良い点、ほかのRust書籍との比較を整理する。"
 date = 2026-11-11
+
+[extra]
+ogp = "img/ogp/books-programming-rust-2e.png"
 +++
 
 Rust の日本語書籍の中で、言語そのものを最も広く扱う部類の一冊である。

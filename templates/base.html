@@ -31,11 +31,13 @@
 <meta property="og:title" content="{{ og_title }}">
 <meta property="og:description" content="{{ og_description }}">
 <meta property="og:url" content="{{ og_url }}">
-<meta property="og:image" content="{{ get_url(path='img/ogp.png') }}">
+{% set og_image = 'img/ogp.png' %}
+{% if page is defined and page.extra is defined and page.extra.ogp %}{% set og_image = page.extra.ogp %}{% endif %}
+<meta property="og:image" content="{{ get_url(path=og_image) }}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ og_title }}">
 <meta name="twitter:description" content="{{ og_description }}">
-<meta name="twitter:image" content="{{ get_url(path='img/ogp.png') }}">
+<meta name="twitter:image" content="{{ get_url(path=og_image) }}">
 <link rel="icon" type="image/png" href="{{ get_url(path='favicon.png') }}">
 <link rel="apple-touch-icon" href="{{ get_url(path='apple-touch-icon.png') }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -2,6 +2,9 @@
 title = "『実践Rustプログラミング入門 第2版』は作りながら学ぶ実践型の入門書"
 description = "入門・実践・発展の3部構成で、Webアプリ、WebAssembly、Tauri、組み込みまで作る入門書。目次と内容、注意点と良い点、ほかのRust書籍との比較を整理する。"
 date = 2026-11-11
+
+[extra]
+ogp = "img/ogp/books-jissen-rust-2e.png"
 +++
 
 文法の解説から始めて、実際にプログラムを作る章を中心に置く実践寄りの入門書である。

@@ -4,6 +4,7 @@ description = "Vec の作成、要素の追加と削除、範囲を考慮した�
 date = 2026-11-10
 
 [extra]
+ogp = "img/ogp/std-vec.png"
 rust = "1.99.1"
 level = 1
 

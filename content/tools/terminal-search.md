@@ -5,6 +5,9 @@ date = 2026-11-11
 
 [taxonomies]
 tags = ["ターミナル"]
+
+[extra]
+ogp = "img/ogp/tools-terminal-search.png"
 +++
 
 探したいものがファイル名なのか、ファイルの中身なのかで使うコマンドが変わる。名前や更新日時からファイルを探す場合は `find`、ファイルの中の文字列を探す場合は `grep` または `rg` を使う。

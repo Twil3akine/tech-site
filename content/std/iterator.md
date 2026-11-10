@@ -4,6 +4,7 @@ description = "iter と into_iter の違い、map・filter・collect による�
 date = 2026-11-06
 
 [extra]
+ogp = "img/ogp/std-iterator.png"
 rust = "1.99.1"
 level = 2
 
