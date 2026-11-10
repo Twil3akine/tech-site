@@ -1,8 +1,19 @@
 {% extends "base.html" %}
 
-{# Landing: the standard site header (with search), then a two-column
-   layout (article lists + sidebar: カテゴリー → About). #}
-{% block main_class %}lp-main{% endblock main_class %}
+{# Landing: a faithful copy of note.nkmk.me's top page composition —
+   title-only header, main column (まとめ → 新着記事・更新記事 →
+   カテゴリー as a nested tree), sidebar (サイト内検索 → カテゴリー →
+   About), and a dashed, right-aligned footer. Article pages keep the
+   common site header; this page overrides it, like the original. #}
+{% block header %}
+<header class="nk-header">
+  <div class="nk-header-title">
+    <h1><a href="{{ get_url(path='/') }}">Twil3akine</a></h1>
+  </div>
+</header>
+{% endblock header %}
+
+{% block main_class %}nk-wrap{% endblock main_class %}
 
 {% block content %}
 {% set std = get_section(path="std/_index.md") %}
@@ -28,79 +39,91 @@
 {% endfor %}
 {% set entries = latest_str | split(pat=";;") | sort | reverse %}
 
-<div class="lp-grid">
-  <div class="lp-col">
-    <section class="lp-block">
-      <h2 class="lp-h2">まとめ</h2>
-      <ul class="lp-list">
+<div class="nk-flex">
+  <div class="nk-main">
+    <section>
+      <h2>まとめ</h2>
+      <ul>
         <li><a href="{{ std.permalink | safe }}">標準ライブラリと基礎の記事まとめ</a></li>
         <li><a href="{{ crates.permalink | safe }}">クレート解説の記事まとめ</a></li>
         <li><a href="{{ errors.permalink | safe }}">エラー解決の記事まとめ</a></li>
       </ul>
     </section>
 
-    <section class="lp-block">
-      <h2 class="lp-h2">新着記事・更新記事</h2>
+    <section>
+      <h2>新着記事・更新記事</h2>
       {% if latest_str %}
-      <ul class="lp-list">
+      <ul>
+        {% set_global shown = 0 %}
         {% for e in entries %}
-        {% if e %}{% set parts = e | split(pat="@@") %}<li><a href="{{ parts[1] }}">{{ parts[2] }}</a></li>{% endif %}
+        {% if e and shown < 20 %}{% set parts = e | split(pat="@@") %}<li><a href="{{ parts[1] }}">{{ parts[2] }}</a></li>{% set_global shown = shown + 1 %}{% endif %}
         {% endfor %}
       </ul>
       {% else %}
-      <p class="empty">記事はまだありません。</p>
+      <p>記事はまだありません。</p>
       {% endif %}
     </section>
 
-    <section class="lp-block">
-      <h2 class="lp-h2">カテゴリー</h2>
-      <ul class="lp-list lp-catlist">
+    <section>
+      <h2>カテゴリー</h2>
+      <ul class="nk-columns">
         {% for sec in sections %}
-        <li><a href="{{ sec.permalink | safe }}">{{ sec.title }}</a></li>
-        {% endfor %}
-      </ul>
-      <ul class="lp-list lp-tagcols">
-        {% for term in tags.items %}
-        {% if term.name in allowed_tags %}<li><a href="{{ term.permalink | safe }}">#{{ term.name }}</a></li>{% endif %}
+        <li><a href="{{ sec.permalink | safe }}">{{ sec.title }}</a>
+          {% set_global sec_tags_str = "@@" %}
+          {% for page in sec.pages %}
+            {% if page.taxonomies.tags %}{% for t in page.taxonomies.tags %}{% set_global sec_tags_str = sec_tags_str ~ t ~ "@@" %}{% endfor %}{% endif %}
+          {% endfor %}
+          {% set sec_tags = sec_tags_str | split(pat="@@") %}
+          <ul>
+            {% for term in tags.items %}
+            {% if term.name in sec_tags %}<li><a href="{{ term.permalink | safe }}">{{ term.name }}</a></li>{% endif %}
+            {% endfor %}
+          </ul>
+        </li>
         {% endfor %}
       </ul>
     </section>
   </div>
 
-  <aside class="lp-side">
-    <section class="lp-side-block">
-      <h2 class="lp-side-h">カテゴリー</h2>
-      <div class="lp-side-links">
-        {% for sec in sections %}
-        <a href="{{ sec.permalink | safe }}">{{ sec.title }}</a>
-        {% endfor %}
-        {% for term in tags.items %}
-        {% if term.name in allowed_tags %}<a href="{{ term.permalink | safe }}">#{{ term.name }}</a>{% endif %}
-        {% endfor %}
-      </div>
+  <aside class="nk-side">
+    <section class="nk-side-block">
+      <h2 class="nk-side-title">サイト内検索</h2>
+      <form class="nk-search" action="https://www.google.com/search" method="get" role="search" onsubmit="this.q.value = 'site:rust.twil3akine.org ' + this.q.value;">
+        <input class="nk-search-input" type="text" name="q" autocomplete="off" aria-label="サイト内検索">
+        <button class="nk-search-btn" type="submit">検索</button>
+      </form>
     </section>
 
-    <section class="lp-side-block">
-      <h2 class="lp-side-h">About</h2>
-      <div class="lp-about-head">
-        <img class="lp-about-icon" src="{{ get_url(path='img/icon.png') }}" alt="" width="46" height="46">
-        <span class="lp-about-name">Twil3akine</span>
-      </div>
-      <ul class="lp-list lp-about">
-        <li><a href="https://github.com/Twil3akine">GitHub</a></li>
+    <section class="nk-side-block">
+      <h2 class="nk-side-title">カテゴリー</h2>
+      <ul class="nk-side-cols">
+        {% for sec in sections %}
+        <li><a href="{{ sec.permalink | safe }}">{{ sec.title }}</a></li>
+        {% endfor %}
+        {% for term in tags.items %}
+        {% if term.name in allowed_tags %}<li><a href="{{ term.permalink | safe }}">{{ term.name }}</a></li>{% endif %}
+        {% endfor %}
       </ul>
+    </section>
+
+    <section class="nk-side-block">
+      <h2 class="nk-side-title">About</h2>
+      <div class="nk-about">
+        <ul>
+          <li><a href="https://github.com/Twil3akine">GitHub</a></li>
+        </ul>
+      </div>
     </section>
   </aside>
 </div>
 {% endblock content %}
 
 {% block footer %}
-<footer class="lp-footer">
-  <div class="lp-footer-inner">
-    <nav class="lp-footer-nav">
-      <a href="https://github.com/Twil3akine">GitHub</a>
-    </nav>
-    <p class="lp-footer-copy">© 2026 Twil3akine</p>
-  </div>
+<footer class="nk-footer">
+  <ul>
+    <li><a href="{{ get_url(path='@/privacy.md') }}">プライバシーポリシー</a></li>
+    <li><a href="https://github.com/Twil3akine">GitHub</a></li>
+    <li>© 2026 Twil3akine</li>
+  </ul>
 </footer>
 {% endblock footer %}

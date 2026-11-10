@@ -764,3 +764,267 @@ a:hover {
     transition: none !important;
   }
 }
+
+/* Landing page: note.nkmk.me composition and styling, copied from the
+   original's measured values (layout widths, colors, heading rules,
+   link treatment, sidebar and footer). Scoped to the landing only;
+   article pages keep the site's own design. */
+
+.nk-header {
+  max-width: 1060px;
+  margin: 1.4em auto 2em;
+  padding-left: 20px;
+  color: #333;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+}
+
+.nk-header-title {
+  font-size: 3.4em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.nk-header-title h1 {
+  font-size: 100%;
+  margin: 0;
+  font-weight: 700;
+}
+
+.nk-header-title a {
+  color: #333;
+  text-decoration: none;
+}
+
+.nk-wrap {
+  max-width: 1060px;
+  margin: 0 auto;
+  color: #333;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.nk-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nk-main {
+  width: 720px;
+  max-width: 720px;
+  padding: 16px 20px;
+  background: #fff;
+}
+
+.nk-main h2 {
+  font-size: 1.4em;
+  font-weight: 700;
+  border-bottom: solid 2px #333;
+  margin: 3em 0 .5em;
+  line-height: 1.5;
+}
+
+.nk-main section:first-child h2 {
+  margin-top: 0;
+}
+
+.nk-main ul {
+  list-style: disc;
+  margin: 1.5em 0;
+  padding-left: 2em;
+}
+
+.nk-main li {
+  margin: 0 0 .3em;
+}
+
+.nk-main ul ul {
+  margin: .4em 0;
+  padding-left: 1em;
+}
+
+.nk-main a {
+  color: #333;
+  text-decoration: none;
+  border-bottom: solid 1px #333;
+  padding-bottom: 1px;
+}
+
+.nk-main a:visited {
+  color: #333;
+}
+
+.nk-main a:hover {
+  border-bottom-color: transparent;
+}
+
+.nk-columns {
+  column-width: 8.5em;
+  column-gap: 2.5em;
+}
+
+.nk-columns > li {
+  break-inside: avoid;
+}
+
+.nk-side {
+  width: 321px;
+  min-width: 321px;
+  margin-left: 19px;
+}
+
+.nk-side-block {
+  font-size: 90%;
+  color: #666;
+  padding: 10px;
+  margin-bottom: 16px;
+  line-height: 1.9;
+}
+
+.nk-side-title {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #666;
+  border-bottom: dashed 1px #e0e0e0;
+  margin: 0 0 8px;
+  line-height: 1.5;
+}
+
+.nk-side-block a {
+  color: #666;
+  text-decoration: none;
+}
+
+.nk-side-cols {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  column-count: 2;
+}
+
+.nk-side-cols li {
+  margin: 0 0 .2em;
+  word-break: keep-all;
+}
+
+.nk-search {
+  display: flex;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.nk-search-input {
+  flex: 1;
+  min-width: 0;
+  height: 35px;
+  padding: 2px 6px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font: inherit;
+}
+
+.nk-search-btn {
+  height: 35px;
+  padding: 0 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background: #f8f8f8;
+  color: #333;
+  font: inherit;
+  cursor: pointer;
+}
+
+.nk-about {
+  line-height: 2;
+}
+
+.nk-about ul {
+  list-style: disc;
+  margin: 0;
+  padding-left: 1.4em;
+}
+
+.nk-about a {
+  border-bottom: solid 1px #666;
+  padding-bottom: 1px;
+}
+
+.nk-about a:hover {
+  border-bottom-color: transparent;
+}
+
+.nk-footer {
+  max-width: 1060px;
+  margin: 2em auto 0;
+  padding: 2em 0;
+  border-top: 1px dashed #333;
+  text-align: right;
+  font-size: 90%;
+  line-height: 2.4;
+  color: #333;
+  font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+}
+
+.nk-footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nk-footer li {
+  display: inline-block;
+  margin-left: 1em;
+}
+
+.nk-footer a {
+  color: #333;
+  text-decoration: none;
+  border-bottom: solid 1px #333;
+  padding-bottom: 1px;
+}
+
+.nk-footer a:hover {
+  border-bottom-color: transparent;
+}
+
+@media (max-width: 1060px) {
+  .nk-side {
+    display: none;
+  }
+
+  .nk-wrap {
+    width: 720px;
+  }
+
+  .nk-footer {
+    width: 720px;
+  }
+}
+
+@media (max-width: 740px) {
+  .nk-wrap {
+    width: auto;
+    font-size: 15px;
+  }
+
+  .nk-main {
+    width: auto;
+    max-width: none;
+    padding: 8px 10px;
+  }
+
+  .nk-header {
+    margin-left: 10px;
+    padding-left: 0;
+  }
+
+  .nk-header-title {
+    font-size: 48px;
+  }
+
+  .nk-footer {
+    width: auto;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
