@@ -146,6 +146,21 @@ a:hover {
   letter-spacing: -.02em;
 }
 
+.brand-tech {
+  margin-left: -2px;
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .18em;
+}
+
+.footer-tech {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .18em;
+}
+
 .tag-group-title {
   margin: 20px 0 4px;
   font-size: 15px;
@@ -1260,6 +1275,10 @@ a.topic-chip:hover {
 
   .brand-name {
     font-size: 26px;
+  }
+
+  .brand-tech {
+    font-size: 12px;
   }
 
   .brand-icon {
