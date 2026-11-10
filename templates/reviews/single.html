@@ -4,11 +4,19 @@
 
 {% block content %}
 <div class="section-head">
+  <p class="breadcrumb"><a href="{{ get_url(path='/') }}">ホーム</a><span aria-hidden="true">/</span><a href="{{ get_url(path='/reviews/') }}">レビューのタグ</a></p>
   <h1 class="section-title">#{{ term.name }}</h1>
+  <p class="section-lead">書籍レビューのタグ「{{ term.name }}」の記事一覧。</p>
 </div>
-<ul class="stack">
+<div class="article-list taxonomy-list">
   {% for page in term.pages %}
-  <li class="stack-item"><a class="stack-title" href="{{ page.permalink | safe }}">{{ page.title }}</a></li>
+  <a class="article-row" href="{{ page.permalink | safe }}">
+    <span class="article-row-main">
+      <span class="article-row-title">{{ page.title }}</span>
+      <span class="article-row-description">{{ page.description }}</span>
+    </span>
+    <span class="article-row-meta">{{ page.date }}</span>
+  </a>
   {% endfor %}
-</ul>
+</div>
 {% endblock content %}

@@ -10,9 +10,9 @@
 {% for group in config.extra.tag_groups %}
 <h2 class="tag-group-title tag-group-page">{{ group.parent }}</h2>
 <ul class="tag-rows">
-  {% for term in terms %}{% if term.name in group.items %}
+  {% for name in group.items %}{% for term in terms %}{% if term.name == name %}
   <li><a href="{{ term.permalink | safe }}">#{{ term.name }}</a><span class="stack-meta">{{ term.pages | length }} 記事</span></li>
-  {% endif %}{% endfor %}
+  {% endif %}{% endfor %}{% endfor %}
 </ul>
 {% endfor %}
 {% endblock content %}

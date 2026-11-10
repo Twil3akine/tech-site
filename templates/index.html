@@ -6,7 +6,9 @@
 {% set std = get_section(path="std/_index.md") %}
 {% set crates = get_section(path="crates/_index.md") %}
 {% set errors = get_section(path="errors/_index.md") %}
-{% set sections = [std, crates, errors] %}
+{% set tools = get_section(path="tools/_index.md") %}
+{% set web = get_section(path="web/_index.md") %}
+{% set sections = [std, crates, errors, tools, web] %}
 {% set_global latest_string = "" %}
 {% for section in sections %}
   {% set slug = section.path | split(pat="/") | nth(n=1) %}
@@ -40,9 +42,9 @@
     {% for group in config.extra.tag_groups %}
     <h3 class="tag-group-title">{{ group.parent }}</h3>
     <ul class="tag-list">
-      {% for item in tags.items %}{% if item.name in group.items %}
+      {% for name in group.items %}{% for item in tags.items %}{% if item.name == name %}
       <li><a href="{{ item.permalink | safe }}">{{ item.name }}</a><span class="tag-count">{{ item.pages | length }}</span></li>
-      {% endif %}{% endfor %}
+      {% endif %}{% endfor %}{% endfor %}
     </ul>
     {% endfor %}
   </aside>

@@ -44,7 +44,7 @@ body {
   color: var(--text);
   background: var(--bg);
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.8;
   -webkit-font-smoothing: antialiased;
 }
@@ -94,7 +94,7 @@ a:hover {
   position: sticky;
   z-index: 20;
   top: 0;
-  height: 64px;
+  height: 88px;
   background: var(--header-glass);
   backdrop-filter: blur(8px);
   transition: box-shadow var(--ease);
@@ -106,7 +106,7 @@ a:hover {
 
 .header-inner {
   position: relative;
-  height: 64px;
+  height: 88px;
   display: flex;
   align-items: center;
   gap: 24px;
@@ -123,6 +123,8 @@ a:hover {
 }
 
 .brand-icon {
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
 }
 
@@ -350,7 +352,7 @@ a:hover {
 
 .tag-list a {
   color: var(--text-sub);
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .tag-list a:hover {
@@ -359,8 +361,8 @@ a:hover {
 }
 
 .tag-count {
-  color: var(--text-muted);
-  font-size: 12px;
+  color: var(--text-sub);
+  font-size: 14px;
 }
 
 @media (max-width: 959px) {
@@ -555,8 +557,8 @@ a.topic-chip:hover {
 
 .article-row-title {
   display: block;
-  margin-top: 6px;
-  font-size: 17px;
+  margin-top: 0;
+  font-size: 18px;
   font-weight: 700;
   line-height: 1.5;
   letter-spacing: -.005em;
@@ -578,15 +580,15 @@ a.topic-chip:hover {
   overflow: hidden;
   margin-top: 2px;
   color: var(--text-sub);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.7;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .article-row-meta {
-  color: var(--text-muted);
-  font-size: 13px;
+  color: var(--text-sub);
+  font-size: 15px;
   font-weight: 500;
   line-height: 1.5;
   white-space: nowrap;
@@ -617,7 +619,7 @@ a.topic-chip:hover {
   gap: 8px;
   margin: 0;
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   line-height: 1.5;
 }
@@ -682,8 +684,8 @@ a.topic-chip:hover {
 }
 
 .stack-meta {
-  color: var(--text-muted);
-  font-size: 13px;
+  color: var(--text-sub);
+  font-size: 15px;
 }
 
 .category-desc,
@@ -747,9 +749,9 @@ a.topic-chip:hover {
   flex-wrap: wrap;
   gap: 8px 16px;
   margin-top: 24px;
-  color: var(--text-muted);
-  font-size: 13px;
-  font-weight: 500;
+  color: var(--text-sub);
+  font-size: 16px;
+  font-weight: 600;
   line-height: 1.5;
 }
 
@@ -764,7 +766,7 @@ a.topic-chip:hover {
 .article-body {
   margin-top: 48px;
   color: var(--text);
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.9;
   letter-spacing: .02em;
 }
@@ -789,7 +791,7 @@ a.topic-chip:hover {
 .article-body h4 {
   position: relative;
   color: var(--text);
-  scroll-margin-top: 88px;
+  scroll-margin-top: 112px;
   letter-spacing: -.02em;
 }
 
@@ -874,7 +876,7 @@ a.topic-chip:hover {
   overflow-x: auto;
   margin: 24px 0;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.7;
 }
 
@@ -938,7 +940,7 @@ a.topic-chip:hover {
 .codeblock-lang {
   color: var(--code-muted);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1;
 }
 
@@ -989,14 +991,14 @@ a.topic-chip:hover {
 
 .toc-sidebar {
   position: sticky;
-  top: 96px;
+  top: 112px;
   padding-top: 4px;
 }
 
 .toc-title {
   margin: 0 0 12px;
   color: var(--text);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
 }
 
@@ -1014,7 +1016,7 @@ a.topic-chip:hover {
   padding-left: 12px;
   color: var(--text-sub);
   border-left: 2px solid transparent;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.6;
   transition: color var(--ease), border-color var(--ease);
 }
@@ -1082,7 +1084,7 @@ a.topic-chip:hover {
 
 .link-card-meta {
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.6;
 }
 
@@ -1123,7 +1125,7 @@ a.topic-chip:hover {
 .footer-motto {
   margin: 2px 0 0;
   color: var(--text-sub);
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.7;
 }
 
@@ -1137,7 +1139,7 @@ a.topic-chip:hover {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .footer-nav a {
@@ -1151,8 +1153,8 @@ a.topic-chip:hover {
 .footer-copy {
   grid-column: 1 / -1;
   margin: 8px 0 0;
-  color: var(--text-muted);
-  font-size: 13px;
+  color: var(--text-sub);
+  font-size: 15px;
   line-height: 1.5;
 }
 
@@ -1246,7 +1248,12 @@ a.topic-chip:hover {
   }
 
   .brand-name {
-    font-size: 17px;
+    font-size: 26px;
+  }
+
+  .brand-icon {
+    width: 32px;
+    height: 32px;
   }
 
   .brand-subtitle {
@@ -1275,7 +1282,7 @@ a.topic-chip:hover {
   .site-search {
     position: fixed;
     z-index: 21;
-    top: 64px;
+    top: 88px;
     left: 0;
     display: none;
     width: 100%;
@@ -1371,7 +1378,7 @@ a.topic-chip:hover {
   }
 
   .article-row-title {
-    font-size: 16px;
+    font-size: 17px;
   }
 
   .article-row-meta {

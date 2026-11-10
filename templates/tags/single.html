@@ -3,12 +3,24 @@
 {% block title %}{{ term.name }} | {{ config.title }}{% endblock title %}
 
 {% block content %}
+{% set_global parent_name = "" %}
+{% for group in config.extra.tag_groups %}
+  {% if term.name in group.items %}{% set_global parent_name = group.parent %}{% endif %}
+{% endfor %}
 <div class="section-head">
+  <p class="breadcrumb"><a href="{{ get_url(path='/') }}">ホーム</a><span aria-hidden="true">/</span><a href="{{ get_url(path='/tags/') }}">タグ</a>{% if parent_name %}<span aria-hidden="true">/</span>{{ parent_name }}{% endif %}</p>
   <h1 class="section-title">#{{ term.name }}</h1>
+  {% if parent_name %}<p class="section-lead">{{ parent_name }}の中タグ「{{ term.name }}」の記事一覧。</p>{% endif %}
 </div>
-<ul class="stack">
+<div class="article-list taxonomy-list">
   {% for page in term.pages %}
-  <li class="stack-item"><a class="stack-title" href="{{ page.permalink | safe }}">{{ page.title }}</a></li>
+  <a class="article-row" href="{{ page.permalink | safe }}">
+    <span class="article-row-main">
+      <span class="article-row-title">{{ page.title }}</span>
+      <span class="article-row-description">{{ page.description }}</span>
+    </span>
+    <span class="article-row-meta">{{ page.date }}</span>
+  </a>
   {% endfor %}
-</ul>
+</div>
 {% endblock content %}

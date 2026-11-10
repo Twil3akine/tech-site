@@ -19,8 +19,16 @@ style = "inline"
 theme = "night-owl"
 
 [extra]
-route = ["std/vec.md", "std/string.md", "std/option.md", "std/result.md", "std/hashmap.md", "std/iterator.md", "std/file-io.md", "crates/axum-http-server.md"]
+route = ["std/vec.md", "std/string.md", "std/option.md", "std/result.md", "std/hashmap.md", "std/slice.md", "std/iterator.md", "std/file-io.md", "crates/axum-http-server.md", "crates/serde-json.md"]
 
 [[extra.tag_groups]]
 parent = "Rust"
-items = ["データ構造", "エラー処理", "所有権", "イテレータ", "入出力", "Web"]
+items = ["データ構造", "エラー処理", "所有権", "イテレータ", "入出力", "Web", "JSON"]
+
+[[extra.tag_groups]]
+parent = "ツール"
+items = ["Git", "ターミナル"]
+
+[[extra.tag_groups]]
+parent = "Web"
+items = ["HTTP"]
