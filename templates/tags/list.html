@@ -3,13 +3,26 @@
 {% block title %}タグ | {{ config.title }}{% endblock title %}
 
 {% block content %}
+{# Only tags used by the how-to sections are listed. Books-only tags are
+   kept off tag listings so the book reviews stay reachable by direct URL
+   only (same rule as the top page). #}
+{% set std = get_section(path="std/_index.md") %}
+{% set crates = get_section(path="crates/_index.md") %}
+{% set errors = get_section(path="errors/_index.md") %}
+{% set_global allowed_tags_str = "@@" %}
+{% for sec in [std, crates, errors] %}
+  {% for page in sec.pages %}
+    {% if page.taxonomies.tags %}{% for t in page.taxonomies.tags %}{% set_global allowed_tags_str = allowed_tags_str ~ t ~ "@@" %}{% endfor %}{% endif %}
+  {% endfor %}
+{% endfor %}
+{% set allowed_tags = allowed_tags_str | split(pat="@@") %}
 <div class="section-head">
   <h1 class="section-title">タグ</h1>
   <p class="category-desc">記事につけられたタグの一覧。</p>
 </div>
 <ul class="tag-rows">
   {% for term in terms %}
-  <li><a href="{{ term.permalink | safe }}">#{{ term.name }}</a><span class="stack-meta">{{ term.pages | length }} 記事</span></li>
+  {% if term.name in allowed_tags %}<li><a href="{{ term.permalink | safe }}">#{{ term.name }}</a><span class="stack-meta">{{ term.pages | length }} 記事</span></li>{% endif %}
   {% endfor %}
 </ul>
 {% endblock content %}

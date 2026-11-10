@@ -622,6 +622,13 @@ a:hover {
   break-inside: avoid;
 }
 
+/* Tag labels never break mid-word: a tag stays on one line, so the bullet
+   and the label are never split across two lines. */
+.lp-tagcols a {
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
 /* Sidebar blocks: small heading over a soft 1px rule */
 .lp-side-block {
   margin: 0 0 34px;
@@ -649,6 +656,8 @@ a:hover {
   margin: 0 0 5px;
   color: var(--link);
   break-inside: avoid;
+  white-space: nowrap;
+  word-break: keep-all;
 }
 
 .lp-side-links a:hover {
