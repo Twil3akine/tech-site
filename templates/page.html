@@ -61,9 +61,9 @@
       {% if next_path %}
         {% set next_page = get_page(path=next_path) %}
         <section class="article-end-section next-section">
-          <h2>順路の次</h2>
+          <h2>次に読む</h2>
           <a class="link-card" href="{{ next_page.permalink | safe }}">
-            <span class="article-row-category">順路</span>
+            <span class="article-row-category">読む順</span>
             <span class="link-card-title">{{ next_page.title }}</span>
             <span class="link-card-meta">{{ next_page.description }}</span>
           </a>

@@ -195,20 +195,9 @@
       if (mark) mark.hidden = list.indexOf(rowPath) === -1;
     });
   }
-  function updatePersonalProgress() {
-    var relevant = list.filter(function (item) { return /^\/(std|crates|errors)\//.test(item); });
-    document.querySelectorAll("[data-personal-progress]").forEach(function (node) {
-      var prefix = new URL(node.getAttribute("data-prefix"), window.location.href).pathname;
-      var total = Number(node.getAttribute("data-total")) || 0;
-      var count = relevant.filter(function (item) { return item.indexOf(prefix) === 0; }).length;
-      node.textContent = "あなた " + Math.min(count, total) + " / " + total;
-      node.hidden = relevant.length === 0;
-    });
-  }
   function save() {
     try { localStorage.setItem(key, JSON.stringify(list)); } catch (e) {}
     updateRows();
-    updatePersonalProgress();
   }
 
   if (finishButton) {
@@ -223,7 +212,6 @@
     });
   }
   updateRows();
-  updatePersonalProgress();
 })();
 </script>
 <script>
