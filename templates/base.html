@@ -14,10 +14,10 @@
 </head>
 <body>
 {% block header %}
-<header class="site-header">
+<header class="site-header" id="top">
   <div class="header-inner container">
     <a class="brand" href="{{ get_url(path='/') }}">
-      <img class="brand-icon" src="{{ get_url(path='img/icon.png') }}" alt="" width="36" height="36">
+      <img class="brand-icon" src="{{ get_url(path='img/icon.png') }}" alt="" width="46" height="46">
       <span class="brand-name">Twil3akine <span class="brand-tech">TECH</span></span>
     </a>
     <button class="search-toggle" type="button" aria-label="検索を開く" aria-expanded="false" aria-controls="site-search">
@@ -44,7 +44,7 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-about">
-      <img src="{{ get_url(path='img/icon.png') }}" alt="" width="44" height="44" class="footer-avatar">
+      <img src="{{ get_url(path='img/icon.png') }}" alt="" width="52" height="52" class="footer-avatar">
       <div>
         <p class="footer-brand">Twil3akine <span class="footer-tech">TECH</span></p>
         <p class="footer-intro">プログラミングやツールなど、技術まわりの調べものをまとめる個人サイト。</p>
@@ -52,11 +52,15 @@
     </div>
     <nav class="footer-nav" aria-label="サイト内リンク">
       <a href="{{ get_url(path='/') }}">トップ</a>
+      <a href="{{ get_url(path='/all/') }}">すべての記事</a>
       <a href="{{ get_url(path='/tags/') }}">タグ一覧</a>
       <a href="{{ get_url(path='/books/') }}">レビュー</a>
       <a href="{{ get_url(path='@/privacy.md') }}">プライバシーポリシー</a>
     </nav>
-    <p class="footer-copy">© 2026 Twil3akine</p>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Twil3akine</p>
+      <a class="footer-top-link" href="#top">ページ上部へ戻る ↑</a>
+    </div>
   </div>
 </footer>
 {% endblock footer %}
