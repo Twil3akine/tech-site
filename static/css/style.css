@@ -9,14 +9,15 @@
   --border-soft: #efe7d8;
   --text: #1f2433;
   --muted: #5b6275;
-  --faint: #9a917e;
+  --faint: #77694f;
   --link: #2e4a8c;
   --link-hover: #1e2f5c;
-  --accent: #b7552b;
+  --accent: #a8502a;
   --inline-code-bg: #f6e6da;
   --inline-code-text: #333333;
   --code-bg: #011627;
   --code-border: #0d2a44;
+}
 
 * {
   box-sizing: border-box;
