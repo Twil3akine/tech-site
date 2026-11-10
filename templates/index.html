@@ -19,29 +19,6 @@
 {% endfor %}
 {% set entries = latest_string | split(pat=";;") | sort | reverse %}
 
-<section class="hero">
-  <div class="hero-copy">
-    <h1>{% if config.extra.show_full_title %}私たちの完全 Rust 攻略サイト{% else %}Rust を、1テーマずつ攻略する。{% endif %}</h1>
-    <p class="hero-lead">つまずきやすい標準ライブラリ・クレート・エラーを、1記事1テーマで解く日本語の攻略サイト。</p>
-    <div class="hero-actions">
-      <a class="button button-primary" href="{{ std.permalink | safe }}">標準ライブラリの記事</a>
-      <a class="button button-secondary" href="{{ errors.permalink | safe }}">エラーから探す</a>
-    </div>
-  </div>
-  <div class="hero-example-wrap">
-    <div class="hero-example" aria-label="Rust コンパイラのエラー例">
-      <pre><code><span class="compiler-error">error[E0382]:</span> borrow of moved value: `v`
- <span class="compiler-gutter">--&gt;</span> src/main.rs:4:20
-  <span class="compiler-gutter">|</span>
-3 <span class="compiler-gutter">|</span>     let v2 = v;
-  <span class="compiler-gutter">|</span>              - value moved here
-4 <span class="compiler-gutter">|</span>     println!("{v:?}");
-  <span class="compiler-gutter">|</span>                    ^ value borrowed here after move</code></pre>
-    </div>
-    <a class="hero-example-link" href="{{ errors.permalink | safe }}">この直し方 →</a>
-  </div>
-</section>
-
 <section class="home-section map-section" aria-labelledby="map-title">
   <div class="section-heading-row">
     <h2 id="map-title">攻略マップ</h2>

@@ -1,0 +1,1283 @@
+Reading additional input from stdin...
+OpenAI Codex v0.164.0
+--------
+workdir: /home/hatch/workspace/noptium/site
+model: gpt-6-luna
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR]
+reasoning effort: xhigh
+reasoning summaries: none
+session id: 01a1c58c-503b-7c62-be4b-d928297419b2
+--------
+user
+design/articles-brief.md を読んで、その指示どおりに記事ファイル5本を作成してください。既存ファイルは変更しないでください。
+codex
+`design/articles-brief.md` と記事の既存配置を確認し、指示に沿った新規ファイルを5本作成します。既存ファイルには手を加えません。
+exec
+/bin/bash -lc "pwd && rg --files -g 'AGENTS.md' -g 'design/articles-brief.md' -g 'articles/**' -g 'src/**' -g 'content/**' -g 'docs/**' | head -200" in /home/hatch/workspace/noptium/site
+ succeeded in 0ms:
+/home/hatch/workspace/noptium/site
+design/articles-brief.md
+content/privacy.md
+content/_index.md
+content/all/_index.md
+content/errors/_index.md
+content/std/_index.md
+content/std/file-io.md
+content/std/iterator.md
+content/std/hashmap.md
+content/crates/_index.md
+content/crates/axum-http-server.md
+content/books/kiso-kara-manabu-quantum-computing.md
+content/books/_index.md
+
+exec
+/bin/bash -lc 'cat design/articles-brief.md' in /home/hatch/workspace/noptium/site
+ succeeded in 0ms:
+# 実装指示: Rust 解説記事を5本追加する
+
+作業ディレクトリはこのリポジトリ（Zola サイト）です。新規の記事ファイル5本を作成してください。既存ファイルは一切変更しないこと。
+
+## 形式（既存記事 content/std/hashmap.md と完全に揃える）
+- front matter:
+  +++
+  title = "（下記指定）"
+  description = "（内容を1文で。最後は「まで。」か「。」で終わる）"
+  date = 2026-11-10
+
+  [extra]
+  rust = "1.99.1"
+  level = （下記指定）
+
+  [taxonomies]
+  tags = ["（下記指定）", "（下記指定）"]
+  +++
+- 本文は「である」調。冒頭段落で対象を1文で定義し、公式ドキュメント（doc.rust-lang.org）へのリンクを1つ入れる。
+- 構成は ## 見出し3〜5個。各見出しの下に短い説明文＋ ```rust のコード例。
+- コード例はすべて fn main() を含む完結した形で、assert_eq! など検証できる形にする。外部クレート禁止、標準ライブラリのみ。
+- コンパイルエラーになる例を載せる場合は、コードブロックの直前に「これはコンパイルエラーになる」と明記し、直後に直し方を示す。
+- 嘘のない範囲で書くこと。API の細部が曖昧なら、その項目は書かない。
+- 各記事 90〜150 行程度。
+
+## 5本の指定
+1. content/errors/e0382.md
+   title = "E0382: borrow of moved value の直し方"
+   tags = ["E0382", "所有権"], level = 1
+   中身: エラー文の読み方（error[E0382] の各行が何を示すか）／なぜ起きるか（ムーブで所有権が移る）／直し方3つ（参照で借りる、clone する、Copy 型になる型では起きない）。最初のコード例はエラーを再現するものにする。
+
+2. content/std/vec.md
+   title = "RustでVecを作成・操作する（push、pop、get、iterなど）"
+   tags = ["Vec", "コレクション"], level = 1
+   中身: 作成（new / vec! マクロ）／追加と削除（push / pop / insert / remove）／取得（インデックスと get の違い、範囲外アクセスのパニック）／走査（iter / iter_mut、for）。
+
+3. content/std/option.md
+   title = "RustでOptionを扱う（unwrap、map、and_then、?など）"
+   tags = ["Option", "エラー処理"], level = 1
+   中身: Option の定義（Some / None）／取り出し方（unwrap の危険性、expect、unwrap_or、unwrap_or_else）／変換（map / and_then / filter）／? 演算子で早期リターン。
+
+4. content/std/result.md
+   title = "RustでResultと?演算子を使う（map_err、unwrap_or_elseなど）"
+   tags = ["Result", "エラー処理"], level = 2
+   中身: Result の定義（Ok / Err）／? 演算子の動作（Ok なら値を取り出し、Err なら早期リターン）／変換（map / map_err / and_then）／main での扱い（Box<dyn Error> を返す main の例）。
+
+5. content/std/string.md
+   title = "RustでStringと&strを扱う（push_str、format!、スライスなど）"
+   tags = ["String", "文字列"], level = 1
+   中身: String と &str の違い（所有権の有無）／作り方（to_string / String::from / format!）／追加（push_str / push、+ 演算子で所有権が移る注意）／文字列スライスと注意点（バイト境界でない位置で切るとパニックする）。
+
+完了後、作成したファイルの一覧だけを報告すること。
+
+exec
+/bin/bash -lc "sed -n '1,240p' content/std/file-io.md && sed -n '1,240p' content/crates/axum-http-server.md" in /home/hatch/workspace/noptium/site
+exec
+/bin/bash -lc "rg --files -g 'AGENTS.md' -g '"'!node_modules'"' /home/hatch/workspace/noptium/site /home/hatch/workspace/noptium 2>/dev/null" in /home/hatch/workspace/noptium/site
+exec
+/bin/bash -lc 'rg --files | sort' in /home/hatch/workspace/noptium/site
+ succeeded in 0ms:
++++
+title = "Rustでファイルを読み書きする（read_to_string、File、BufReaderなど）"
+description = "fs::write と read_to_string による全体の読み書き、BufReader による行ごとの読み取り、OpenOptions による追記、? によるエラー伝播まで。"
+date = 2026-11-06
+
+[extra]
+rust = "1.99.1"
+level = 2
+
+[taxonomies]
+tags = ["ファイル", "入出力"]
++++
+
+ファイルの読み書きには、標準ライブラリの [std::fs](https://doc.rust-lang.org/std/fs/) と [std::io](https://doc.rust-lang.org/std/io/) を使う。全体をまとめて扱う方法から始め、行ごとの読み取り、追記、エラーの伝播の順に確認する。以下のコードで使うファイルは、いずれも実行時のカレントディレクトリに作られる。
+
+## ファイル全体を読み書きする
+
+ファイル全体を一度に書くには `fs::write`、全体を文字列として読むには `fs::read_to_string` を使う。どちらもファイルを開く、処理する、閉じる、までを内部で行う。
+
+```rust
+use std::fs;
+
+fn main() {
+    let path = "note.txt";
+
+    // write はファイルがなければ作り、あれば中身を丸ごと置き換える
+    fs::write(path, "hello\n").unwrap();
+
+    // read_to_string はファイル全体を String で返す
+    let content = fs::read_to_string(path).unwrap();
+    assert_eq!(content, "hello\n");
+}
+```
+
+`fs::write` は既存のファイルに対しては追記ではなく置き換えになる。バイナリを読み取る場合は `fs::read` を使う。中身を `Vec<u8>` で返す。
+
+## 行ごとに読む（BufReader）
+
+大きなファイルを行単位で処理する場合は、`File::open` でファイルを開き、`BufReader` で包んでから `lines` を使う。`lines` は行ごとのイテレータで、各要素は改行を含まない `io::Result<String>` である。
+
+```rust
+use std::fs::File;
+use std::io::{BufRead, BufReader};
+
+fn main() {
+    std::fs::write("lines.txt", "one\ntwo\nthree\n").unwrap();
+
+    let file = File::open("lines.txt").unwrap();
+    let reader = BufReader::new(file);
+
+    // lines() は行ごとのイテレータ。行末の改行は含まれない
+    let lines: Vec<String> = reader.lines().collect::<Result<_, _>>().unwrap();
+    assert_eq!(
+        lines,
+        vec!["one".to_string(), "two".to_string(), "three".to_string()]
+    );
+}
+```
+
+`BufReader` は読み取りをまとめて行い、システムコールの回数を減らす。`lines` の要素が `Result` なのは、読み取りの途中で I/O エラーが起こり得るためである。上のコードでは `collect::<Result<_, _>>()` で、最初のエラーで全体をエラーとして返す形にしている。
+
+## 追記する（OpenOptions）
+
+末尾への追記は `OpenOptions` で行う。`append(true)` を指定して開いたファイルへの書き込みは、常に末尾へ追加される。
+
+```rust
+use std::fs::OpenOptions;
+use std::io::Write;
+
+fn main() {
+    let path = "log.txt";
+    std::fs::write(path, "first\n").unwrap();
+
+    // append(true) で末尾への追記になる
+    let mut file = OpenOptions::new().append(true).open(path).unwrap();
+    writeln!(file, "second").unwrap();
+    drop(file);
+
+    let content = std::fs::read_to_string(path).unwrap();
+    assert_eq!(content, "first\nsecond\n");
+
+    // create(true) を付けると、ファイルがなければ作る
+    std::fs::remove_file(path).unwrap();
+    let mut file = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(path)
+        .unwrap();
+    writeln!(file, "new").unwrap();
+    drop(file);
+    assert_eq!(std::fs::read_to_string(path).unwrap(), "new\n");
+}
+```
+
+`OpenOptions` は既定では「ファイルがなければエラー」であり、作成は `create(true)` を明示した場合だけ行われる。書き込みには [Write](https://doc.rust-lang.org/std/io/trait.Write.html) トレイトの `write_all` や `writeln!` を使う。ファイルはスコープを抜けると閉じられるが、上のコードでは読み直しの前に `drop` で明示的に閉じている。
+
+## エラーを?で伝播させる
+
+ファイル操作はすべて `io::Result` を返すため、`?` で呼び出し元へエラーを伝播させるのが基本形である。関数の戻り値を `io::Result<...>` にし、`main` 自体も `io::Result<()>` を返す形にできる。
+
+```rust
+use std::fs;
+use std::io;
+
+fn read_first_line(path: &str) -> io::Result<String> {
+    let content = fs::read_to_string(path)?;
+    // lines().next() は先頭行。空ファイルなら None になる
+    Ok(content.lines().next().unwrap_or("").to_string())
+}
+
+fn main() -> io::Result<()> {
+    fs::write("greeting.txt", "hello\nworld\n")?;
+    let first = read_first_line("greeting.txt")?;
+    assert_eq!(first, "hello");
+    Ok(())
+}
+```
+
+`?` を付けた式は、成功すれば中の値を取り出し、失敗すればその場で関数から `Err` を返す。`unwrap` と違い、失敗の扱いを呼び出し側に委ねられる。
+
+## エラーケース
+
+### 存在しないファイルをunwrapで読む
+
+存在しないファイルを読むと `Err` が返る。これを `unwrap` すると、その場でパニックする。
+
+```rust
+fn main() {
+    let _content = std::fs::read_to_string("does-not-exist.txt").unwrap();
+}
+```
+
+```text
+called `Result::unwrap()` on an `Err` value: Os { code: 2, kind: NotFound, message: "No such file or directory" }
+```
+
+エラーの種別は `kind` で判別できる。この例では `std::io::ErrorKind::NotFound` である。ファイルの有無が事前に分からない場合は `unwrap` せず、`?` で伝播させるか、`match` で `kind` ごとに分岐する。
++++
+title = "Rustでaxumを使ってHTTPサーバーを立てる（Router、Json、Stateなど）"
+description = "Router へのルーティング登録から、JSON の受け渡し、State による状態共有までを、最小構成から順に組み立てる。"
+date = 2026-11-06
+
+[extra]
+rust = "1.99.1"
+level = 3
+crates = ["axum 0.8.9", "tokio 1.54.1", "serde 1.0.229", "serde_json 1.0.154"]
+
+[taxonomies]
+tags = ["axum", "tokio", "Web", "HTTP サーバー"]
++++
+
+axum で HTTP サーバーを立てるには、Router にパスとハンドラを登録し、tokio の TcpListener と組み合わせて axum::serve で起動する。最小のサーバーから始め、ルーティング、JSON の受け渡し、状態の共有までを順に組み立てる。axum の全体像は[公式ドキュメント](https://docs.rs/axum/latest/axum/)を参照。
+
+## 依存クレートを追加する
+
+Cargo.toml の `[dependencies]` に次を追加する。tokio は `features = ["full"]` とし、マクロとランタイムを含む一式を有効にする。axum の Json は serde の機能を使うため、serde は derive つきで入れる。
+
+```toml
+[dependencies]
+axum = "0.8"
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+```
+
+## 最小のサーバーを立てる
+
+ハンドラは async 関数として定義する。戻り値が IntoResponse を実装する型であれば、そのままレスポンスになる。`&'static str` もその1つで、次の root は `"Hello, World!"` を返す。
+
+```rust
+use axum::{routing::get, Router};
+
+async fn root() -> &'static str {
+    "Hello, World!"
+}
+
+#[tokio::main]
+async fn main() {
+    let app = Router::new().route("/", get(root));
+
+    let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
+        .await
+        .unwrap();
+    println!("listening on {}", listener.local_addr().unwrap());
+    axum::serve(listener, app).await.unwrap();
+}
+```
+
+[Router](https://docs.rs/axum/latest/axum/struct.Router.html) の route でパスとハンドラを登録する。TcpListener::bind で待ち受けポートを確保し、axum::serve に Router とともに渡すと起動する。main に `#[tokio::main]` を付けると、非同期ランタイム上で main を実行できる。
+
+`cargo run` で起動すると、標準出力に `listening on 127.0.0.1:3000` と表示される。別のターミナルから curl でリクエストを送ると、ハンドラの戻り値がそのまま返る。
+
+```console
+$ curl http://127.0.0.1:3000/
+Hello, World!
+```
+
+## ルーティングを追加する
+
+route をつなげると、パスごとにハンドラを割り当てられる。ここでは `/items` と `/hello/{name}` を追加する。
+
+### HTTPメソッドで振り分ける
+
+同じパスでも、HTTP メソッドごとに別のハンドラを割り当てられる。`get(...)` の戻り値に `.post(...)` をつなげると、GET と POST で処理を分けられる。
+
+```rust
+async fn list_items() -> &'static str {
+    "list items"
+}
+
+async fn create_item() -> &'static str {
+    "create item"
+}
+```
+
+```rust
+let app = Router::new()
+    .route("/", get(root))
+    .route("/items", get(list_items).post(create_item));
+```
+
+### パスパラメータを受け取る（Path）
+
+パスの一部を値として受け取るには、パスに `{name}` の形で名前を書き、ハンドラの引数に Path を置く。Path はエクストラクタの一種で、引数に書くだけでパスから値が抽出される。
+
+```rust
+async fn hello(Path(name): Path<String>) -> String {
+    format!("Hello, {name}!")
+}
+```
+
+```rust
+let app = Router::new()
+    .route("/", get(root))
+    .route("/hello/{name}", get(hello))
+    .route("/items", get(list_items).post(create_item));
+```
+
+追加した2つのパスは curl で次のように確認できる。
+
+```console
+$ curl http://127.0.0.1:3000/hello/Rust
+Hello, Rust!
+$ curl http://127.0.0.1:3000/items
+list items
+$ curl -X POST http://127.0.0.1:3000/items
+create item
+```
+
+## JSONを扱う
+
+axum の [Json](https://docs.rs/axum/latest/axum/struct.Json.html) を使うと、構造体と JSON を相互に変換できる。例として、次の Item を使う。Serialize は JSON で返す側、Deserialize は JSON を受け取る側に要る。
+
+```rust
+#[derive(Serialize, Deserialize)]
+struct Item {
+    name: String,
+    price: u32,
+}
+```
+
+### 構造体をJSONで返す
+
+戻り値を Json で包むと、内側の値が Serialize を実装していれば JSON として返される。
+
+```rust
+async fn sample_item() -> Json<Item> {
+    Json(Item {
+        name: "sample".to_string(),
+        price: 100,
+    })
+}
+```
+
+```rust
+.route("/items/sample", get(sample_item))
+```
+
+```console
+$ curl http://127.0.0.1:3000/items/sample
+{"name":"sample","price":100}
+```
+
+### JSONのリクエストボディを受け取る
+
+ハンドラの引数に Json を置くと、リクエストボディの JSON がデシリアライズされて渡される。受け取った値をそのまま Json で返すと、受け取りと返却の両方を確認できる。
+
+```rust
+async fn create_item(Json(item): Json<Item>) -> Json<Item> {
+    Json(item)
+}
+```
+
+```rust
+.route("/items", post(create_item))
+```
+
+```console
+$ curl -X POST -H 'content-type: application/json' -d '{"name":"book","price":1200}' http://127.0.0.1:3000/items
+{"name":"book","price":1200}
+```
+
+## 状態を共有する（State）
+
+ハンドラの間で値を共有するには、状態の型を定義し、with_state で Router に渡す。ハンドラは [State](https://docs.rs/axum/latest/axum/extract/struct.State.html) エクストラクタで状態を受け取る。状態の型には Clone が要るため、実体は Arc で包んで共有することが多い。
+
+ここでは `Arc<Mutex<u64>>` のカウンタを状態にし、`/count` へアクセスするたびに値を増やして返す。
+
+```rust
+#[derive(Clone, Default)]
+struct AppState {
+    count: Arc<Mutex<u64>>,
+}
+```
+
+```rust
+#[derive(Serialize)]
+struct Count {
+    count: u64,
+}
+
+async fn get_count(State(state): State<AppState>) -> Json<Count> {
+    let mut count = state.count.lock().unwrap();
+    *count += 1;
+    Json(Count { count: *count })
+}
+```
+
+```rust
+let state = AppState::default();
+
+let app = Router::new()
+    .route("/count", get(get_count))
+    .with_state(state);
+```
+
+```console
+$ curl http://127.0.0.1:3000/count
+{"count":1}
+$ curl http://127.0.0.1:3000/count
+{"count":2}
+```
+
+状態はプロセスの中にだけあるため、サーバーを再起動するとカウントは1から始まる。
+
+## エラーケース
+
+### 戻り値がIntoResponseを実装していない
+
+独自の構造体をそのまま返すハンドラは登録できない。戻り値が IntoResponse を実装していないため、次のコンパイルエラーになる。
+
+```rust
+struct Greeting {
+    text: String,
+}
+
+async fn bad() -> Greeting {
+    Greeting {
+        text: "hi".to_string(),
+    }
+}
+```
+
+```text
+error[E0277]: the trait bound `fn() -> impl Future<Output = Greeting> {bad}: Handler<_, _>` is not satisfied
+```
+
+ハンドラの戻り値には文字列、Json、ステータスコードなど、IntoResponse を実装した型を使う。
+
+### リクエストボディの型が合わない
+
+Json エクストラクタでのデシリアライズに失敗すると、ハンドラは呼ばれず、ステータスコード 422 で理由が返る。name に文字列ではなく数値を渡すと次のようになる。
+
+```console
+$ curl -X POST -H 'content-type: application/json' -d '{"name":123,"price":1200}' http://127.0.0.1:3000/items
+Failed to deserialize the JSON body into the target type: name: invalid type: integer `123`, expected a string at line 1 column 11
+```
+
+ succeeded in 0ms:
+README.md
+content/_index.md
+content/all/_index.md
+content/books/_index.md
+content/books/kiso-kara-manabu-quantum-computing.md
+content/crates/_index.md
+content/crates/axum-http-server.md
+content/errors/_index.md
+content/privacy.md
+content/std/_index.md
+content/std/file-io.md
+content/std/hashmap.md
+content/std/iterator.md
+design/articles-brief.md
+design/articles-run.log
+design/brief.md
+design/claude-err.log
+design/luna-brief.md
+design/luna-run.log
+design/mylogs-variant.md
+design/opus-brief.md
+design/opus-err.log
+design/opus-spec.md
+design/research.md
+design/sonnet-design.md
+static/apple-touch-icon.png
+static/css/style.css
+static/favicon.ico
+static/favicon.png
+static/img/icon.png
+templates/all.html
+templates/base.html
+templates/index.html
+templates/page.html
+templates/section.html
+templates/tags/list.html
+templates/tags/single.html
+tools/make_preview.py
+zola.toml
+
+ exited 1 in 82ms:
+codex
+briefでは、記事5本とも日本語の「である」調、公式 Rust ドキュメントへのリンク、完結した `fn main()` と検証用 `assert_eq!` を含むコード例が指定されています。各記事の構成と行数も合わせて新規作成します。
+exec
+/bin/bash -lc "sed -n '1,240p' content/std/hashmap.md" in /home/hatch/workspace/noptium/site
+ succeeded in 0ms:
++++
+title = "RustでHashMapを作成・操作する（new、get、insert、entryなど）"
+description = "HashMap の作成と追加、get による取得、entry による「なければ入れる」、全要素の走査と削除まで。"
+date = 2026-11-06
+
+[extra]
+rust = "1.99.1"
+level = 1
+
+[taxonomies]
+tags = ["HashMap", "コレクション"]
++++
+
+キーと値の組を保持するには、標準ライブラリの [HashMap](https://doc.rust-lang.org/std/collections/struct.HashMap.html) を使う。作成と追加、取得、更新、走査、削除の順に、基本操作を確認する。
+
+## 作成・追加・取得
+
+`HashMap::new` で空のマップを作り、`insert` でキーと値の組を追加する。値の取得は `get` で行い、戻り値は `Option<&V>` である。キーが存在しなければ `None` が返る。
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let mut scores: HashMap<&str, i32> = HashMap::new();
+    scores.insert("Alice", 50);
+    scores.insert("Bob", 70);
+
+    // get は Option<&V> を返す
+    assert_eq!(scores.get("Alice"), Some(&50));
+    assert_eq!(scores.get("Carol"), None);
+
+    // 既存のキーへ insert すると値が置き換わり、古い値が返る
+    let old = scores.insert("Alice", 55);
+    assert_eq!(old, Some(50));
+    assert_eq!(scores.get("Alice"), Some(&55));
+
+    // from で配列から作る
+    let map = HashMap::from([("a", 1), ("b", 2)]);
+    assert_eq!(map.len(), 2);
+}
+```
+
+`HashMap::from` を使うと、(キー, 値) の配列から直接作れる。要素数は `len` で取得する。
+
+## entryで「なければ入れる」
+
+キーがなければ値を入れ、あれば既存の値への参照を返すのが [entry](https://doc.rust-lang.org/std/collections/struct.HashMap.html#method.entry) である。`or_insert` と組み合わせると、「初回だけ初期値を入れ、あとは既存の値を更新する」という処理が1行で書ける。単語の出現回数を数える例がその典型である。
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    // 単語の出現回数を数える
+    let text = "red blue red green blue red";
+    let mut counts: HashMap<&str, u32> = HashMap::new();
+    for word in text.split_whitespace() {
+        *counts.entry(word).or_insert(0) += 1;
+    }
+    assert_eq!(counts.get("red"), Some(&3));
+    assert_eq!(counts.get("blue"), Some(&2));
+    assert_eq!(counts.get("green"), Some(&1));
+
+    // and_modify は既存の値があるときだけ呼ばれる
+    let mut map: HashMap<&str, i32> = HashMap::new();
+    map.entry("a").and_modify(|v| *v += 10).or_insert(1);
+    assert_eq!(map.get("a"), Some(&1));
+    map.entry("a").and_modify(|v| *v += 10).or_insert(1);
+    assert_eq!(map.get("a"), Some(&11));
+}
+```
+
+`and_modify` は、キーが存在するときに既存の値を書き換える処理を指定する。存在しなければ呼ばれず、後ろの `or_insert` の値が入る。
+
+## 全要素を走査する
+
+`iter` は (&K, &V) の組を順に返す。HashMap の走査順序は不定であり、挿入した順にはならない。順序に依存しない処理に使うか、必要な場合は集めてから並べ替える。
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let map = HashMap::from([("b", 2), ("a", 1), ("c", 3)]);
+
+    // iter() は (&K, &V) を返す。順序は不定なので、並べ替えてから比べる
+    let mut pairs: Vec<(&str, i32)> = map.iter().map(|(k, v)| (*k, *v)).collect();
+    pairs.sort();
+    assert_eq!(pairs, vec![("a", 1), ("b", 2), ("c", 3)]);
+
+    // keys() と values()
+    let mut keys: Vec<&str> = map.keys().copied().collect();
+    keys.sort();
+    assert_eq!(keys, vec!["a", "b", "c"]);
+    assert_eq!(map.values().sum::<i32>(), 6);
+}
+```
+
+キーだけ、値だけを取り出す `keys` と `values` もある。どちらもイテレータを返すため、`collect` や `sum` などのイテレータのメソッドにつなげられる。
+
+## デフォルト値・存在確認・削除
+
+`get` の戻り値に `copied` と `unwrap_or` をつなげると、キーがない場合のデフォルト値を値そのものとして取り出せる。キーの有無だけを調べるには `contains_key`、削除には `remove` を使う。`remove` は削除した値を `Option` で返す。
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let mut map = HashMap::from([("a", 1)]);
+
+    // 値がなければデフォルト値を使う
+    assert_eq!(map.get("a").copied().unwrap_or(0), 1);
+    assert_eq!(map.get("b").copied().unwrap_or(0), 0);
+
+    // キーの有無を調べる
+    assert!(map.contains_key("a"));
+    assert!(!map.contains_key("b"));
+
+    // remove は削除した値を Option で返す
+    assert_eq!(map.remove("a"), Some(1));
+    assert_eq!(map.remove("a"), None);
+    assert!(map.is_empty());
+}
+```
+
+## エラーケース
+
+### getの戻り値を値そのものとして使う
+
+`get` の戻り値は `Option` であり、値そのものではない。値の型として受け取ろうとすると、型の不一致でコンパイルエラーになる（E0308）。
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let map = HashMap::from([("a", 1)]);
+    let value: i32 = map.get("a");
+    println!("{value}");
+}
+```
+
+```text
+error[E0308]: mismatched types
+  = note: expected type `i32`
+             found enum `Option<&{integer}>`
+```
+
+値を使う前に、`unwrap_or` でデフォルト値を用意するか、`if let Some(...)` で存在を確認する。
+
+### 存在しないキーをインデックスで参照する
+
+`map[キー]` の形でも値を取得できるが、キーが存在しない場合は実行時にパニックする。
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let map = HashMap::from([("a", 1)]);
+    let value = map["missing"];
+    println!("{value}");
+}
+```
+
+```text
+no entry found for key
+```
+
+キーの存在が確実でない場合は、インデックスではなく `get` を使う。
+
+exec
+/bin/bash -lc 'git status --short && for f in content/errors/e0382.md content/std/vec.md content/std/option.md content/std/result.md content/std/string.md; do if test -e "$f"; then printf '"'EXISTS %s\\n' \""'$f"; else printf '"'NEW %s\\n' \""'$f"; fi; done' in /home/hatch/workspace/noptium/site
+ exited 128 in 0ms:
+fatal: not a git repository (or any parent up to mount point /home)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+
+apply patch
+patch: completed
+/home/hatch/workspace/noptium/site/content/errors/e0382.md
+/home/hatch/workspace/noptium/site/content/std/option.md
+/home/hatch/workspace/noptium/site/content/std/result.md
+/home/hatch/workspace/noptium/site/content/std/string.md
+/home/hatch/workspace/noptium/site/content/std/vec.md
+diff --git a/content/errors/e0382.md b/content/errors/e0382.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..bf6be8475cbd4febde1d8567b9bcfb0a8d8e4f63
+--- /dev/null
++++ b/content/errors/e0382.md
+@@ -0,0 +1,111 @@
+++++
++title = "E0382: borrow of moved value の直し方"
++description = "E0382 が示すムーブ後の値の使用を理解し、参照、clone、Copy 型で直す方法まで。"
++date = 2026-11-10
++
++[extra]
++rust = "1.99.1"
++level = 1
++
++[taxonomies]
++tags = ["E0382", "所有権"]
+++++
++
++E0382 は、所有権が移った値をもう一度使おうとしたときに発生するコンパイルエラーである。エラーコードの一覧は[公式ドキュメント](https://doc.rust-lang.org/error_codes/E0382.html)で確認できる。最初に、String を別の変数へムーブした後で元の変数を使う例を示す。
++
++これはコンパイルエラーになる。
++
++```rust
++fn main() {
++    let value = String::from("hello");
++    let moved = value;
++    println!("{value}");
++    assert_eq!(moved, "hello");
++}
++```
++
++## エラー文を読む
++
++コンパイラは概ね次のような診断を出す。実際の行番号や補足表示は Rust のバージョンや出力設定で異なるが、それぞれの行が示す役割は同じである。
++
++```text
++error[E0382]: borrow of moved value: `value`
++ --> src/main.rs:4:15
++  |
++2 |     let value = String::from("hello");
++  |         ----- move occurs because `value` has type `String`, which does not implement the `Copy` trait
++3 |     let moved = value;
++  |                 ----- value moved here
++4 |     println!("{value}");
++  |               ^^^^^ value borrowed here after move
++```
++
++`error[E0382]` はエラーコードと概要である。`-->` は問題のあるファイルと位置、下のラベルは値を作った場所、ムーブした場所、再利用した場所をそれぞれ示す。診断の説明部分には、String が Copy ではないことも表示される。
++
++## なぜ起きるか
++
++String のような値を別の変数へ代入すると、通常は値の所有権が移る。`moved` が所有者になった後、`value` は有効な値を持たないため再利用できない。所有者が一つだけであることで、解放の二重実行を防いでいる。
++
++```rust
++fn main() {
++    let original = String::from("hello");
++    let owner = original;
++
++    // 所有権を受け取った変数からは値を使える
++    assert_eq!(owner.len(), 5);
++    assert_eq!(owner, "hello");
++}
++```
++
++## 直し方1: 参照で借りる
++
++関数が値を所有する必要がないなら、参照を渡して借用する。借用なら元の String の所有者は変わらず、呼び出し後も使える。文字列を読むだけの関数では `&str` を受け取る形がよく使われる。
++
++```rust
++fn text_length(text: &str) -> usize {
++    text.len()
++}
++
++fn main() {
++    let value = String::from("hello");
++    let length = text_length(&value);
++
++    assert_eq!(length, 5);
++    assert_eq!(value, "hello");
++}
++```
++
++## 直し方2: cloneで複製する
++
++二つの独立した String が必要なら `clone` で内容を複製する。複製にはメモリ確保と文字列のコピーが伴うため、所有権を保つためだけに常用するのではなく、別々に変更する必要がある場合などに選ぶ。
++
++```rust
++fn main() {
++    let value = String::from("hello");
++    let copied = value.clone();
++
++    assert_eq!(value, "hello");
++    assert_eq!(copied, "hello");
++    assert_ne!(value.as_ptr(), copied.as_ptr());
++}
++```
++
++## 直し方3: Copy型を使う
++
++整数や `bool` など Copy を実装する型では、代入時に値がコピーされるため、元の変数も引き続き使える。String は内容の所有権を管理するので Copy ではない。
++
++```rust
++fn main() {
++    let count = 7_i32;
++    let other = count;
++
++    assert_eq!(count, 7);
++    assert_eq!(other, 7);
++
++    let enabled = true;
++    let also_enabled = enabled;
++    assert_eq!(enabled, also_enabled);
++}
++```
++
++どの方法を使うかは、関数が値を所有すべきかで決める。読むだけなら参照、独立した値が必要なら clone、小さく Copy な値ならそのまま渡すのが基本である。
+diff --git a/content/std/option.md b/content/std/option.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..353831f3bd0361ef6b83b4ce0a1a5b356fb95468
+--- /dev/null
++++ b/content/std/option.md
+@@ -0,0 +1,96 @@
+++++
++title = "RustでOptionを扱う（unwrap、map、and_then、?など）"
++description = "Option の Some と None、取り出しと変換のメソッド、? による早期リターンまで。"
++date = 2026-11-10
++
++[extra]
++rust = "1.99.1"
++level = 1
++
++[taxonomies]
++tags = ["Option", "エラー処理"]
+++++
++
++`Option<T>` は、値がある状態 `Some(T)` と値がない状態 `None` のどちらかを表す標準ライブラリの型である。[公式ドキュメント](https://doc.rust-lang.org/std/option/enum.Option.html)を参照しながら、値の取り出し、変換、早期リターンを確認する。
++
++## SomeとNone
++
++値が存在するときは `Some(value)`、存在しないときは `None` を使う。Option を返すことで、値がない可能性を型で表現できる。
++
++```rust
++fn find_first_even(values: &[i32]) -> Option<i32> {
++    values.iter().copied().find(|value| value % 2 == 0)
++}
++
++fn main() {
++    let found = find_first_even(&[1, 3, 8, 10]);
++    let missing = find_first_even(&[1, 3, 5]);
++
++    assert_eq!(found, Some(8));
++    assert_eq!(missing, None);
++}
++```
++
++`Option<T>` は `match` や `if let` で分岐できる。`Some` の中身は T 型の値であり、`None` には値が入っていない。
++
++## 値を取り出す
++
++`unwrap` は `Some` なら値を返すが、`None` ではパニックする。`expect` も同様にパニックする一方、失敗時に表示する説明を指定できる。欠損が通常あり得る処理では、デフォルト値を選ぶ `unwrap_or` や `unwrap_or_else` が使える。
++
++```rust
++fn main() {
++    let present = Some("Rust");
++    assert_eq!(present.unwrap(), "Rust");
++
++    let required = Some(42);
++    assert_eq!(required.expect("値が必要である"), 42);
++
++    let absent: Option<i32> = None;
++    assert_eq!(absent.unwrap_or(0), 0);
++    assert_eq!(absent.unwrap_or_else(|| 10 + 5), 15);
++}
++```
++
++`unwrap` と `expect` は `None` が起きないことを保証できる場合に限って使う。入力や検索結果のように欠損が予想される場合は、デフォルトを与えるか、呼び出し元へ Option を返す方が扱いやすい。
++
++## map、and_then、filterで変換する
++
++`map` は `Some` の中身を変換し、`None` はそのまま保つ。変換先も Option になる処理では `and_then` を使うと Option が入れ子にならない。`filter` は条件に合わない `Some` を `None` にする。
++
++```rust
++fn main() {
++    let text = Some("42");
++    let length = text.map(|value| value.len());
++    assert_eq!(length, Some(2));
++
++    // parse は Result を返すため、ok で Option に変換する
++    let number = text.and_then(|value| value.parse::<i32>().ok());
++    assert_eq!(number, Some(42));
++
++    let positive = number.filter(|value| *value > 0);
++    let negative = number.filter(|value| *value < 0);
++    assert_eq!(positive, Some(42));
++    assert_eq!(negative, None);
++}
++```
++
++`map` のクロージャは通常の値を返し、`and_then` のクロージャは Option を返す。条件を満たす場合だけ値を残したいときは `filter` が使える。
++
++## ?でNoneを早期リターンする
++
++Option を返す関数の中では `?` を使える。対象が `Some(value)` なら値を取り出し、`None` ならその関数から直ちに `None` を返す。
++
++```rust
++fn add_two_numbers(left: Option<i32>, right: Option<i32>) -> Option<i32> {
++    let left_value = left?;
++    let right_value = right?;
++    Some(left_value + right_value)
++}
++
++fn main() {
++    assert_eq!(add_two_numbers(Some(2), Some(3)), Some(5));
++    assert_eq!(add_two_numbers(Some(2), None), None);
++}
++```
++
++ここではどちらか一方が `None` なら、足し算へ進まず `None` が返る。`?` は呼び出し元へ失敗の可能性を渡す記法であり、`unwrap` のようにパニックするものではない。
+diff --git a/content/std/result.md b/content/std/result.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..f95e7266c241c0a633808efd42c60efdfd808b3c
+--- /dev/null
++++ b/content/std/result.md
+@@ -0,0 +1,105 @@
+++++
++title = "RustでResultと?演算子を使う（map_err、unwrap_or_elseなど）"
++description = "Result の Ok と Err、? によるエラー伝播、変換メソッド、main でのエラー処理まで。"
++date = 2026-11-10
++
++[extra]
++rust = "1.99.1"
++level = 2
++
++[taxonomies]
++tags = ["Result", "エラー処理"]
+++++
++
++`Result<T, E>` は成功した値 `Ok(T)` またはエラー `Err(E)` を表す標準ライブラリの型である。[公式ドキュメント](https://doc.rust-lang.org/std/result/enum.Result.html)を参照し、エラーの伝播、変換、`main` での扱いを確認する。
++
++## OkとErr
++
++処理が成功すれば `Ok` に値を入れ、失敗すれば `Err` に理由を入れる。`Result<T, E>` の T は成功時の型、E はエラー型である。
++
++```rust
++fn divide(numerator: i32, denominator: i32) -> Result<i32, &'static str> {
++    if denominator == 0 {
++        Err("0では割れない")
++    } else {
++        Ok(numerator / denominator)
++    }
++}
++
++fn main() {
++    assert_eq!(divide(12, 3), Ok(4));
++    assert_eq!(divide(12, 0), Err("0では割れない"));
++}
++```
++
++エラーを返すことで、呼び出し側に処理の成功と失敗の両方を伝えられる。`match` や `if let` で分岐するほか、Result のメソッドや `?` で処理をつなげられる。
++
++## ?でエラーを伝播する
++
++`?` は `Ok(value)` なら値を取り出し、`Err(error)` なら現在の関数からエラーを返す。関数の戻り値も Result でなければならず、呼び出し元がエラーを受け取れるようにする。
++
++```rust
++fn parse_and_double(input: &str) -> Result<i32, std::num::ParseIntError> {
++    let value: i32 = input.parse()?;
++    Ok(value * 2)
++}
++
++fn main() {
++    assert_eq!(parse_and_double("21"), Ok(42));
++    assert!(parse_and_double("abc").is_err());
++}
++```
++
++`parse` のエラー型は `ParseIntError` であり、この例では関数の戻り値のエラー型と一致するため `?` で伝播できる。異なるエラー型を使う場合は、戻り値のエラー型への変換が可能である必要がある。
++
++## map、map_err、and_thenで変換する
++
++`map` は成功値を変換し、`map_err` はエラー値を変換する。`and_then` は成功値を使った次の処理が Result を返す場合に使い、失敗を一つの Result にまとめる。
++
++```rust
++fn main() {
++    let parsed = "12".parse::<i32>();
++    let doubled = parsed.map(|value| value * 2);
++    assert_eq!(doubled, Ok(24));
++
++    let named_error = "nope"
++        .parse::<i32>()
++        .map_err(|error| format!("整数にできない: {error}"));
++    assert!(named_error.unwrap_err().starts_with("整数にできない:"));
++
++    let positive = "8"
++        .parse::<i32>()
++        .and_then(|value| {
++            if value > 0 { Ok(value) } else { Err("正数ではない") }
++        });
++    assert_eq!(positive, Ok(8));
++}
++```
++
++成功値を整形するだけなら `map`、エラーを表示向けの型に変えるなら `map_err` を使う。処理を連結して途中の失敗も返したい場合は `and_then` を選ぶ。
++
++## unwrap_or_elseとmain
++
++処理を続けるための代替値があるなら `unwrap_or_else` でエラーから値を作れる。エラーを呼び出し元へ返す場合、`main` の戻り値を `Result<(), Box<dyn std::error::Error>>` にすると、標準ライブラリの多くのエラーを `?` で伝播できる。
++
++```rust
++use std::error::Error;
++
++fn parse_count(input: &str) -> Result<usize, Box<dyn Error>> {
++    let count: usize = input.parse()?;
++    Ok(count)
++}
++
++fn main() -> Result<(), Box<dyn Error>> {
++    let count = parse_count("3")?;
++    assert_eq!(count, 3);
++
++    let fallback = "bad"
++        .parse::<i32>()
++        .unwrap_or_else(|_error| 0);
++    assert_eq!(fallback, 0);
++    Ok(())
++}
++```
++
++`main` が `Ok(())` を返せば正常終了であり、`Err` を返せば実行環境へエラーが報告される。エラーを握りつぶしてよいとは限らないため、代替値を使うのはその動作が妥当な場合に限る。
+diff --git a/content/std/string.md b/content/std/string.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..912aff6962ba67b2d1e50f5e63717255ff2b684b
+--- /dev/null
++++ b/content/std/string.md
+@@ -0,0 +1,96 @@
+++++
++title = "RustでStringと&strを扱う（push_str、format!、スライスなど）"
++description = "String と &str の所有権の違い、生成と追加、+ 演算子、UTF-8 のスライスまで。"
++date = 2026-11-10
++
++[extra]
++rust = "1.99.1"
++level = 1
++
++[taxonomies]
++tags = ["String", "文字列"]
+++++
++
++`String` は内容を所有して伸縮できる UTF-8 文字列であり、`&str` は文字列データを借用して参照する文字列スライスである。[公式ドキュメント](https://doc.rust-lang.org/std/string/struct.String.html)を参照し、生成、追加、スライスの基本を確認する。
++
++## Stringと&strの違い
++
++`String` は所有者として内容を保持し、変更できる。`&str` は文字列の一部または全体を借用する参照である。関数が読み取りだけを行う場合は `&str` を受け取ると、String と文字列リテラルの両方を渡しやすい。
++
++```rust
++fn greet(name: &str) -> String {
++    format!("こんにちは、{name}さん")
++}
++
++fn main() {
++    let owned = String::from("Rust");
++    let borrowed: &str = &owned;
++
++    assert_eq!(greet(borrowed), "こんにちは、Rustさん");
++    assert_eq!(greet("Ada"), "こんにちは、Adaさん");
++    assert_eq!(owned, "Rust");
++}
++```
++
++`&owned` は String の内容を借用するため、`greet` の呼び出しで所有権は移らない。借用が有効な間は、所有者側で借用と競合する変更はできない。
++
++## Stringを作成する
++
++文字列リテラルから所有する String を作る方法には `to_string` と `String::from` がある。複数の値を埋め込んだ文字列は `format!` で作れる。`format!` は引数の所有権を取らず、新しい String を返す。
++
++```rust
++fn main() {
++    let first = "hello".to_string();
++    let second = String::from("world");
++    let message = format!("{first}, {second}!");
++
++    assert_eq!(first, "hello");
++    assert_eq!(second, "world");
++    assert_eq!(message, "hello, world!");
++}
++```
++
++どの書き方も所有する String を得る。すでにある String の所有権を保ったまま新しい文字列を組み立てたい場合は、`format!` が扱いやすい。
++
++## 文字列に追加する
++
++`push_str` は `&str` を末尾に追加し、`push` は一つの `char` を追加する。`+` 演算子は左側の String の所有権を受け取り、右側の `&str` を追加して新しい String を返す。
++
++```rust
++fn main() {
++    let mut text = String::from("Rust");
++    text.push_str(" language");
++    text.push('!');
++    assert_eq!(text, "Rust language!");
++
++    let left = String::from("hello, ");
++    let right = String::from("world");
++    let joined = left + &right;
++
++    // left は + で所有権が移ったため使えないが、right は借用されたので使える
++    assert_eq!(joined, "hello, world");
++    assert_eq!(right, "world");
++}
++```
++
++`+` の左側に置いた String は消費されるため、その後は使えない。両方の元の値を保持したければ `format!("{left}{right}")` を使う方法もある。
++
++## 文字列スライスとUTF-8境界
++
++`&text[start..end]` はバイト位置で範囲を指定する。Rust の文字列は UTF-8 であり、範囲の両端が文字の境界でなければスライス時にパニックする可能性がある。安全に試すには `get` を使うと `None` で確認できる。
++
++```rust
++fn main() {
++    let text = String::from("猫a");
++
++    // 「猫」は UTF-8 で3バイトなので、0..3 は境界に合う
++    assert_eq!(&text[0..3], "猫");
++    assert_eq!(text.get(0..3), Some("猫"));
++
++    // 0..1 は文字の途中で終わるため、有効なスライスではない
++    assert_eq!(text.get(0..1), None);
++    assert_eq!(text.get(3..4), Some("a"));
++}
++```
++
++範囲をバイト数で決めるときは、文字境界を確認する必要がある。任意の位置で安全に切り出す場合は `get` を使い、`None` の場合を処理する。文字単位の走査には `chars` が使える。
+diff --git a/content/std/vec.md b/content/std/vec.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..b5dd2c630f860777ee31007fd265b31f72dceb9f
+--- /dev/null
++++ b/content/std/vec.md
+@@ -0,0 +1,107 @@
+++++
++title = "RustでVecを作成・操作する（push、pop、get、iterなど）"
++description = "Vec の作成、要素の追加と削除、範囲を考慮した取得、イテレータによる走査まで。"
++date = 2026-11-10
++
++[extra]
++rust = "1.99.1"
++level = 1
++
++[taxonomies]
++tags = ["Vec", "コレクション"]
+++++
++
++`Vec<T>` は同じ型の値を順番に保持し、実行中に長さを変えられる標準ライブラリのコレクションである。詳しくは[公式ドキュメント](https://doc.rust-lang.org/std/vec/struct.Vec.html)を参照。作成、変更、取得、走査の順に基本操作を確認する。
++
++## Vecを作成する
++
++空の Vec は `Vec::new` で作る。空の場合は要素から型を推論できないため、型注釈を書く。初期値がある場合は `vec!` マクロを使う。
++
++```rust
++fn main() {
++    let mut values: Vec<i32> = Vec::new();
++    values.push(10);
++    values.push(20);
++
++    let fixed = vec![1, 2, 3];
++    assert_eq!(values, vec![10, 20]);
++    assert_eq!(fixed.len(), 3);
++    assert_eq!(fixed[0], 1);
++}
++```
++
++`len` は要素数を返し、`is_empty` は空かどうかを返す。Vec は必要に応じて容量を広げるため、通常は要素数を先に決めなくても追加できる。
++
++## 要素を追加・削除する
++
++末尾への追加は `push`、末尾からの取り出しは `pop` で行う。`pop` は要素がない場合もあるため `Option<T>` を返す。任意の位置には `insert` で挿入し、`remove` で削除する。
++
++```rust
++fn main() {
++    let mut values = vec![10, 30];
++    values.push(40);
++    values.insert(1, 20);
++    assert_eq!(values, vec![10, 20, 30, 40]);
++
++    let removed = values.remove(2);
++    assert_eq!(removed, 30);
++    assert_eq!(values.pop(), Some(40));
++    assert_eq!(values, vec![10, 20]);
++
++    let empty: Vec<i32> = Vec::new();
++    assert_eq!(empty.into_iter().next(), None);
++}
++```
++
++`insert` と `remove` は指定位置以降の要素をずらす処理を伴う。末尾だけを扱う場合は `push` と `pop` を使うと意図が明確である。
++
++## 要素を取得する
++
++インデックス `values[i]` は要素への参照を返すが、範囲外の位置を指定すると実行時にパニックする。`get(i)` は `Option<&T>` を返すため、位置が範囲内か分からない場合に安全に扱える。
++
++```rust
++fn main() {
++    let values = vec![10, 20, 30];
++
++    // 範囲内であることが分かっている位置にはインデックスを使える
++    assert_eq!(values[1], 20);
++
++    // get は範囲外なら None を返す
++    assert_eq!(values.get(2), Some(&30));
++    assert_eq!(values.get(3), None);
++
++    let second = values.get(1).copied().unwrap_or(0);
++    assert_eq!(second, 20);
++}
++```
++
++インデックスを使う場合は、長さを確認するか、範囲内であることを別の条件で保証する。`get` なら `match` や `if let` で `Some` と `None` を分けて処理できる。
++
++## iterとforで走査する
++
++`iter` は共有参照を、`iter_mut` は変更可能な参照を順に返す。Vec 自体の所有権を消費してよい場合は `for value in values` の形で所有値を取り出せる。
++
++```rust
++fn main() {
++    let mut values = vec![1, 2, 3];
++
++    // iter は &i32 を返すため、元の Vec を保持したまま読める
++    let sum: i32 = values.iter().sum();
++    assert_eq!(sum, 6);
++
++    // iter_mut は &mut i32 を返すため、要素を変更できる
++    for value in values.iter_mut() {
++        *value *= 2;
++    }
++    assert_eq!(values, vec![2, 4, 6]);
++
++    // 参照を明示する for も使える
++    let mut product = 1;
++    for value in &values {
++        product *= value;
++    }
++    assert_eq!(product, 48);
++}
++```
++
++`for value in &values` は `iter` と同じく借用しながら走査する。要素を変更するなら `&mut values` または `iter_mut`、走査後に元の Vec が不要なら所有値を取り出す形を選ぶ。
+
+codex
+5本を新規作成しました。briefの指定に合わせ、各ファイルの行数と作成先を確認しています。
+exec
+/bin/bash -lc 'wc -l content/errors/e0382.md content/std/vec.md content/std/option.md content/std/result.md content/std/string.md && test ! -e content/errors/e0382.md.tmp && rg --files content/errors content/std | sort' in /home/hatch/workspace/noptium/site
+ succeeded in 0ms:
+  111 content/errors/e0382.md
+  107 content/std/vec.md
+   96 content/std/option.md
+  105 content/std/result.md
+   96 content/std/string.md
+  515 total
+content/errors/_index.md
+content/errors/e0382.md
+content/std/_index.md
+content/std/file-io.md
+content/std/hashmap.md
+content/std/iterator.md
+content/std/option.md
+content/std/result.md
+content/std/string.md
+content/std/vec.md
+
+codex
+- [content/errors/e0382.md](/home/hatch/workspace/noptium/site/content/errors/e0382.md)
+- [content/std/vec.md](/home/hatch/workspace/noptium/site/content/std/vec.md)
+- [content/std/option.md](/home/hatch/workspace/noptium/site/content/std/option.md)
+- [content/std/result.md](/home/hatch/workspace/noptium/site/content/std/result.md)
+- [content/std/string.md](/home/hatch/workspace/noptium/site/content/std/string.md)
+tokens used
+46,864
+- [content/errors/e0382.md](/home/hatch/workspace/noptium/site/content/errors/e0382.md)
+- [content/std/vec.md](/home/hatch/workspace/noptium/site/content/std/vec.md)
+- [content/std/option.md](/home/hatch/workspace/noptium/site/content/std/option.md)
+- [content/std/result.md](/home/hatch/workspace/noptium/site/content/std/result.md)
+- [content/std/string.md](/home/hatch/workspace/noptium/site/content/std/string.md)

@@ -17,4 +17,4 @@ theme = "night-owl"
 
 [extra]
 show_full_title = false
-route = ["std/hashmap.md", "std/iterator.md", "std/file-io.md", "crates/axum-http-server.md"]
+route = ["std/vec.md", "std/string.md", "std/option.md", "std/result.md", "std/hashmap.md", "std/iterator.md", "std/file-io.md", "crates/axum-http-server.md"]
