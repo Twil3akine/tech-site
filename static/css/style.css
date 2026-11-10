@@ -529,7 +529,7 @@ a.topic-chip:hover {
   align-items: center;
   gap: 20px;
   min-width: 0;
-  padding: 26px 16px;
+  padding: 16px;
   margin-inline: -16px;
   color: var(--text);
   border-radius: var(--radius-lg);
@@ -540,6 +540,10 @@ a.topic-chip:hover {
   color: var(--text);
   background: var(--surface);
   text-decoration: none;
+}
+
+.article-list .article-row:not(:first-child) {
+  margin-top: 20px;
 }
 
 .article-row-main {

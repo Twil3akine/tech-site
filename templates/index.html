@@ -47,6 +47,11 @@
       {% endif %}{% endfor %}{% endfor %}
     </ul>
     {% endfor %}
+    {% set books = get_section(path="books/_index.md") %}
+    <h3 class="tag-group-title">レビュー</h3>
+    <ul class="tag-list">
+      <li><a href="{{ books.permalink | safe }}">レビュー一覧</a><span class="tag-count">{{ books.pages | length }}</span></li>
+    </ul>
   </aside>
 </div>
 {% endblock content %}
