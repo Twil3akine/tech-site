@@ -1,6 +1,6 @@
 base_url = "https://rust.twil3akine.org"
 title = "Twil3akine"
-description = "Rust の標準ライブラリ、主要クレート、エラー解決。"
+description = "プログラミングやツールなど、技術まわりの調べものをまとめる個人サイト。"
 default_language = "ja"
 
 # 検索インデックスは当面オフ（記事が増えたら有効化を検討）
@@ -16,5 +16,4 @@ style = "inline"
 theme = "night-owl"
 
 [extra]
-show_full_title = false
 route = ["std/vec.md", "std/string.md", "std/option.md", "std/result.md", "std/hashmap.md", "std/iterator.md", "std/file-io.md", "crates/axum-http-server.md"]

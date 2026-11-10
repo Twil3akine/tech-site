@@ -1,7 +1,5 @@
 {% extends "base.html" %}
 
-{% block title %}私たちの完全 Rust 攻略サイト | {{ config.title }}{% endblock title %}
-{% block description %}つまずきやすい標準ライブラリ・クレート・エラーを、1記事1テーマで解く日本語の攻略サイト。{% endblock description %}
 {% block main_class %}home-main{% endblock main_class %}
 
 {% block content %}
@@ -9,7 +7,6 @@
 {% set crates = get_section(path="crates/_index.md") %}
 {% set errors = get_section(path="errors/_index.md") %}
 {% set sections = [std, crates, errors] %}
-{% set total = std.pages | length + crates.pages | length + errors.pages | length %}
 {% set_global latest_string = "" %}
 {% for section in sections %}
   {% set slug = section.path | split(pat="/") | nth(n=1) %}
@@ -18,68 +15,34 @@
   {% endfor %}
 {% endfor %}
 {% set entries = latest_string | split(pat=";;") | sort | reverse %}
+{% set tags = get_taxonomy(kind="tags") %}
 
-<section class="home-section map-section" aria-labelledby="map-title">
-  <div class="section-heading-row">
-    <h2 id="map-title">攻略マップ</h2>
-  </div>
-  <div class="map-grid">
-    {% for section in sections %}
-    {% set published = section.pages | length %}
-    {% set slug = section.path | split(pat="/") | nth(n=1) %}
-    {% set_global topic_count = 0 %}
-    <article class="map-card">
-      <div class="map-icon" aria-hidden="true">
-        {% if slug == "std" %}
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5z"></path><path d="M4 5.5v12M8 7h8M8 11h7"></path></svg>
-        {% elif slug == "crates" %}
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9z"></path><path d="m4.4 7.7 7.6 4.4 7.6-4.4M12 12v9M8 5.2l8 4.6"></path></svg>
-        {% else %}
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M9.6 9a2.5 2.5 0 1 1 4.2 1.8c-1.1 1-1.8 1.4-1.8 3M12 17.4h.01"></path></svg>
+<div class="home-layout">
+  <section class="home-articles" aria-labelledby="latest-title">
+    <div class="section-heading-row"><h2 id="latest-title">新着記事・更新記事</h2></div>
+    <div class="article-list latest-list">
+      {% for entry in entries %}
+        {% if entry %}
+          {% set parts = entry | split(pat="@@") %}
+          <a class="article-row" href="{{ parts[1] }}">
+            <span class="article-row-main">
+              <span class="article-row-category">{{ parts[4] }}</span>
+              <span class="article-row-title">{{ parts[2] }}</span>
+              <span class="article-row-description">{{ parts[5] }}</span>
+            </span>
+            <span class="article-row-meta">{{ parts[0] }}</span>
+          </a>
         {% endif %}
-      </div>
-      <h3><a href="{{ section.permalink | safe }}">{{ section.title }}</a></h3>
-      <p class="map-description">{{ section.description }}</p>
-      <div class="topic-chips">
-        {% for page in section.pages %}
-          {% if topic_count < 6 %}
-            {% if slug == "errors" %}{% set topic_label = page.title | split(pat=":") | nth(n=0) %}{% elif page.taxonomies.tags %}{% set topic_label = page.taxonomies.tags | first %}{% else %}{% set topic_label = page.title %}{% endif %}
-            <a class="topic-chip" href="{{ page.permalink | safe }}">{{ topic_label }}</a>
-            {% set_global topic_count = topic_count + 1 %}
-          {% endif %}
-        {% endfor %}
-        {% if published > 6 %}<a class="topic-chip topic-more" href="{{ section.permalink | safe }}">ほか {{ published - 6 }}</a>{% endif %}
-      </div>
-    </article>
-    {% endfor %}
-  </div>
-</section>
-
-<section class="home-section latest-section" aria-labelledby="latest-title">
-  <div class="section-heading-row"><h2 id="latest-title">新着</h2></div>
-  <div class="article-list latest-list">
-    {% set_global latest_shown = 0 %}
-    {% for entry in entries %}
-      {% if entry and latest_shown < 8 %}
-        {% set parts = entry | split(pat="@@") %}
-        <a class="article-row" href="{{ parts[1] }}" data-read-path="{{ parts[1] }}">
-          <span class="article-row-main">
-            <span class="article-row-category">{{ parts[4] }}</span>
-            <span class="article-row-title"><span class="read-check" hidden aria-label="攻略済み">✓</span>{{ parts[2] }}</span>
-            <span class="article-row-description">{{ parts[5] }}</span>
-          </span>
-          <span class="article-row-meta">{{ parts[0] }}</span>
-        </a>
-        {% set_global latest_shown = latest_shown + 1 %}
-      {% endif %}
-    {% endfor %}
-  </div>
-  {% if total > 8 %}
-  <nav class="more-sections" aria-label="記事一覧">
-    <a href="{{ std.permalink | safe }}">標準ライブラリの記事</a>
-    <a href="{{ crates.permalink | safe }}">クレートの記事</a>
-    <a href="{{ errors.permalink | safe }}">エラー解決の記事</a>
-  </nav>
-  {% endif %}
-</section>
+      {% endfor %}
+    </div>
+  </section>
+  <aside class="home-side">
+    <h2 class="side-title">タグ</h2>
+    <ul class="tag-list">
+      {% for item in tags.items %}
+      <li><a href="{{ item.permalink | safe }}">{{ item.name }}</a><span class="tag-count">{{ item.pages | length }}</span></li>
+      {% endfor %}
+    </ul>
+  </aside>
+</div>
 {% endblock content %}

@@ -166,7 +166,7 @@ a:hover {
   gap: 8px;
   width: 240px;
   flex: 0 0 auto;
-  margin-left: 8px;
+  margin-left: auto;
 }
 
 .search-shell {
@@ -298,12 +298,56 @@ a:hover {
 
 
 
-.home-section {
-  margin-top: 96px;
+.home-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 56px;
+  margin-top: 56px;
+  margin-bottom: 96px;
+  align-items: start;
 }
 
-.home-section:last-child {
-  margin-bottom: 96px;
+.side-title {
+  margin: 0 0 12px;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+
+.tag-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tag-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 0;
+}
+
+.tag-list a {
+  color: var(--text-sub);
+  font-size: 14px;
+}
+
+.tag-list a:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.tag-count {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+@media (max-width: 959px) {
+  .home-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
+  }
 }
 
 .section-heading-row {
@@ -864,8 +908,8 @@ a.topic-chip:hover {
 .codeblock-head {
   position: absolute;
   z-index: 1;
-  top: 10px;
-  right: 12px;
+  top: 18px;
+  right: 16px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -880,7 +924,7 @@ a.topic-chip:hover {
 
 .codeblock .article-body pre.giallo,
 .codeblock pre.giallo {
-  padding: 44px 24px 20px;
+  padding: 20px 24px;
   margin: 0;
   background: transparent !important;
   border-radius: 0;
@@ -1363,7 +1407,7 @@ a.topic-chip:hover {
   }
 
   .codeblock pre.giallo {
-    padding: 44px 20px 20px;
+    padding: 20px;
     font-size: 13px;
   }
 

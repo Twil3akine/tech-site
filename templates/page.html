@@ -32,10 +32,8 @@
       {% elif section_slug == "crates" %}<a class="article-section-chip" href="{{ get_url(path='@/crates/_index.md') }}">クレート</a>
       {% elif section_slug == "errors" %}<a class="article-section-chip" href="{{ get_url(path='@/errors/_index.md') }}">エラー解決</a>{% endif %}
       <h1>{{ page.title }}</h1>
-      {% if page.description %}<p class="article-lead">{{ page.description }}</p>{% endif %}
       <div class="article-meta">
-        <img src="{{ get_url(path='img/icon.png') }}" alt="" width="24" height="24" class="article-avatar">
-        <span>更新日 {{ page.updated | default(value=page.date) }}</span>
+        <span>更新日 {{ page.date }}</span>
         {% if page.reading_time %}<span>読了 約{{ page.reading_time }}分</span>{% endif %}
         {% if page.extra.rust %}<span>Rust {{ page.extra.rust }}</span>{% endif %}
       </div>
@@ -56,8 +54,6 @@
 
     {% if section_slug == "std" or section_slug == "crates" or section_slug == "errors" %}
     <div class="article-end">
-      <button class="button button-secondary finish-reading" type="button" data-finish-reading hidden>攻略済みにする</button>
-
       {% if next_path %}
         {% set next_page = get_page(path=next_path) %}
         <section class="article-end-section next-section">

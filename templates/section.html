@@ -16,10 +16,10 @@
   {% if section.pages %}
   <div class="article-list section-articles">
     {% for page in section.pages %}
-    <a class="article-row" href="{{ page.permalink | safe }}" data-read-path="{{ page.permalink | safe }}">
+    <a class="article-row" href="{{ page.permalink | safe }}">
       <span class="article-row-main">
         <span class="article-row-category">{{ section.title }}</span>
-        <span class="article-row-title"><span class="read-check" hidden aria-label="攻略済み">✓</span>{{ page.title }}</span>
+        <span class="article-row-title">{{ page.title }}</span>
         <span class="article-row-description">{{ page.description }}</span>
       </span>
       <span class="article-row-meta">{{ page.date }}</span>

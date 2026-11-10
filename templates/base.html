@@ -18,13 +18,7 @@
   <div class="header-inner container">
     <a class="brand" href="{{ get_url(path='/') }}">
       <span class="brand-name">Twil3akine</span>
-      <span class="brand-subtitle">Rust 攻略</span>
     </a>
-    <nav class="site-nav" aria-label="メインナビゲーション">
-      <a href="{{ get_url(path='@/std/_index.md') }}">標準ライブラリ</a>
-      <a href="{{ get_url(path='@/crates/_index.md') }}">クレート</a>
-      <a href="{{ get_url(path='@/errors/_index.md') }}">エラー解決</a>
-    </nav>
     <button class="search-toggle" type="button" aria-label="検索を開く" aria-expanded="false" aria-controls="site-search">
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m15.5 15.5 5 5"></path></svg>
     </button>
@@ -49,17 +43,15 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-about">
-      <img src="{{ get_url(path='img/icon.png') }}" alt="" width="40" height="40" class="footer-avatar">
-      <div>
-        <p class="footer-brand">Twil3akine</p>
-        <p class="footer-intro">Rust のつまずきを、ひとつずつ解決。</p>
-        <p class="footer-motto">私たちの完全 Rust 攻略サイト</p>
-      </div>
+      <p class="footer-brand">Twil3akine</p>
+      <p class="footer-intro">プログラミングやツールなど、技術まわりの調べものをまとめる個人サイト。</p>
     </div>
-    <nav class="footer-nav" aria-label="セクション">
+    <nav class="footer-nav" aria-label="サイト内リンク">
       <a href="{{ get_url(path='@/std/_index.md') }}">標準ライブラリ</a>
       <a href="{{ get_url(path='@/crates/_index.md') }}">クレート</a>
       <a href="{{ get_url(path='@/errors/_index.md') }}">エラー解決</a>
+      <a href="{{ get_url(path='/tags/') }}">タグ一覧</a>
+      <a href="{{ get_url(path='@/privacy.md') }}">プライバシーポリシー</a>
     </nav>
     <p class="footer-copy">© 2026 Twil3akine</p>
   </div>
@@ -107,14 +99,6 @@
     }
   });
 
-  var currentPath = window.location.pathname;
-  document.querySelectorAll(".site-nav a").forEach(function (link) {
-    var path = new URL(link.href, window.location.href).pathname;
-    if (path !== "/" && currentPath.indexOf(path) === 0) {
-      link.classList.add("is-active");
-      link.setAttribute("aria-current", "page");
-    }
-  });
 })();
 </script>
 <script>
@@ -170,48 +154,6 @@
     wrap.appendChild(head);
     wrap.appendChild(pre);
   });
-})();
-</script>
-<script>
-(function () {
-  var key = "rk-read";
-  var list = [];
-  try {
-    var stored = JSON.parse(localStorage.getItem(key) || "[]");
-    if (Array.isArray(stored)) list = stored;
-  } catch (e) {}
-  var path = window.location.pathname;
-  var finishButton = document.querySelector("[data-finish-reading]");
-
-  function setReadState(button, isRead) {
-    button.textContent = isRead ? "攻略済み ✓" : "攻略済みにする";
-    button.setAttribute("aria-pressed", String(isRead));
-    button.classList.toggle("is-done", isRead);
-  }
-  function updateRows() {
-    document.querySelectorAll("[data-read-path]").forEach(function (row) {
-      var rowPath = new URL(row.getAttribute("data-read-path"), window.location.href).pathname;
-      var mark = row.querySelector(".read-check");
-      if (mark) mark.hidden = list.indexOf(rowPath) === -1;
-    });
-  }
-  function save() {
-    try { localStorage.setItem(key, JSON.stringify(list)); } catch (e) {}
-    updateRows();
-  }
-
-  if (finishButton) {
-    finishButton.hidden = false;
-    setReadState(finishButton, list.indexOf(path) !== -1);
-    finishButton.addEventListener("click", function () {
-      var index = list.indexOf(path);
-      if (index === -1) list.push(path);
-      else list.splice(index, 1);
-      setReadState(finishButton, list.indexOf(path) !== -1);
-      save();
-    });
-  }
-  updateRows();
 })();
 </script>
 <script>
