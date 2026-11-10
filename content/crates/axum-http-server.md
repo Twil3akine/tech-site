@@ -9,7 +9,7 @@ level = 3
 crates = ["axum 0.8.9", "tokio 1.54.1", "serde 1.0.229", "serde_json 1.0.154"]
 
 [taxonomies]
-tags = ["axum", "tokio", "Web", "HTTP サーバー"]
+tags = ["Web"]
 +++
 
 axum で HTTP サーバーを立てるには、Router にパスとハンドラを登録し、tokio の TcpListener と組み合わせて axum::serve で起動する。最小のサーバーから始め、ルーティング、JSON の受け渡し、状態の共有までを順に組み立てる。axum の全体像は[公式ドキュメント](https://docs.rs/axum/latest/axum/)を参照。

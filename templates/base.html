@@ -17,6 +17,7 @@
 <header class="site-header">
   <div class="header-inner container">
     <a class="brand" href="{{ get_url(path='/') }}">
+      <img class="brand-icon" src="{{ get_url(path='img/icon.png') }}" alt="" width="36" height="36">
       <span class="brand-name">Twil3akine</span>
     </a>
     <button class="search-toggle" type="button" aria-label="検索を開く" aria-expanded="false" aria-controls="site-search">
@@ -43,14 +44,16 @@
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="footer-about">
-      <p class="footer-brand">Twil3akine</p>
-      <p class="footer-intro">プログラミングやツールなど、技術まわりの調べものをまとめる個人サイト。</p>
+      <img src="{{ get_url(path='img/icon.png') }}" alt="" width="44" height="44" class="footer-avatar">
+      <div>
+        <p class="footer-brand">Twil3akine</p>
+        <p class="footer-intro">プログラミングやツールなど、技術まわりの調べものをまとめる個人サイト。</p>
+      </div>
     </div>
     <nav class="footer-nav" aria-label="サイト内リンク">
-      <a href="{{ get_url(path='@/std/_index.md') }}">標準ライブラリ</a>
-      <a href="{{ get_url(path='@/crates/_index.md') }}">クレート</a>
-      <a href="{{ get_url(path='@/errors/_index.md') }}">エラー解決</a>
+      <a href="{{ get_url(path='/') }}">トップ</a>
       <a href="{{ get_url(path='/tags/') }}">タグ一覧</a>
+      <a href="{{ get_url(path='/reviews/') }}">レビューのタグ</a>
       <a href="{{ get_url(path='@/privacy.md') }}">プライバシーポリシー</a>
     </nav>
     <p class="footer-copy">© 2026 Twil3akine</p>

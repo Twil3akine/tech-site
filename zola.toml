@@ -20,3 +20,7 @@ theme = "night-owl"
 
 [extra]
 route = ["std/vec.md", "std/string.md", "std/option.md", "std/result.md", "std/hashmap.md", "std/iterator.md", "std/file-io.md", "crates/axum-http-server.md"]
+
+[[extra.tag_groups]]
+parent = "Rust"
+items = ["データ構造", "エラー処理", "所有権", "イテレータ", "入出力", "Web"]

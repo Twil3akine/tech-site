@@ -8,7 +8,7 @@ rust = "1.99.1"
 level = 1
 
 [taxonomies]
-tags = ["HashMap", "コレクション"]
+tags = ["データ構造"]
 +++
 
 キーと値の組を保持するには、標準ライブラリの [HashMap](https://doc.rust-lang.org/std/collections/struct.HashMap.html) を使う。作成と追加、取得、更新、走査、削除の順に、基本操作を確認する。

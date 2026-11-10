@@ -8,7 +8,7 @@ rust = "1.99.1"
 level = 1
 
 [taxonomies]
-tags = ["Option", "エラー処理"]
+tags = ["エラー処理"]
 +++
 
 `Option<T>` は、値がある状態 `Some(T)` と値がない状態 `None` のどちらかを表す標準ライブラリの型である。[公式ドキュメント](https://doc.rust-lang.org/std/option/enum.Option.html)を参照しながら、値の取り出し、変換、早期リターンを確認する。

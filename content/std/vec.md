@@ -8,7 +8,7 @@ rust = "1.99.1"
 level = 1
 
 [taxonomies]
-tags = ["Vec", "コレクション"]
+tags = ["データ構造"]
 +++
 
 `Vec<T>` は同じ型の値を順番に保持し、実行中に長さを変えられる標準ライブラリのコレクションである。詳しくは[公式ドキュメント](https://doc.rust-lang.org/std/vec/struct.Vec.html)を参照。作成、変更、取得、走査の順に基本操作を確認する。

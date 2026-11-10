@@ -8,7 +8,7 @@ rust = "1.99.1"
 level = 1
 
 [taxonomies]
-tags = ["String", "文字列"]
+tags = ["データ構造"]
 +++
 
 `String` は内容を所有して伸縮できる UTF-8 文字列であり、`&str` は文字列データを借用して参照する文字列スライスである。[公式ドキュメント](https://doc.rust-lang.org/std/string/struct.String.html)を参照し、生成、追加、スライスの基本を確認する。

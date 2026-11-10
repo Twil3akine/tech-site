@@ -8,7 +8,7 @@ rust = "1.99.1"
 level = 2
 
 [taxonomies]
-tags = ["Result", "エラー処理"]
+tags = ["エラー処理"]
 +++
 
 `Result<T, E>` は成功した値 `Ok(T)` またはエラー `Err(E)` を表す標準ライブラリの型である。[公式ドキュメント](https://doc.rust-lang.org/std/result/enum.Result.html)を参照し、エラーの伝播、変換、`main` での扱いを確認する。

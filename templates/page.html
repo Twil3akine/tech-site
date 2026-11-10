@@ -21,16 +21,7 @@
 <div class="article-layout">
   <article class="article-main">
     <header class="article-head">
-      <p class="breadcrumb"><a href="{{ get_url(path='/') }}">ホーム</a><span aria-hidden="true">/</span>
-        {% if section_slug == "std" %}<a href="{{ get_url(path='@/std/_index.md') }}">標準ライブラリ</a>
-        {% elif section_slug == "crates" %}<a href="{{ get_url(path='@/crates/_index.md') }}">クレート</a>
-        {% elif section_slug == "errors" %}<a href="{{ get_url(path='@/errors/_index.md') }}">エラー解決</a>
-        {% elif section_slug == "books" %}書籍レビュー
-        {% else %}サイト情報{% endif %}
-      </p>
-      {% if section_slug == "std" %}<a class="article-section-chip" href="{{ get_url(path='@/std/_index.md') }}">標準ライブラリ</a>
-      {% elif section_slug == "crates" %}<a class="article-section-chip" href="{{ get_url(path='@/crates/_index.md') }}">クレート</a>
-      {% elif section_slug == "errors" %}<a class="article-section-chip" href="{{ get_url(path='@/errors/_index.md') }}">エラー解決</a>{% endif %}
+      <p class="breadcrumb"><a href="{{ get_url(path='/') }}">ホーム</a></p>
       <h1>{{ page.title }}</h1>
       <div class="article-meta">
         <span>更新日 {{ page.date }}</span>
@@ -59,7 +50,6 @@
         <section class="article-end-section next-section">
           <h2>次に読む</h2>
           <a class="link-card" href="{{ next_page.permalink | safe }}">
-            <span class="article-row-category">読む順</span>
             <span class="link-card-title">{{ next_page.title }}</span>
             <span class="link-card-meta">{{ next_page.description }}</span>
           </a>
@@ -75,7 +65,6 @@
             {% for related_page in related_section.pages %}
               {% if related_page.permalink != page.permalink and related_shown < 3 %}
               <a class="link-card" href="{{ related_page.permalink | safe }}">
-                <span class="article-row-category">{{ related_section.title }}</span>
                 <span class="link-card-title">{{ related_page.title }}</span>
                 <span class="link-card-meta">{{ related_page.date }}</span>
               </a>

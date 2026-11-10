@@ -8,7 +8,7 @@ rust = "1.99.1"
 level = 2
 
 [taxonomies]
-tags = ["イテレータ", "クロージャ"]
+tags = ["イテレータ"]
 +++
 
 コレクションの要素を順に処理するには、[Iterator](https://doc.rust-lang.org/std/iter/trait.Iterator.html) トレイトのメソッドを使う。変換、抽出、収集、集計をメソッドの連結で書き、クロージャと遅延評価の決まりもあわせて確認する。

@@ -8,7 +8,7 @@ rust = "1.99.1"
 level = 2
 
 [taxonomies]
-tags = ["ファイル", "入出力"]
+tags = ["入出力"]
 +++
 
 ファイルの読み書きには、標準ライブラリの [std::fs](https://doc.rust-lang.org/std/fs/) と [std::io](https://doc.rust-lang.org/std/io/) を使う。全体をまとめて扱う方法から始め、行ごとの読み取り、追記、エラーの伝播の順に確認する。以下のコードで使うファイルは、いずれも実行時のカレントディレクトリに作られる。

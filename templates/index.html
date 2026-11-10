@@ -26,7 +26,6 @@
           {% set parts = entry | split(pat="@@") %}
           <a class="article-row" href="{{ parts[1] }}">
             <span class="article-row-main">
-              <span class="article-row-category">{{ parts[4] }}</span>
               <span class="article-row-title">{{ parts[2] }}</span>
               <span class="article-row-description">{{ parts[5] }}</span>
             </span>
@@ -38,11 +37,14 @@
   </section>
   <aside class="home-side">
     <h2 class="side-title">タグ</h2>
+    {% for group in config.extra.tag_groups %}
+    <h3 class="tag-group-title">{{ group.parent }}</h3>
     <ul class="tag-list">
-      {% for item in tags.items %}
+      {% for item in tags.items %}{% if item.name in group.items %}
       <li><a href="{{ item.permalink | safe }}">{{ item.name }}</a><span class="tag-count">{{ item.pages | length }}</span></li>
-      {% endfor %}
+      {% endif %}{% endfor %}
     </ul>
+    {% endfor %}
   </aside>
 </div>
 {% endblock content %}

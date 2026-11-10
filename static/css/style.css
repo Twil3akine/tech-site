@@ -114,12 +114,16 @@ a:hover {
 
 .brand {
   display: inline-flex;
-  align-items: baseline;
-  gap: 10px;
+  align-items: center;
+  gap: 12px;
   flex: 0 0 auto;
   color: var(--text);
   line-height: 1;
   white-space: nowrap;
+}
+
+.brand-icon {
+  border-radius: 10px;
 }
 
 .brand:hover {
@@ -128,9 +132,25 @@ a:hover {
 }
 
 .brand-name {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 800;
   letter-spacing: -.02em;
+}
+
+.tag-group-title {
+  margin: 20px 0 4px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.tag-group-title:first-of-type {
+  margin-top: 4px;
+}
+
+.tag-group-page {
+  font-size: 20px;
+  margin-top: 32px;
 }
 
 .brand-subtitle {

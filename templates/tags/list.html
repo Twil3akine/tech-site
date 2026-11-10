@@ -5,11 +5,14 @@
 {% block content %}
 <div class="section-head">
   <h1 class="section-title">タグ</h1>
-  <p class="category-desc">記事につけられたタグの一覧。</p>
+  <p class="category-desc">大タグの中に中タグを置く形で、記事のタグをまとめている。</p>
 </div>
+{% for group in config.extra.tag_groups %}
+<h2 class="tag-group-title tag-group-page">{{ group.parent }}</h2>
 <ul class="tag-rows">
-  {% for term in terms %}
+  {% for term in terms %}{% if term.name in group.items %}
   <li><a href="{{ term.permalink | safe }}">#{{ term.name }}</a><span class="stack-meta">{{ term.pages | length }} 記事</span></li>
-  {% endfor %}
+  {% endif %}{% endfor %}
 </ul>
+{% endfor %}
 {% endblock content %}
