@@ -7,6 +7,7 @@
 {% for group in config.extra.tag_groups %}
   {% if term.name in group.items %}{% set_global parent_name = group.parent %}{% endif %}
 {% endfor %}
+<section class="section-page">
 <div class="section-head">
   <p class="breadcrumb"><a href="{{ get_url(path='/') }}">ホーム</a><span aria-hidden="true">/</span><a href="{{ get_url(path='/tags/') }}">タグ</a>{% if parent_name %}<span aria-hidden="true">/</span>{{ parent_name }}{% endif %}</p>
   <h1 class="section-title">#{{ term.name }}</h1>
@@ -23,4 +24,5 @@
   </a>
   {% endfor %}
 </div>
+</section>
 {% endblock content %}

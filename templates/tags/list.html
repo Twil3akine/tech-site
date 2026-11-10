@@ -3,16 +3,18 @@
 {% block title %}タグ | {{ config.title }}{% endblock title %}
 
 {% block content %}
-<div class="section-head">
-  <h1 class="section-title">タグ</h1>
-  <p class="category-desc">大タグの中に中タグを置く形で、記事のタグをまとめている。</p>
-</div>
-{% for group in config.extra.tag_groups %}
-<h2 class="tag-group-title tag-group-page">{{ group.parent }}</h2>
-<ul class="tag-rows">
-  {% for name in group.items %}{% for term in terms %}{% if term.name == name %}
-  <li><a href="{{ term.permalink | safe }}">#{{ term.name }}</a><span class="stack-meta">{{ term.pages | length }} 記事</span></li>
-  {% endif %}{% endfor %}{% endfor %}
-</ul>
-{% endfor %}
+<section class="section-page">
+  <div class="section-head">
+    <h1 class="section-title">タグ</h1>
+    <p class="category-desc">大タグの中に中タグを置く形で、記事のタグをまとめている。</p>
+  </div>
+  {% for group in config.extra.tag_groups %}
+  <h2 class="tag-group-title tag-group-page">{{ group.parent }}</h2>
+  <ul class="tag-rows">
+    {% for name in group.items %}{% for term in terms %}{% if term.name == name %}
+    <li><a href="{{ term.permalink | safe }}">#{{ term.name }}</a><span class="stack-meta">{{ term.pages | length }} 記事</span></li>
+    {% endif %}{% endfor %}{% endfor %}
+  </ul>
+  {% endfor %}
+</section>
 {% endblock content %}
