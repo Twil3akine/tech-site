@@ -10,8 +10,6 @@
 {% set errors = get_section(path="errors/_index.md") %}
 {% set sections = [std, crates, errors] %}
 {% set total = std.pages | length + crates.pages | length + errors.pages | length %}
-{% set first_route = config.extra.route | nth(n=0) %}
-{% set first = get_page(path=first_route) %}
 {% set_global latest_string = "" %}
 {% for section in sections %}
   {% set slug = section.path | split(pat="/") | nth(n=1) %}
@@ -26,7 +24,7 @@
     <h1>{% if config.extra.show_full_title %}私たちの完全 Rust 攻略サイト{% else %}Rust を、1テーマずつ攻略する。{% endif %}</h1>
     <p class="hero-lead">つまずきやすい標準ライブラリ・クレート・エラーを、1記事1テーマで解く日本語の攻略サイト。</p>
     <div class="hero-actions">
-      <a class="button button-primary" href="{{ first.permalink | safe }}">おすすめの読む順から読む</a>
+      <a class="button button-primary" href="{{ std.permalink | safe }}">標準ライブラリの記事</a>
       <a class="button button-secondary" href="{{ errors.permalink | safe }}">エラーから探す</a>
     </div>
   </div>
@@ -78,27 +76,6 @@
     </article>
     {% endfor %}
   </div>
-</section>
-
-<section class="home-section route-section" aria-labelledby="route-title">
-  <div class="section-heading-row route-heading">
-    <div><h2 id="route-title">おすすめの読む順</h2><p class="section-subtitle">公開中の記事を、読む順に並べています</p></div>
-  </div>
-  <ol class="article-list route-list">
-    {% for route_path in config.extra.route %}
-      {% set route_page = get_page(path=route_path) %}
-      <li class="article-list-item">
-        <span class="route-number">{{ loop.index }}</span>
-        <a class="article-row" href="{{ route_page.permalink | safe }}" data-read-path="{{ route_page.permalink | safe }}">
-          <span class="article-row-main">
-            <span class="article-row-title"><span class="read-check" hidden aria-label="攻略済み">✓</span>{{ route_page.title }}</span>
-            <span class="article-row-description">{{ route_page.description }}</span>
-          </span>
-          <span class="article-row-meta">{{ route_page.date }}</span>
-        </a>
-      </li>
-    {% endfor %}
-  </ol>
 </section>
 
 <section class="home-section latest-section" aria-labelledby="latest-title">
