@@ -141,12 +141,14 @@ a:hover {
 }
 
 .brand-name {
+  align-self: baseline;
   font-size: 32px;
   font-weight: 800;
   letter-spacing: -.02em;
 }
 
 .brand-tech {
+  align-self: baseline;
   margin-left: -2px;
   color: var(--accent);
   font-size: 15px;
