@@ -12,7 +12,7 @@
   <h2 class="tag-group-title tag-group-page">{{ group.parent }}</h2>
   <ul class="tag-rows">
     {% for name in group.items %}{% for term in terms %}{% if term.name == name %}
-    <li><a href="{{ term.permalink | safe }}">#{{ term.name }}</a><span class="stack-meta">{{ term.pages | length }} 記事</span></li>
+    <li><a class="tag-row" href="{{ term.permalink | safe }}"><span class="tag-row-name">#{{ term.name }}</span><span class="stack-meta">{{ term.pages | length }} 記事</span></a></li>
     {% endif %}{% endfor %}{% endfor %}
   </ul>
   {% endfor %}

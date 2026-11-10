@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}ページが見つかりません | {{ config.title }}{% endblock title %}
+
+{% block content %}
+<section class="section-page">
+  <div class="section-head">
+    <h1 class="section-title">ページが見つかりません</h1>
+    <p class="section-lead">指定されたページは、移動または削除された可能性があります。URLが正しいかどうかを確認するか、以下のリンクから探してください。</p>
+  </div>
+  <div class="related-grid">
+    <a class="link-card" href="{{ get_url(path='/') }}">
+      <span class="link-card-title">トップ</span>
+      <span class="link-card-meta">新着記事・更新記事の一覧</span>
+    </a>
+    <a class="link-card" href="{{ get_url(path='/all/') }}">
+      <span class="link-card-title">すべての記事</span>
+      <span class="link-card-meta">記事の一覧から探す</span>
+    </a>
+  </div>
+</section>
+{% endblock content %}

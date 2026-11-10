@@ -3,8 +3,10 @@ title = "Twil3akine"
 description = "プログラミングやツールなど、技術まわりの調べものをまとめる個人サイト。"
 default_language = "ja"
 
-# 検索インデックスは当面オフ（記事が増えたら有効化を検討）
+# Zola 組み込みの検索インデックスは日本語（ja）未対応でビルドエラーになるため無効。
+# 検索用ドキュメントは templates/search-index.json で生成し、ブラウザ側で elasticlunr により索引化する。
 build_search_index = false
+generate_feeds = true
 generate_sitemap = true
 compile_sass = false
 
