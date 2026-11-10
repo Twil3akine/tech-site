@@ -125,14 +125,16 @@ a:hover {
   gap: 12px;
   flex: 0 0 auto;
   color: var(--text);
+  font-size: 32px;
   line-height: 1;
   white-space: nowrap;
 }
 
 .brand-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: .78em;
+  height: .78em;
+  border-radius: 6px;
+  transform: translateY(.01em);
 }
 
 .brand:hover {
@@ -141,15 +143,12 @@ a:hover {
 }
 
 .brand-name {
-  align-self: baseline;
   font-size: 32px;
   font-weight: 800;
   letter-spacing: -.02em;
 }
 
 .brand-tech {
-  align-self: baseline;
-  margin-left: -2px;
   color: var(--accent);
   font-size: 15px;
   font-weight: 700;
@@ -1273,6 +1272,7 @@ a.topic-chip:hover {
 
   .brand {
     gap: 8px;
+    font-size: 26px;
   }
 
   .brand-name {
@@ -1281,11 +1281,6 @@ a.topic-chip:hover {
 
   .brand-tech {
     font-size: 12px;
-  }
-
-  .brand-icon {
-    width: 32px;
-    height: 32px;
   }
 
   .brand-subtitle {
