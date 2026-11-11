@@ -1,6 +1,6 @@
 # Rust 解説サイト（Twil3akine）
 
-Twil3akine 名義の Rust 解説サイト。公開先は https://rust.twil3akine.org/（2026-11-08 に名義・ドメインを決定。旧 Noptium / noptium.com 表記から移行済み）。静的サイトジェネレータ Zola で構築する。
+Twil3akine 名義の技術解説サイト「Twil3akine TECH」。公開先は https://tech.twil3akine.org/（2026-11-11 に rust.twil3akine.org から変更。内容が Rust の外へ広がったため）。静的サイトジェネレータ Zola で構築する。
 
 記事の形式ルールは `../rust-site/format.md`、テーマ候補は `../rust-site/topics.md` を参照。
 
