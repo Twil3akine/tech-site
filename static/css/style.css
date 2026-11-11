@@ -1616,7 +1616,7 @@ a.topic-chip:hover {
   margin: 28px 0;
 }
 
-.buy-link {
+.buy-links .buy-link {
   display: inline-flex;
   align-items: center;
   padding: 10px 20px;
