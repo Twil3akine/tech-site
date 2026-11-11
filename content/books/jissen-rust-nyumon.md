@@ -11,7 +11,9 @@ ogp = "img/ogp/books-jissen-rust-nyumon.png"
 
 基礎編と実践編の2部・全12章、576頁。基礎編では特徴、環境構築、型、構文、所有権、トレイトを順に扱い、実践編ではパーサの作成、パッケージの公開、Webアプリケーションとデータベース接続、FFIへ進む。書誌情報と目次は出版社（技術評論社）の[公式ページ](https://gihyo.jp/book/2019/978-4-297-10559-4)で確認した。κeen、河野達也、小松礼人・著、2019年5月8日発売、定価4,378円（税込）。
 
-<!-- 購入リンク差し込み位置: ここに Amazon（アソシエイト）/ 楽天ブックス（楽天アフィリエイト）の商品カードを置く。nkmk 式では冒頭と末尾の2か所。 -->
+<div class="buy-links">
+  <a class="buy-link" href="https://www.amazon.co.jp/dp/4297105594?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+</div>
 
 - 目次・内容
 - 注意点 / こんな人にはオススメできない
@@ -70,6 +72,8 @@ ogp = "img/ogp/books-jissen-rust-nyumon.png"
 
 他言語の経験があり、Rust の言語仕様と開発の進め方を一冊で押さえたい人に向けた本である。刊行から時間が経ち、非同期まわりなど前提の古い箇所はあるが、所有権やトレイトの解説と、パッケージ公開までの流れを示す構成は今も入門の選択肢になる。
 
-<!-- 購入リンク差し込み位置: ここにも商品カードを置く。 -->
+<div class="buy-links">
+  <a class="buy-link" href="https://www.amazon.co.jp/dp/4297105594?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+</div>
 
 <!-- 評価の根拠: 版元情報の照合で作成（2026-11-11、nkmk 式の構成）。書籍本文を読んだふりの記述は入れず、構成・対象読者・分量など確認可能な事実から導ける範囲に限っている。マスター本人の総合見解は未記入で、公開前に本人の確認を受ける。星評価は未設定。 -->

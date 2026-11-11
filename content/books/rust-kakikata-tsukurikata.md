@@ -11,7 +11,9 @@ Python と Rust のコードを並べて比べながら進める、移行する�
 
 全6章と Appendix、560頁。前半は小さな題材を Python と Rust の両方で書き、文法編を挟んで、画像・音声・ネットワークの題材とメモリ管理や他言語連携へ進む。書誌情報と目次は出版社（ソシム）の[公式ページ](https://www.socym.co.jp/book/1351)で確認した。クジラ飛行机・著、2022年1月21日発売、定価3,799円（税込）。
 
-<!-- 購入リンク差し込み位置: ここに Amazon（アソシエイト）/ 楽天ブックス（楽天アフィリエイト）の商品カードを置く。nkmk 式では冒頭と末尾の2か所。 -->
+<div class="buy-links">
+  <a class="buy-link" href="https://www.amazon.co.jp/dp/4802613512?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+</div>
 
 - 目次・内容
 - 注意点 / こんな人にはオススメできない
@@ -78,6 +80,8 @@ FizzBuzz のような小題材から、辞書ツール、画像処理、メッ�
 
 Python を書いてきた人が Rust に移るための入門書として、位置づけがはっきりした一冊である。比較しながら小さな題材を多くこなす進み方が合う人には、文法書でつまずく前に書き方を身につける道筋になる。
 
-<!-- 購入リンク差し込み位置: ここにも商品カードを置く。 -->
+<div class="buy-links">
+  <a class="buy-link" href="https://www.amazon.co.jp/dp/4802613512?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+</div>
 
 <!-- 評価の根拠: 版元情報の照合で作成（2026-11-11、nkmk 式の構成）。書籍本文を読んだふりの記述は入れず、構成・対象読者・分量など確認可能な事実から導ける範囲に限っている。マスター本人の総合見解は未記入で、公開前に本人の確認を受ける。星評価は未設定。 -->

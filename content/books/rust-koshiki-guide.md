@@ -11,7 +11,9 @@ Rust コミュニティ公式のガイドブック「The Rust Programming Langua
 
 全20章、608頁。文法と所有権といった概念の章と、小さなプログラムを作るプロジェクトの章を交互に進め、最終章ではマルチスレッドの Web サーバーを構築する。書誌情報と目次は出版社（KADOKAWA）の[公式ページ](https://www.kadokawa.co.jp/product/301905000150/)で確認した。Steve Klabnik、Carol Nichols・著、尾崎亮太・訳、2019年6月28日発売、定価4,180円（税込）。
 
-<!-- 購入リンク差し込み位置: ここに Amazon（アソシエイト）/ 楽天ブックス（楽天アフィリエイト）の商品カードを置く。nkmk 式では冒頭と末尾の2か所。 -->
+<div class="buy-links">
+  <a class="buy-link" href="https://www.amazon.co.jp/dp/4048930702?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+</div>
 
 - 目次・内容
 - 注意点 / こんな人にはオススメできない
@@ -82,6 +84,8 @@ Rust コミュニティ公式のガイドブック「The Rust Programming Langua
 
 公式ドキュメントを紙で通読したい人、説明の用語と順序を公式にそろえて基礎を固めたい人に向けた一冊である。Web 版で読むことに抵抗がなければ無理に買う必要はないが、紙の本として手元に置く入門書としては位置づけが明確である。
 
-<!-- 購入リンク差し込み位置: ここにも商品カードを置く。 -->
+<div class="buy-links">
+  <a class="buy-link" href="https://www.amazon.co.jp/dp/4048930702?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+</div>
 
 <!-- 評価の根拠: 版元情報の照合で作成（2026-11-11、nkmk 式の構成）。書籍本文を読んだふりの記述は入れず、構成・対象読者・分量など確認可能な事実から導ける範囲に限っている。マスター本人の総合見解は未記入で、公開前に本人の確認を受ける。星評価は未設定。 -->

@@ -11,7 +11,9 @@ ogp = "img/ogp/books-zero-kara-manabu-rust.png"
 
 文法の解説にとどまらず、後半で正規表現エンジン、シェル、デバッガといったシステムソフトウェアを実際に実装し、最後の章では線形型システムという理論側の話題まで進む。講談社サイエンティフィクのKS情報科学専門書の一冊である。書誌情報と目次は出版社の[公式ページ](https://www.kspub.co.jp/book/detail/5301951.html)で確認した。高野祐輝・著、2022年12月13日発売、定価3,520円（税込）、288頁・B5変判。
 
-<!-- 購入リンク差し込み位置: ここに Amazon（アソシエイト）/ 楽天ブックス（楽天アフィリエイト）の商品カードを置く。nkmk 式では冒頭と末尾の2か所。 -->
+<div class="buy-links">
+  <a class="buy-link" href="https://www.amazon.co.jp/dp/4065301955?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+</div>
 
 - 目次・内容
 - 注意点 / こんな人にはオススメできない
@@ -83,6 +85,8 @@ Python とのコード比較を軸に、小さなツールを多数作りなが�
 
 Rust と並行して、OSやコンパイラまわりの基礎を実装で押さえたい学生やエンジニア、文法書を読み終えて次に歯ごたえのある題材で手を動かしたい人に向けた一冊である。288頁に基礎と実装を収めた密度の高い入門書として位置づけられる。
 
-<!-- 購入リンク差し込み位置: ここにも商品カードを置く。 -->
+<div class="buy-links">
+  <a class="buy-link" href="https://www.amazon.co.jp/dp/4065301955?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+</div>
 
 <!-- 評価の根拠: 版元情報の照合で作成（2026-11-11、nkmk 式の構成）。書籍本文を読んだふりの記述は入れず、構成・対象読者・分量など確認可能な事実から導ける範囲に限っている。マスター本人の総合見解は未記入で、公開前に本人の確認を受ける。星評価は未設定。 -->

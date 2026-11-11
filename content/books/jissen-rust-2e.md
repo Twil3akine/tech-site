@@ -11,7 +11,9 @@ ogp = "img/ogp/books-jissen-rust-2e.png"
 
 「入門」「実践」「発展」の3部・11章で構成され、実践パートではWebアプリケーション、WebAssembly、TauriによるUI、組み込みシステムまでを扱う。第2版は2025年10月に刊行され、基本文法の解説の充実と非同期処理の拡充がうたわれている。書誌情報と目次は出版社（秀和システム新社）の[公式ページ](https://www.shuwasystem.co.jp/book/9784798074924.html)で確認した。初田直也、山口聖弘、吉川哲史、豊田優貴、松本健太郎・著、2025年10月3日発売、定価3,960円（税込）。
 
-<!-- 購入リンク差し込み位置: ここに Amazon（アソシエイト）/ 楽天ブックス（楽天アフィリエイト）の商品カードを置く。nkmk 式では冒頭と末尾の2か所。 -->
+<div class="buy-links">
+  <a class="buy-link" href="https://www.amazon.co.jp/dp/4798074926?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+</div>
 
 - 目次・内容
 - 注意点 / こんな人にはオススメできない
@@ -77,6 +79,8 @@ CI、カバレッジ、バイナリ最適化、ファジングなど、作った
 
 Rust の基本文法に触れたあと、いろいろな題材で手を動かしたい人、Web、GUI、組み込みのどこに進むかを作りながら見極めたい人に向けた一冊である。言語仕様の本と対になる、実践側の入口として置くと使い分けしやすい。
 
-<!-- 購入リンク差し込み位置: ここにも商品カードを置く。 -->
+<div class="buy-links">
+  <a class="buy-link" href="https://www.amazon.co.jp/dp/4798074926?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+</div>
 
 <!-- 評価の根拠: 版元情報の照合で作成（2026-11-11、nkmk 式の構成）。書籍本文を読んだふりの記述は入れず、構成・対象読者・分量など確認可能な事実から導ける範囲に限っている。マスター本人の総合見解は未記入で、公開前に本人の確認を受ける。星評価は未設定。 -->

@@ -11,7 +11,9 @@ ogp = "img/ogp/books-kiso-kara-manabu-quantum-computing.png"
 
 量子コンピューティングの入門書はゲート型を中心に据えるものが多いが、本書は組合せ最適化を解くイジングマシンを中心に据える。6章構成・200頁で、概要から始めてイジングマシンのしくみと問題の解き方を先に扱い、ゲート型は第5章に置く。書誌情報と目次は出版社（オーム社）の[公式ページ](https://www.ohmsha.co.jp/book/9784274230509.html)で確認した。工藤和恵・著、2023年6月23日発売、定価2,970円（税込）。
 
-<!-- 購入リンク差し込み位置: ここに Amazon（アソシエイト）/ 楽天ブックス（楽天アフィリエイト）の商品カードを置く。nkmk 式では冒頭と末尾の2か所。 -->
+<div class="buy-links">
+  <a class="buy-link" href="https://www.amazon.co.jp/dp/4274230503?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+</div>
 
 - 目次・内容
 - 注意点 / こんな人にはオススメできない
@@ -68,6 +70,8 @@ ogp = "img/ogp/books-kiso-kara-manabu-quantum-computing.png"
 
 本書はイジングマシンで組合せ最適化を解く方法を基礎から順に押さえたい学部生・院生と、最適化への応用を検討していてイジングマシンの位置づけと使い方を把握したい研究者・メーカー技術者に向けた一冊である。ゲート型中心の入門書とは入口が違うので、量子コンピューティングのどこから入るかで選ぶとよい。
 
-<!-- 購入リンク差し込み位置: ここにも商品カードを置く。 -->
+<div class="buy-links">
+  <a class="buy-link" href="https://www.amazon.co.jp/dp/4274230503?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+</div>
 
 <!-- 評価の根拠: 本書の総合見解はマスター本人の見解（2026-11-10「量子コンピュータを学びたい人はこれから入るのが個人的には1番いいと思う」）。そのほかの評価は構成・対象読者・分量など確認可能な事実から導ける範囲に限っている。星評価は未設定。2026-11-11 に nkmk 式の構成へ作り直し。 -->

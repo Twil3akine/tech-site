@@ -11,7 +11,9 @@ Rust の日本語書籍の中で、言語そのものを最も広く扱う部類
 
 全23章・688頁。基本的な型と所有権から始めて、並行処理、非同期プログラミング、unsafe、外部言語関数（FFI）までを扱う。原著は O'Reilly Media の "Programming Rust, 2nd Edition"（2021年）で、Rust 2021エディションに対応する。書誌情報と目次は出版社（オライリー・ジャパン）の[公式ページ](https://www.oreilly.co.jp/books/9784873119786/)で確認した。Jim Blandy、Jason Orendorff、Leonora F. S. Tindall・著、中田秀基・訳、2022年1月19日発売、定価6,600円（税込）。
 
-<!-- 購入リンク差し込み位置: ここに Amazon（アソシエイト）/ 楽天ブックス（楽天アフィリエイト）の商品カードを置く。nkmk 式では冒頭と末尾の2か所。 -->
+<div class="buy-links">
+  <a class="buy-link" href="https://www.amazon.co.jp/dp/4873119782?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+</div>
 
 - 目次・内容
 - 注意点 / こんな人にはオススメできない
@@ -85,6 +87,8 @@ async/await を扱う20章があり、Web まわりの実務に近い話題ま�
 
 他言語の経験があり、Rust の所有権やライフタイムを仕組みから理解したい人、並行処理や非同期、FFI など実務の領域まで一冊で見通したい人に向けた本である。分量は重いが、Rust を本格的に使うなら長く手元で効くタイプの一冊と考えられる。
 
-<!-- 購入リンク差し込み位置: ここにも商品カードを置く。 -->
+<div class="buy-links">
+  <a class="buy-link" href="https://www.amazon.co.jp/dp/4873119782?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+</div>
 
 <!-- 評価の根拠: 版元情報の照合で作成（2026-11-11、nkmk 式の構成）。書籍本文を読んだふりの記述は入れず、構成・対象読者・分量など確認可能な事実から導ける範囲に限っている。マスター本人の総合見解は未記入で、公開前に本人の確認を受ける。星評価は未設定。 -->

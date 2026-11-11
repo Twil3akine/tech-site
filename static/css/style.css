@@ -1611,3 +1611,25 @@ a.topic-chip:hover {
     transition-duration: 0.01ms !important;
   }
 }
+
+.buy-links {
+  margin: 28px 0;
+}
+
+.buy-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-md);
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition: background var(--ease), color var(--ease);
+}
+
+.buy-link:hover {
+  background: var(--accent-weak);
+  color: var(--accent-hover);
+}
