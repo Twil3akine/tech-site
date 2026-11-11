@@ -254,6 +254,10 @@ a:hover {
   opacity: 1;
 }
 
+.site-search-input:focus-visible {
+  outline: none;
+}
+
 .search-shortcut {
   position: absolute;
   right: 8px;
