@@ -1613,6 +1613,9 @@ a.topic-chip:hover {
 }
 
 .buy-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   margin: 28px 0;
 }
 

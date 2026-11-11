@@ -15,6 +15,7 @@ ogp = "img/ogp/books-kiso-kara-manabu-quantum-computing.png"
 
 <div class="buy-links">
   <a class="buy-link" href="https://www.amazon.co.jp/dp/4274230503?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+  <a class="buy-link" href="https://hb.afl.rakuten.co.jp/ichiba/595e2a5d.bb5528a9.595e2a5e.43463c04/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbook%2F17511968%2F&link_type=text&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJ0ZXh0Iiwic2l6ZSI6IjY0eDY0IiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D" rel="sponsored nofollow noopener" target="_blank">楽天ブックスで見る</a>
 </div>
 
 - 目次・内容
@@ -74,6 +75,7 @@ ogp = "img/ogp/books-kiso-kara-manabu-quantum-computing.png"
 
 <div class="buy-links">
   <a class="buy-link" href="https://www.amazon.co.jp/dp/4274230503?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+  <a class="buy-link" href="https://hb.afl.rakuten.co.jp/ichiba/595e2a5d.bb5528a9.595e2a5e.43463c04/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbook%2F17511968%2F&link_type=text&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJ0ZXh0Iiwic2l6ZSI6IjY0eDY0IiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D" rel="sponsored nofollow noopener" target="_blank">楽天ブックスで見る</a>
 </div>
 
 <!-- 評価の根拠: 本書の総合見解はマスター本人の見解（2026-11-10「量子コンピュータを学びたい人はこれから入るのが個人的には1番いいと思う」）。そのほかの評価は構成・対象読者・分量など確認可能な事実から導ける範囲に限っている。星評価は未設定。2026-11-11 に nkmk 式の構成へ作り直し。 -->

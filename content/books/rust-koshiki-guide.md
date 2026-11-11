@@ -15,6 +15,7 @@ Rust コミュニティ公式のガイドブック「The Rust Programming Langua
 
 <div class="buy-links">
   <a class="buy-link" href="https://www.amazon.co.jp/dp/4048930702?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+  <a class="buy-link" href="https://hb.afl.rakuten.co.jp/ichiba/595e2a5d.bb5528a9.595e2a5e.43463c04/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbook%2F15921800%2F&link_type=text&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJ0ZXh0Iiwic2l6ZSI6IjY0eDY0IiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjAsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D" rel="sponsored nofollow noopener" target="_blank">楽天ブックスで見る</a>
 </div>
 
 - 目次・内容
@@ -88,6 +89,7 @@ Rust コミュニティ公式のガイドブック「The Rust Programming Langua
 
 <div class="buy-links">
   <a class="buy-link" href="https://www.amazon.co.jp/dp/4048930702?tag=twil3akine-22" rel="sponsored nofollow noopener" target="_blank">Amazonで見る</a>
+  <a class="buy-link" href="https://hb.afl.rakuten.co.jp/ichiba/595e2a5d.bb5528a9.595e2a5e.43463c04/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fbook%2F15921800%2F&link_type=text&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJ0ZXh0Iiwic2l6ZSI6IjY0eDY0IiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjAsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D" rel="sponsored nofollow noopener" target="_blank">楽天ブックスで見る</a>
 </div>
 
 <!-- 評価の根拠: 版元情報の照合で作成（2026-11-11、nkmk 式の構成）。書籍本文を読んだふりの記述は入れず、構成・対象読者・分量など確認可能な事実から導ける範囲に限っている。マスター本人の総合見解は未記入で、公開前に本人の確認を受ける。星評価は未設定。 -->
