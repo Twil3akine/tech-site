@@ -21,7 +21,9 @@
 <div class="article-layout">
   <article class="article-main">
     <header class="article-head">
-      <p class="breadcrumb"><a href="{{ get_url(path='/') }}">ホーム</a>{% if page.taxonomies and page.taxonomies.tags %}<span aria-hidden="true">/</span><a href="{{ get_taxonomy_url(kind='tags', name=page.taxonomies.tags[0]) }}">#{{ page.taxonomies.tags[0] }}</a>{% elif section_slug == "books" %}<span aria-hidden="true">/</span><a href="{{ get_url(path='/books/') }}">レビュー</a>{% endif %}</p>
+      {% set_global crumb_parent = "" %}{% set_global crumb_parent_slug = "" %}
+      {% if page.taxonomies and page.taxonomies.tags %}{% for group in config.extra.tag_groups %}{% if page.taxonomies.tags[0] in group.items %}{% set_global crumb_parent = group.parent %}{% if group.parent == "Rust" %}{% set_global crumb_parent_slug = "rust" %}{% elif group.parent == "ツール" %}{% set_global crumb_parent_slug = "tools" %}{% elif group.parent == "Web" %}{% set_global crumb_parent_slug = "web" %}{% endif %}{% endif %}{% endfor %}{% endif %}
+      <p class="breadcrumb"><a href="{{ get_url(path='/') }}">ホーム</a>{% if crumb_parent %}<span aria-hidden="true">/</span><a href="{{ get_url(path='/tags/') }}#group-{{ crumb_parent_slug }}">#{{ crumb_parent }}</a><span aria-hidden="true">/</span><a href="{{ get_taxonomy_url(kind='tags', name=page.taxonomies.tags[0]) }}">#{{ page.taxonomies.tags[0] }}</a>{% elif section_slug == "books" %}<span aria-hidden="true">/</span><a href="{{ get_url(path='/books/') }}">レビュー</a>{% endif %}</p>
       <h1>{{ page.title }}</h1>
       <div class="article-meta">
         <span>更新日 {{ page.date }}</span>

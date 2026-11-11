@@ -3,13 +3,13 @@
 {% block title %}{{ term.name }} | {{ config.title }}{% endblock title %}
 
 {% block content %}
-{% set_global parent_name = "" %}
+{% set_global parent_name = "" %}{% set_global parent_slug = "" %}
 {% for group in config.extra.tag_groups %}
-  {% if term.name in group.items %}{% set_global parent_name = group.parent %}{% endif %}
+  {% if term.name in group.items %}{% set_global parent_name = group.parent %}{% if group.parent == "Rust" %}{% set_global parent_slug = "rust" %}{% elif group.parent == "ツール" %}{% set_global parent_slug = "tools" %}{% elif group.parent == "Web" %}{% set_global parent_slug = "web" %}{% endif %}{% endif %}
 {% endfor %}
 <section class="section-page">
 <div class="section-head">
-  <p class="breadcrumb"><a href="{{ get_url(path='/') }}">ホーム</a><span aria-hidden="true">/</span><a href="{{ get_url(path='/tags/') }}">タグ</a>{% if parent_name %}<span aria-hidden="true">/</span>{{ parent_name }}{% endif %}</p>
+  <p class="breadcrumb"><a href="{{ get_url(path='/') }}">ホーム</a>{% if parent_name %}<span aria-hidden="true">/</span><a href="{{ get_url(path='/tags/') }}#group-{{ parent_slug }}">#{{ parent_name }}</a><span aria-hidden="true">/</span>#{{ term.name }}{% endif %}</p>
   <h1 class="section-title">#{{ term.name }}</h1>
   {% if parent_name %}<p class="section-lead">{{ parent_name }}の中タグ「{{ term.name }}」の記事一覧。</p>{% endif %}
 </div>
