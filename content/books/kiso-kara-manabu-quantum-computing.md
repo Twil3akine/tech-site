@@ -4,6 +4,8 @@ description = "イジングマシンを中心に据えた量子コンピュー�
 date = 2026-11-09
 
 [extra]
+book_name = "基礎から学ぶ 量子コンピューティング"
+isbn = "978-4-274-23050-9"
 ogp = "img/ogp/books-kiso-kara-manabu-quantum-computing.png"
 +++
 

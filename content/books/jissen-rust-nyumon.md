@@ -4,6 +4,8 @@ description = "基礎編と実践編の2部・全12章で、言語仕様、パ�
 date = 2026-11-11
 
 [extra]
+book_name = "実践Rust入門［言語仕様から開発手法まで］"
+isbn = "978-4-297-10559-4"
 ogp = "img/ogp/books-jissen-rust-nyumon.png"
 +++
 

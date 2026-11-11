@@ -3,6 +3,19 @@
 {% block title %}{{ page.title }} | {{ config.title }}{% endblock title %}
 {% block description %}{{ page.description | default(value=config.description) }}{% endblock description %}
 
+{% block extra_head %}
+{% set path_parts_ld = page.relative_path | split(pat="/") %}
+{% if path_parts_ld[0] == "books" and page.extra.isbn %}
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "Review", "itemReviewed": {"@type": "Book", "name": {{ page.extra.book_name | json_encode | safe }}, "isbn": {{ page.extra.isbn | json_encode | safe }}}, "author": {"@type": "Person", "name": "Twil3akine", "url": "https://twil3akine.org/"}, "datePublished": {{ page.date | json_encode | safe }}, "inLanguage": "ja"}
+</script>
+{% else %}
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "Article", "headline": {{ page.title | json_encode | safe }}, "description": {{ page.description | default(value="") | json_encode | safe }}, "author": {"@type": "Person", "name": "Twil3akine", "url": "https://twil3akine.org/"}, "datePublished": {{ page.date | json_encode | safe }}, "inLanguage": "ja"}
+</script>
+{% endif %}
+{% endblock extra_head %}
+
 {% block content %}
 {% set path_parts = page.relative_path | split(pat="/") %}
 {% set section_slug = path_parts | nth(n=0) %}

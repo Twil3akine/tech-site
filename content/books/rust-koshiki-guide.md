@@ -4,6 +4,8 @@ description = "全20章で文法と所有権から並行処理、パターン、
 date = 2026-11-11
 
 [extra]
+book_name = "プログラミング言語Rust 公式ガイド"
+isbn = "978-4-04-893070-3"
 ogp = "img/ogp/books-rust-koshiki-guide.png"
 +++
 

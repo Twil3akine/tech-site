@@ -4,6 +4,8 @@ description = "全6章とAppendixで、Pythonとのコード比較を軸に文�
 date = 2026-11-11
 
 [extra]
+book_name = "手を動かして考えればよくわかる 高効率言語 Rust 書きかた・作りかた"
+isbn = "978-4-8026-1351-4"
 ogp = "img/ogp/books-rust-kakikata-tsukurikata.png"
 +++
 

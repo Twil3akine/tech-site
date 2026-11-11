@@ -4,6 +4,8 @@ description = "全23章・688頁で言語仕様から並行・非同期・FFIま
 date = 2026-11-11
 
 [extra]
+book_name = "プログラミングRust 第2版"
+isbn = "978-4-87311-978-6"
 ogp = "img/ogp/books-programming-rust-2e.png"
 +++
 

@@ -4,6 +4,8 @@ description = "入門・実践・発展の3部構成で、Webアプリ、WebAsse
 date = 2026-11-11
 
 [extra]
+book_name = "実践Rustプログラミング入門 第2版"
+isbn = "978-4-7980-7492-4"
 ogp = "img/ogp/books-jissen-rust-2e.png"
 +++
 

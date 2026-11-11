@@ -4,6 +4,8 @@ description = "文法の解説のあと、正規表現エンジン、シェル�
 date = 2026-11-11
 
 [extra]
+book_name = "ゼロから学ぶRust"
+isbn = "978-4-06-530195-1"
 ogp = "img/ogp/books-zero-kara-manabu-rust.png"
 +++
 
